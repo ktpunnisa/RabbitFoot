@@ -1,5 +1,6 @@
 package model;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -10,26 +11,33 @@ public class Drawer {
 	MapHolder map;
 	CharacterHolder character;
 	Canvas all;
+	Stage primaryStage;
+	Group ma;
+	Group an;
 	public Drawer(Stage primaryStage, MapHolder map, CharacterHolder character) {
 		this.map=map;
 		this.character=character;
 		all = new Canvas(primaryStage.getWidth(), primaryStage.getHeight());
+		this.primaryStage=primaryStage;
 	}
-	public void drawAll(Stage primaryStage)
+	public void drawAll()
 	{
 		drawMap();
 		drawAnimal();
-		VBox rootView = new VBox();
-		rootView.getChildren().add(all);
-		Scene scene = new Scene(rootView);
+		Group all = new Group();
+		all.getChildren().add(ma);
+		all.getChildren().add(an);
+		Scene scene = new Scene(all);
 		primaryStage.setScene(scene);
 	}
 	private void drawMap()
 	{
-		GraphicsContext gc = all.getGraphicsContext2D();
+		ma = new Group();
+		
 	}
 	private void drawAnimal()
 	{
-		GraphicsContext gc = all.getGraphicsContext2D();
+		an = new Group();
+		
 	}
 }

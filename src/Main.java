@@ -4,7 +4,10 @@ import java.util.List;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Block;
+import model.CharacterHolder;
+import model.Drawer;
 import model.IRenderable;
+import model.MapHolder;
 //import model.GenBlock;
 import utility.Pair;
 
@@ -12,12 +15,12 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		//MapHolder map = new MapHolder();
-		//map.genMap(5)
-		//CharacterHolder character = new CharacterHolder();
-		//character.genAnimal(5);
-		//Drawer view = new Drawer(primaryStage, map, character);
-		//view.drawAll();
+		MapHolder map = new MapHolder();
+		map.genMap(5);
+		CharacterHolder character = new CharacterHolder();
+		character.genAnimal(5);
+		Drawer view = new Drawer(primaryStage, map, character);
+		view.drawAll();
 		primaryStage.show();
 	}
 
