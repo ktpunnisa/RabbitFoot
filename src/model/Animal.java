@@ -4,6 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import utility.Pair;
 
 public abstract class Animal implements IRenderable {
+	public static int[] dx = {1,0,-1,0};
+	public static int[] dy = {0,1,0,-1};
 	public int speed;
 	public int direction;
 	public Pair index;

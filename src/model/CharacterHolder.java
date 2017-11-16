@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import utility.Pair;
+
 public class CharacterHolder {
-	private List<Animal> entities;
+	public static List<Animal> entities;
 	private Comparator<Animal> comparator;
 	public CharacterHolder()
 	{
@@ -19,6 +21,11 @@ public class CharacterHolder {
 	public void genAnimal(int diff)
 	{
 		entities = new ArrayList<Animal>();
+		//temp
+		Rabbit r = new Rabbit(7,5);
+		r.direction=2;
+		r.speed=1;
+		entities.add(r);
 	}
 	public void add(Animal animal)
 	{

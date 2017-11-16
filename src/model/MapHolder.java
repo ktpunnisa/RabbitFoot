@@ -25,7 +25,7 @@ public class MapHolder {
 			{
 				Block temp = new Block(); // change i,j to be 13*13
 				if(i%2==0) {
-					temp.position=new Point2D(width/2+(Math.abs(i)/2+j)*width , ((i+6)/2+1)*Math.sqrt(3)*width);
+					temp.position=new Point2D(width/2+(Math.abs(i)/2+j)*width , ((i+6)/2)*Math.sqrt(3)*width + width/Math.sqrt(3));
 					temp.hexagon=draw(width/2+(Math.abs(i)/2+j)*width,((i+6)/2)*Math.sqrt(3)*width,width);
 				}
 				else {
