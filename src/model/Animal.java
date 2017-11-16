@@ -1,11 +1,14 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import utility.Pair;
 
 public abstract class Animal implements IRenderable {
+	public static int[] dx = {1,0,-1,0};
+	public static int[] dy = {0,1,0,-1};
 	public int speed;
 	public int direction;
-	public int position; //เป็นindexของช่อง6 เหลี่ยม
+	public Pair position; //เป็นindexของช่อง6 เหลี่ยม
 	public int z;
 	public Animal()
 	{
