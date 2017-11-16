@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import utility.Pair;
+import view.Drawer;
 
 public class CharacterHolder {
 	public static List<Animal> entities;
@@ -23,7 +24,6 @@ public class CharacterHolder {
 		entities = new ArrayList<Animal>();
 		//temp
 		Rabbit r = new Rabbit(7,5);
-		r.direction=2;
 		r.speed=1;
 		entities.add(r);
 	}
@@ -32,8 +32,10 @@ public class CharacterHolder {
 		entities.add(animal);
 		Collections.sort(entities, comparator);
 	}
-	public void update()
+	public void remove(Animal animal)
 	{
-		//entities.remove(i);
+		if(animal instanceof Rabbit)
+			Drawer.drawedAnimal.getChildren().remove(((Rabbit)animal).ob);
+		entities.remove(animal);
 	}
 }

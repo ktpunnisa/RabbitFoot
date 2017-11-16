@@ -14,17 +14,18 @@ import model.MapHolder;
 import model.Rabbit;
 
 public class Drawer {
-	MapHolder map;
-	CharacterHolder character;
+	public static Group drawedMap;
+	public static Group drawedAnimal;
 	public Drawer(MapHolder map, CharacterHolder character) {
-		this.map=map;
-		this.character=character;
+		
 	}
 	public Group drawAll()
 	{
 		Group all = new Group();
-		all.getChildren().add(drawMap());
-		all.getChildren().add(drawAnimal());
+		drawedMap=drawMap();
+		all.getChildren().add(drawedMap);
+		drawedAnimal=drawAnimal();
+		all.getChildren().add(drawedAnimal);
 		return all;
 	}
 	private Group drawMap()

@@ -27,8 +27,7 @@ public class Rabbit extends Animal {
 		    public void handle(ActionEvent event){
 		          sq.getChildren().clear();
 		          Path path = new Path(); 
-			      MoveTo moveTo = new MoveTo(ob.getTranslateX() + ob.getWidth()/2, ob.getTranslateY()+ ob.getHeight()/2); 
-			      //LineTo lineTo = new LineTo(ob.getTranslateX() + ob.getWidth()/2 + dx[direction], ob.getTranslateY() + ob.getHeight()/2+dy[direction]); 
+			      MoveTo moveTo = new MoveTo(ob.getTranslateX() + ob.getWidth()/2, ob.getTranslateY()+ ob.getHeight()/2);
 			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
 			      Point2D nextPoint = MapHolder.map[nextBlock().getY()][nextBlock().getX()].position;
 			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
