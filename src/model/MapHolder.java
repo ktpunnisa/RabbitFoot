@@ -19,13 +19,11 @@ public class MapHolder {
 	{
 		map = new Block[15][15];
 		double width=60;
-		int count=0;
 		for(int i=-6;i<=6;++i)
 		{
 			for(int j=0;j<13-Math.abs(i);++j)
 			{
-				Block temp = new Block();
-				temp.index=count++;
+				Block temp = new Block(); // change i,j to be 13*13
 				if(i%2==0) {
 					temp.position=new Point2D(width/2+(Math.abs(i)/2+j)*width , ((i+6)/2+1)*Math.sqrt(3)*width);
 					temp.hexagon=draw(width/2+(Math.abs(i)/2+j)*width,((i+6)/2)*Math.sqrt(3)*width,width);

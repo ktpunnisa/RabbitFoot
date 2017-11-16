@@ -7,21 +7,74 @@ import javafx.scene.shape.Polygon;
 import utility.Pair;
 
 public class Block implements IRenderable {
-	public int index;
+	public static int count=0;
+	public Pair index;
+	public int id;
 	public Point2D position;
 	public Polygon hexagon;
+	public Pair coor[] = new Pair[6];
 
-	public Block()
+	public Block(int x,int y)
 	{
-		
+		this.id = Block.count++;
+		this.index = new Pair(x,y);
+		for(int i = 0;i < 6; i++) {
+			this.coor[i] = coorBlock(this.index,i);
+		}
 	}
-	public int getIndex() {
+
+	public Pair getIndex() {
 		return index;
 	}
 
-	public Point2D getPosition()
-	{
+	public int getId() {
+		return id;
+	}
+
+	public Point2D getPosition() {
 		return position;
+	}
+
+	public static int getCount() {
+		return count;
+	}
+	
+	public Polygon getHexagon() {
+		return hexagon;
+	}
+	
+	public Pair[] getCoor() {
+		return coor;
+	}
+	
+	public Pair coorBlock(Pair ind, int direct) {
+		int x = ind.getX();
+		int y = ind.getY();
+		if(x <= 6) {
+			if(direct == 0)			return new Pair(x-1,y-1); // top left
+			else if(direct == 1)	return new Pair(x-1,y); // top right
+			else if(direct == 2)	return new Pair(x,y+1); // right
+			else if(direct == 3)	return new Pair(x+1,y+1); // down right
+			else if(direct == 4)	return new Pair(x+1,y); // down left
+			else if(direct == 5)	return new Pair(x,y-1); // left
+		}
+		else if(x == 7) {
+			if(direct == 0)			return new Pair(x-1,y-1); // top left
+			else if(direct == 1)	return new Pair(x-1,y); // top right
+			else if(direct == 2)	return new Pair(x,y+1); // right
+			else if(direct == 3)	return new Pair(x+1,y); // down right
+			else if(direct == 4)	return new Pair(x+1,y-1); // down left
+			else if(direct == 5)	return new Pair(x,y-1); // left
+		}
+		else {
+			if(direct == 0)			return new Pair(x-1,y); // top left
+			else if(direct == 1)	return new Pair(x-1,y+1); // top right
+			else if(direct == 2)	return new Pair(x,y+1); // right
+			else if(direct == 3)	return new Pair(x+1,y); // down right
+			else if(direct == 4)	return new Pair(x+1,y-1); // down left
+			else if(direct == 5)	return new Pair(x,y-1); // left
+		}
+		return new Pair(x,y);
 	}
 	
 	@Override
@@ -43,39 +96,3 @@ public class Block implements IRenderable {
 
 }
 
-//public int color;
-	//protected Pair index;
-	//protected Pair[] coor;
-	//protected int direction; // 1:top left 2:top right 3:right 4:down right 5:down left 6:left
-	
-	/*public Block(int x,int y){
-		this.index = new Pair(x,y);
-		this.coor = new Pair[10]; 
-		if(x <= 6) {
-			this.coor[1] = new Pair(x-1,y-1); // top left
-			this.coor[2] = new Pair(x-1,y); // top right
-			this.coor[3] = new Pair(x,y+1); // right
-			this.coor[4] = new Pair(x+1,y+1); // down right
-			this.coor[5] = new Pair(x+1,y); // down left
-			this.coor[6] = new Pair(x,y-1); // left
-		}
-		else if(x == 7) {
-			this.coor[1] = new Pair(x-1,y-1); // top left
-			this.coor[2] = new Pair(x-1,y); // top right
-			this.coor[3] = new Pair(x,y+1); // right
-			this.coor[4] = new Pair(x+1,y); // down right
-			this.coor[5] = new Pair(x+1,y-1); // down left
-			this.coor[6] = new Pair(x,y-1); // left
-		}
-		else {
-			this.coor[1] = new Pair(x-1,y); // top left
-			this.coor[2] = new Pair(x-1,y+1); // top right
-			this.coor[3] = new Pair(x,y+1); // right
-			this.coor[4] = new Pair(x+1,y); // down right
-			this.coor[5] = new Pair(x+1,y-1); // down left
-			this.coor[6] = new Pair(x,y-1); // left
-		}
-	} */
-/*public Pair[] getCoor() {
-return coor;
-}*/

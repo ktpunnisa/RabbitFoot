@@ -2,8 +2,8 @@ package model;
 
 public class TrapBlock extends Block {
 
-	public TrapBlock() {
-		super();
+	public TrapBlock(int x,int y) {
+		super(x,y);
 		// TODO Auto-generated constructor stub
 	}
 	
