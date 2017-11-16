@@ -5,11 +5,10 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Block;
 import model.CharacterHolder;
-import model.Drawer;
 import model.IRenderable;
 import model.MapHolder;
-//import model.GenBlock;
 import utility.Pair;
+import view.Drawer;
 
 public class Main extends Application {
 
