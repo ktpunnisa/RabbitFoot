@@ -1,7 +1,7 @@
 package model;
 
-import com.sun.javafx.geom.Point2D;
 
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.Polygon;
 import utility.Pair;
@@ -10,6 +10,7 @@ public class Block implements IRenderable {
 	public int index;
 	public Point2D position;
 	public Polygon hexagon;
+
 	public Block()
 	{
 		
