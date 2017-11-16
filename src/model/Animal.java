@@ -35,4 +35,11 @@ public abstract class Animal implements IRenderable {
 	public abstract void draw(GraphicsContext gc) ;
 	@Override
 	public abstract boolean isVisible();
+	public Pair getIndex() {
+		return index;
+	}
+	public void setIndex(Pair index) {
+		this.index = index;
+	}
+	
 }

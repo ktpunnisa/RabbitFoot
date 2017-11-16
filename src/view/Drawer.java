@@ -8,43 +8,45 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
+import model.Animal;
 import model.CharacterHolder;
 import model.MapHolder;
+import model.Rabbit;
 
 public class Drawer {
 	MapHolder map;
 	CharacterHolder character;
-	Stage primaryStage;
-	Group ma;
-	Group an;
-	public Drawer(Stage primaryStage, MapHolder map, CharacterHolder character) {
+	public Drawer(MapHolder map, CharacterHolder character) {
 		this.map=map;
 		this.character=character;
-		this.primaryStage=primaryStage;
 	}
 	public Group drawAll()
 	{
-		drawMap();
-		drawAnimal();
 		Group all = new Group();
-		all.getChildren().add(ma);
-		all.getChildren().add(an);
+		all.getChildren().add(drawMap());
+		all.getChildren().add(drawAnimal());
 		return all;
 	}
-	private void drawMap()
+	private Group drawMap()
 	{
-		ma = new Group();
+		Group temp = new Group();
 		for(int i=-6;i<=6;++i)
 		{
 			for(int j=0;j<13-Math.abs(i);++j)
 			{
-				ma.getChildren().add(map.getMap()[i+6][j].hexagon);
+				temp.getChildren().add(MapHolder.map[i+7][j+1].hexagon);
 			}
 		}
-		
+		return temp;
 	}
-	private void drawAnimal()
+	private Group drawAnimal()
 	{
-		an = new Group();
+		Group temp = new Group();
+		for(Animal a : CharacterHolder.entities) 
+		{
+			if(a instanceof Rabbit)
+				temp.getChildren().add( ((Rabbit)a).ob );
+		}
+		return temp;
 	}
 }

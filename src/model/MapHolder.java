@@ -23,7 +23,7 @@ public class MapHolder {
 		{
 			for(int j=0;j<13-Math.abs(i);++j)
 			{
-				Block temp = new Block(); // change i,j to be 13*13
+				Block temp = new Block(j+1,i+7); // change i,j to be 13*13
 				if(i%2==0) {
 					temp.position=new Point2D(width/2+(Math.abs(i)/2+j)*width , ((i+6)/2)*Math.sqrt(3)*width + width/Math.sqrt(3));
 					temp.hexagon=draw(width/2+(Math.abs(i)/2+j)*width,((i+6)/2)*Math.sqrt(3)*width,width);
@@ -32,7 +32,7 @@ public class MapHolder {
 					temp.position=new Point2D((Math.abs(i)+1+2*j)/2*width , ((i+6)/2)*Math.sqrt(3)*width +5*width/(2*Math.sqrt(3)));
 					temp.hexagon=draw((Math.abs(i)+1+2*j)/2*width, ((i+6)/2)*Math.sqrt(3)*width +3*width/(2*Math.sqrt(3)),width);
 				}
-				map[i+6][j]=temp;
+				map[i+7][j+1]=temp;
 			}
 		}
 		
@@ -40,9 +40,6 @@ public class MapHolder {
 	public void destroyTrap(int blockIndex)
 	{
 		//if wolf are trapped, block will turn to normal
-	}
-	public Block[][] getMap() {
-		return map;
 	}
 	private Polygon draw(double x, double y,double width)
 	{
