@@ -16,6 +16,7 @@ import utility.Pair;
 public class Rabbit extends Animal {
 	public Rectangle ob = new Rectangle(30, 30);
 	public SequentialTransition sq = new SequentialTransition();
+	public Animal thisRabbit = this;
 	public Rabbit(int x,int y) 
 	{
 		this.index = new Pair(x,y);
@@ -44,6 +45,7 @@ public class Rabbit extends Animal {
 		          if(!sq.getChildren().isEmpty())
 		        		  sq.play();
 		          setIndex(nextIndex);
+		          MapHolder.map[nextIndex.getY()][nextIndex.getX()].runEvent(thisRabbit);
 		    }
 		});
 	    sq.play();

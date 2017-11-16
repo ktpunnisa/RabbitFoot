@@ -3,6 +3,7 @@ package model;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import utility.Pair;
 
@@ -59,7 +60,14 @@ public class Block implements IRenderable {
 		return temp;
 		
 	}
-	
+	public void runEvent(Animal animal)
+	{
+		
+	}
+	public void loadImage()
+	{
+		this.hexagon.setFill(Color.BLANCHEDALMOND);
+	}
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub

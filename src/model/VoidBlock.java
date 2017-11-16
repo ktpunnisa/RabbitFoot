@@ -2,10 +2,10 @@ package model;
 
 import javafx.scene.paint.Color;
 
-public class JumpBlock extends Block {
-	public int destination;
-	public JumpBlock(int x,int y) {
-		super(x, y);
+public class VoidBlock extends Block {
+
+	public VoidBlock(int x,int y) {
+		super(x,y);
 		// TODO Auto-generated constructor stub
 	}
 	@Override
@@ -16,6 +16,6 @@ public class JumpBlock extends Block {
 	@Override
 	public void loadImage()
 	{
-		this.hexagon.setFill(Color.CHARTREUSE);
+		this.hexagon.setFill(Color.WHITE);
 	}
 }
