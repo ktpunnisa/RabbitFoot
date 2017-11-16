@@ -1,7 +1,12 @@
 
 import java.util.List;
 
+import control.Controller;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Block;
 import model.CharacterHolder;
@@ -14,12 +19,29 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		//Controller control = new Controller();
 		MapHolder map = new MapHolder();
 		map.genMap(5);
 		CharacterHolder character = new CharacterHolder();
 		character.genAnimal(5);
 		Drawer view = new Drawer(primaryStage, map, character);
-		view.drawAll();
+		Group all = view.drawAll();
+		Scene sc = new Scene(all);
+		sc.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent mouseEvent) {
+			    if(mouseEvent.isPrimaryButtonDown())
+			    {
+			    		
+
+			    }
+			    else if(mouseEvent.isSecondaryButtonDown())
+			    {
+			    		
+			    }
+			}
+			});
+		primaryStage.setScene(sc);
 		primaryStage.show();
 	}
 

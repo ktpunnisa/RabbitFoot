@@ -14,34 +14,31 @@ import model.MapHolder;
 public class Drawer {
 	MapHolder map;
 	CharacterHolder character;
-	Canvas all;
 	Stage primaryStage;
 	Group ma;
 	Group an;
 	public Drawer(Stage primaryStage, MapHolder map, CharacterHolder character) {
 		this.map=map;
 		this.character=character;
-		all = new Canvas(primaryStage.getWidth(), primaryStage.getHeight());
 		this.primaryStage=primaryStage;
 	}
-	public void drawAll()
+	public Group drawAll()
 	{
 		drawMap();
 		drawAnimal();
 		Group all = new Group();
 		all.getChildren().add(ma);
 		all.getChildren().add(an);
-		Scene scene = new Scene(all);
-		primaryStage.setScene(scene);
+		return all;
 	}
 	private void drawMap()
 	{
 		ma = new Group();
-		for(int i=0;i<13;++i)
+		for(int i=-6;i<=6;++i)
 		{
 			for(int j=0;j<13-Math.abs(i);++j)
 			{
-				ma.getChildren().add(map.getMap()[i][j].hexagon);
+				ma.getChildren().add(map.getMap()[i+6][j].hexagon);
 			}
 		}
 		
