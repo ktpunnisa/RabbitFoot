@@ -10,7 +10,7 @@ import javafx.scene.shape.Polygon;
 
 public class MapHolder {
 
-	private Block[][] map;
+	public static Block[][] map;
 	public MapHolder()
 	{
 		
@@ -18,7 +18,7 @@ public class MapHolder {
 	public void genMap(int diff)
 	{
 		map = new Block[15][15];
-		double width=30;
+		double width=60;
 		int count=0;
 		for(int i=-6;i<=6;++i)
 		{
