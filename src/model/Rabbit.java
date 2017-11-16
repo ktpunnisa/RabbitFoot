@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import utility.Pair;
 
 public class Rabbit extends Animal {
 	public Rabbit() 
@@ -11,6 +12,9 @@ public class Rabbit extends Animal {
 	public void move()
 	{
 		
+	}
+	public Pair nextBlock() {
+		return Block.coorBlock(this.index,this.direction);
 	}
 	@Override
 	public void draw(GraphicsContext gc) {

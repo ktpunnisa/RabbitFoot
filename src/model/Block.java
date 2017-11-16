@@ -47,34 +47,37 @@ public class Block implements IRenderable {
 		return coor;
 	}
 	
-	public Pair coorBlock(Pair ind, int direct) {
+	public static Pair coorBlock(Pair ind, int direct) {
 		int x = ind.getX();
 		int y = ind.getY();
+		Pair coor;
 		if(x <= 6) {
-			if(direct == 0)			return new Pair(x-1,y-1); // top left
-			else if(direct == 1)	return new Pair(x-1,y); // top right
-			else if(direct == 2)	return new Pair(x,y+1); // right
-			else if(direct == 3)	return new Pair(x+1,y+1); // down right
-			else if(direct == 4)	return new Pair(x+1,y); // down left
-			else if(direct == 5)	return new Pair(x,y-1); // left
+			if(direct == 0)			coor = new Pair(x-1,y-1); // top left
+			else if(direct == 1)	coor = new Pair(x-1,y); // top right
+			else if(direct == 2)	coor = new Pair(x,y+1); // right
+			else if(direct == 3)	coor = new Pair(x+1,y+1); // down right
+			else if(direct == 4)	coor = new Pair(x+1,y); // down left
+			else if(direct == 5)	coor = new Pair(x,y-1); // left
 		}
 		else if(x == 7) {
-			if(direct == 0)			return new Pair(x-1,y-1); // top left
-			else if(direct == 1)	return new Pair(x-1,y); // top right
-			else if(direct == 2)	return new Pair(x,y+1); // right
-			else if(direct == 3)	return new Pair(x+1,y); // down right
-			else if(direct == 4)	return new Pair(x+1,y-1); // down left
-			else if(direct == 5)	return new Pair(x,y-1); // left
+			if(direct == 0)			coor = new Pair(x-1,y-1); // top left
+			else if(direct == 1)	coor = new Pair(x-1,y); // top right
+			else if(direct == 2)	coor = new Pair(x,y+1); // right
+			else if(direct == 3)	coor = new Pair(x+1,y); // down right
+			else if(direct == 4)	coor = new Pair(x+1,y-1); // down left
+			else if(direct == 5)	coor = new Pair(x,y-1); // left
 		}
 		else {
-			if(direct == 0)			return new Pair(x-1,y); // top left
-			else if(direct == 1)	return new Pair(x-1,y+1); // top right
-			else if(direct == 2)	return new Pair(x,y+1); // right
-			else if(direct == 3)	return new Pair(x+1,y); // down right
-			else if(direct == 4)	return new Pair(x+1,y-1); // down left
-			else if(direct == 5)	return new Pair(x,y-1); // left
+			if(direct == 0)			coor = new Pair(x-1,y); // top left
+			else if(direct == 1)	coor = new Pair(x-1,y+1); // top right
+			else if(direct == 2)	coor = new Pair(x,y+1); // right
+			else if(direct == 3)	coor = new Pair(x+1,y); // down right
+			else if(direct == 4)	coor = new Pair(x+1,y-1); // down left
+			else if(direct == 5)	coor = new Pair(x,y-1); // left
 		}
-		return new Pair(x,y);
+		coor = new Pair(x,y);
+		return coor;
+		
 	}
 	
 	@Override

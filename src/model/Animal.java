@@ -1,11 +1,12 @@
 package model;
 
 import javafx.scene.canvas.GraphicsContext;
+import utility.Pair;
 
 public abstract class Animal implements IRenderable {
 	public int speed;
 	public int direction;
-	public int position; //เป็นindexของช่อง6 เหลี่ยม
+	public Pair index;
 	public int z;
 	public Animal()
 	{
@@ -13,16 +14,17 @@ public abstract class Animal implements IRenderable {
 	}
 	public void turnLeft()
 	{
-		//direction-1
+		this.direction = (this.direction-1+6)%6;//direction-1
 	}
 	public void turnRight()
 	{
-		//direction+1
+		this.direction = (this.direction+1+6)%6;//direction+1
 	}
 	public void moveTo()
 	{
 		//animate
 	}
+	public abstract Pair nextBlock();
 	@Override
 	public int getZ() {
 		return z;
