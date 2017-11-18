@@ -32,21 +32,8 @@ public class UIGame extends Group {
 		globalAni = drawAnimal();
 		this.getChildren().add(globalMap);
 		this.getChildren().add(globalAni);
-		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				if(mouseEvent.isPrimaryButtonDown())
-			    {
-					CharacterHolder.aniData.get(0).turnLeft();
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
-			    }
-			    else if(mouseEvent.isSecondaryButtonDown())
-			    {
-			    		CharacterHolder.aniData.get(0).turnRight();
-			    }
-			}
-		});
-		this.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				if(event.getCode().equals(KeyCode.LEFT)) {
@@ -55,8 +42,24 @@ public class UIGame extends Group {
 				else if(event.getCode().equals(KeyCode.RIGHT)) {
 					CharacterHolder.aniData.get(0).turnRight();
 				}
-				
 			}
+			
+		});
+		this.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				if(event.isPrimaryButtonDown())
+			    {
+					CharacterHolder.aniData.get(0).turnLeft();
+
+			    }
+			    else if(event.isSecondaryButtonDown())
+			    {
+			    		CharacterHolder.aniData.get(0).turnRight();
+			    }
+			}
+			
 		});
 	}
 	

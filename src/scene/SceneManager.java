@@ -12,8 +12,8 @@ public class SceneManager {
 	private static Group mainMenu;
 	private static Scene mainScene;
 	private static Pane mainFrame;
-	public static final int SCENE_WIDTH = 500;
-	public static final int SCENE_HEIGHT = 500;
+	public static final int SCENE_WIDTH = 800;
+	public static final int SCENE_HEIGHT = 600;
 	
 	public static void initialize(Stage stage) {
 		mainMenu = new UIMenu();

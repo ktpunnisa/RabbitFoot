@@ -45,16 +45,14 @@ public class GameCamera {
 				lastLoopStartTime += LOOP_TIME;
 				
 				Node rabbitBody = CharacterHolder.aniData.get(0).body;
-				//boundsInScene = rabbitBody.localToScene(rabbitBody.getBoundsInLocal());
 				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
-				
-				//Main.gameDisplay.setRotate(45 * CharacterHolder.aniData.get(0).direction - 45);
 			}
-
+			
 			try {
 				Thread.sleep(1);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
