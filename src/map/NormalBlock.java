@@ -1,7 +1,10 @@
 package map;
 
 import character.Animal;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 public class NormalBlock extends Block{
 
@@ -13,7 +16,9 @@ public class NormalBlock extends Block{
 	@Override
 	public void loadImage() {
 		// TODO Auto-generated method stub
-		this.hexagon.setFill(Color.ORANGE);
+		Image img = new Image("res/block/grass.png");
+		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
+		//this.hexagon.setFill(Color.ORANGE);
 		this.hexagon.setStrokeWidth(3);
 		this.hexagon.setStroke(Color.BLACK);
 	}

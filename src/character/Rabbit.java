@@ -17,8 +17,8 @@ public class Rabbit extends Animal {
 
 	public Rabbit(Pair index, int speed, int direction, int z) {
 		super(index, speed, direction, z);
-		Image rabbit = new Image("res/a.png", 40, 40, false, false);
-		body.setImage(rabbit);
+		//Image rabbit = new Image("res/animal/rabiit_1.png", 40, 40, false, false);
+		//body.setImage(rabbit);
 		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-20);
 		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-20);
 		sq.setCycleCount(1);

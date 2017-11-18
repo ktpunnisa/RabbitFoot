@@ -46,8 +46,15 @@ public class MapHolder {
 				if(voidBlock[i+6][j]==0) {
 					temp = new NormalBlock(j,i+6,count);
 				}
-				else
+				else if(voidBlock[i+6][j]==1) {
 					temp = new VoidBlock(j,i+6,count);
+				}
+				else if(voidBlock[i+6][j]==2) {
+					temp = new JumpBlock(j,i+6,count);
+				}
+				else {
+					temp = new TrapBlock(j,i+6,count);
+				}
 				
 				if(i%2==0) {
 					temp.position=new Point2D(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE + BLOCK_SIZE/Math.sqrt(3));
