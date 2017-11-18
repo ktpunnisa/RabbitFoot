@@ -1,7 +1,12 @@
 package application;
 
+import java.awt.DisplayMode;
+
+import org.omg.PortableInterceptor.DISCARDING;
+
 import character.CharacterHolder;
 import game.GameCamera;
+import game.GameMain;
 import game.GameState;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -15,43 +20,27 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import map.MapHolder;
 import ui.UIGame;
+import scene.SceneManager;
 
 public class Main extends Application {
-	public static UIGame gameDisplay;
-	public static Scene sc;
+	
 	@Override
 	public void start(Stage primaryStage) {
-		//using scenemanager later
-		MapHolder map = new MapHolder();
-		map.genMap(0);
-		CharacterHolder character = new CharacterHolder();
-		character.genAnimal(0);
-		GameState state = new GameState(map, character);
-		gameDisplay = new UIGame(state);
-		Pane temp = new Pane();
-		temp.setPrefWidth(500);
-		temp.setPrefHeight(500);
-		temp.getChildren().add(gameDisplay);
-		sc = new Scene(temp);
-		primaryStage.setScene(sc);
-		GameCamera c = new GameCamera(gameDisplay);
-		c.startTrack();
-		sc.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent mouseEvent) {
-				if(mouseEvent.isPrimaryButtonDown())
-			    {
-					//((Polygon)MapHolder.mapData.get(0).get(0).hexagon).setFill(Color.RED);
-					CharacterHolder.aniData.get(0).turnLeft();
-
-			    }
-			    else if(mouseEvent.isSecondaryButtonDown())
-			    {
-			    		CharacterHolder.aniData.get(0).turnRight();
-			    }
-			}
-			});
+		try {
+			SceneManager.initialize(primaryStage);
+			SceneManager.gotoMenu();
+			primaryStage.setTitle("Catch me if you can!");
+			primaryStage.centerOnScreen();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		primaryStage.show();
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		// TODO Auto-generated method stub
+		GameMain.stopGame();
 	}
 
 	public static void main(String[] args) {
