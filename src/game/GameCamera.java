@@ -26,9 +26,9 @@ public class GameCamera {
 	}
 	public void startTrack()
 	{
+		this.isTracking = true;
 		gameCamera = new Thread(this::tracking, "Game Camera Thread");
 		gameCamera.start();
-		this.isTracking = true;
 	}
 	public void stopTrack()
 	{
@@ -56,5 +56,14 @@ public class GameCamera {
 				e.printStackTrace();
 			}
 		}
+	}
+	public void rotateMap(int val)
+	{
+		return;
+		/*Rotate r = new Rotate();
+		r.setAngle(120*val);
+		r.setPivotX(CharacterHolder.aniData.get(0).body.getTranslateX());
+		r.setPivotY(CharacterHolder.aniData.get(0).body.getTranslateY());
+		UIGame.globalMap.getTransforms().add(r);*/
 	}
 }

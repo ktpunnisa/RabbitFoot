@@ -13,7 +13,7 @@ public class GameMain {
 	
 	private static GameState state;
 	private static GameLogic logic;
-	private static GameCamera camera;
+	public static GameCamera camera;
 	private static UIGame gameUI;
 	
 	public static void newGame(int diff) {

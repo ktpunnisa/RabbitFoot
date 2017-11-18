@@ -6,6 +6,7 @@ import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
 import game.GameCamera;
+import game.GameMain;
 import game.GameState;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -38,29 +39,33 @@ public class UIGame extends Group {
 			public void handle(KeyEvent event) {
 				if(event.getCode().equals(KeyCode.LEFT)) {
 					CharacterHolder.aniData.get(0).turnLeft();
+					GameMain.camera.rotateMap(-1);
 				}
 				else if(event.getCode().equals(KeyCode.RIGHT)) {
 					CharacterHolder.aniData.get(0).turnRight();
+					GameMain.camera.rotateMap(1);
 				}
 			}
 			
 		});
-		this.setOnMousePressed(new EventHandler<MouseEvent>() {
+		/*this.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
 				if(event.isPrimaryButtonDown())
 			    {
 					CharacterHolder.aniData.get(0).turnLeft();
+					GameMain.camera.rotateMap(-1);
 
 			    }
 			    else if(event.isSecondaryButtonDown())
 			    {
 			    		CharacterHolder.aniData.get(0).turnRight();
+			    		GameMain.camera.rotateMap(1);
 			    }
 			}
 			
-		});
+		});*/
 	}
 	
 	private Group drawMap()

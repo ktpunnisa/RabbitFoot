@@ -82,16 +82,17 @@ public class Wolf extends Animal{
 		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		int min = 100;
-		Pair bestBlock = index;
+		Pair bestBlock = null;
 		for(int i = 0; i < 6; i++) {
 			Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-			if(nextW == null)	continue;
-			//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
-			if(MapHolder.mapData.get(nextW.getX()).get(nextW.getY()) instanceof NormalBlock) {
-				int dis = Animal.distanceRW(r,nextW);
-				if(dis < min) {
-					bestBlock = nextW;
-					min = dis;
+			if(nextW != null) {
+				//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
+				if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+					int dis = Animal.distanceRW(r,nextW);
+					if(dis < min) {
+						bestBlock = nextW;
+						min = dis;
+					}
 				}
 			}
 		}
