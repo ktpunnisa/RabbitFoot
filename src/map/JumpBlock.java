@@ -13,7 +13,7 @@ public class JumpBlock extends Block {
 	@Override
 	public void loadImage() {
 		// TODO Auto-generated method stub
-		Image img = new Image("res/block/jump.png");
+		Image img = new Image("file:res/block/jump.png");
 		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
 		//this.hexagon.setFill(Color.ORANGE);
 		this.hexagon.setStrokeWidth(3);
