@@ -1,6 +1,7 @@
 package application;
 
 import character.CharacterHolder;
+import game.GameCamera;
 import game.GameState;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -9,13 +10,15 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.shape.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import map.MapHolder;
 import ui.UIGame;
 
 public class Main extends Application {
-
+	public static UIGame gameDisplay;
+	public static Scene sc;
 	@Override
 	public void start(Stage primaryStage) {
 		//using scenemanager later
@@ -24,10 +27,15 @@ public class Main extends Application {
 		CharacterHolder character = new CharacterHolder();
 		character.genAnimal(0);
 		GameState state = new GameState(map, character);
-		UIGame gameDisplay = new UIGame(state);
-		
-		Scene sc = new Scene(gameDisplay);
+		gameDisplay = new UIGame(state);
+		Pane temp = new Pane();
+		temp.setPrefWidth(500);
+		temp.setPrefHeight(500);
+		temp.getChildren().add(gameDisplay);
+		sc = new Scene(temp);
 		primaryStage.setScene(sc);
+		GameCamera c = new GameCamera(gameDisplay);
+		c.startTrack();
 		sc.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent mouseEvent) {

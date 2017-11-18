@@ -26,6 +26,7 @@ public class GameMain {
 	
 	public static void gameOver() {
 		// TODO fill code
+		GameCamera.isTracking=false;
 		Alert alert = new Alert(AlertType.NONE, 
                 "Game Over!", 
                 ButtonType.OK);

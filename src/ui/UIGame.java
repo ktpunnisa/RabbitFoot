@@ -5,6 +5,7 @@ import java.util.List;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
+import game.GameCamera;
 import game.GameState;
 import javafx.scene.Group;
 import javafx.scene.Node;
