@@ -33,7 +33,7 @@ public class Rabbit extends Animal {
 			      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
 			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
 			      path.getElements().add(moveTo); 
-			      path.getElements().add(lineTo);        
+			      path.getElements().add(lineTo);
 			      PathTransition pathTransition = new PathTransition();
 			      pathTransition.setDuration(Duration.millis(1000));
 			      pathTransition.setNode(body); 
