@@ -1,42 +1,42 @@
-package model;
+package character;
 
+import game.GameMain;
 import javafx.animation.PathTransition;
-import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import map.MapHolder;
 import utility.Pair;
 
 public class Rabbit extends Animal {
-	public Rectangle ob = new Rectangle(30, 30);
-	public SequentialTransition sq = new SequentialTransition();
-	public Animal thisRabbit = this;
-	public Rabbit(int x,int y) 
-	{
-		this.index = new Pair(x,y);
-		ob.setTranslateX(MapHolder.map[index.getY()][index.getX()].position.getX()-ob.getWidth()/2);
-		ob.setTranslateY(MapHolder.map[index.getY()][index.getX()].position.getY()-ob.getHeight()/2);
+
+	public Rabbit(Pair index, int speed, int direction, int z) {
+		super(index, speed, direction, z);
+		Image rabbit = new Image("res/a.png", 40, 40, false, false);
+		body.setImage(rabbit);
+		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-20);
+		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-20);
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event){
 		          sq.getChildren().clear();
+		          if(nextBlock()==null) {GameMain.gameOver();}
 		          Path path = new Path(); 
-			      MoveTo moveTo = new MoveTo(ob.getTranslateX() + ob.getWidth()/2, ob.getTranslateY()+ ob.getHeight()/2);
+			      MoveTo moveTo = new MoveTo(body.getTranslateX() + 20, body.getTranslateY()+ 20);
 			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
-			      Point2D nextPoint = MapHolder.map[nextBlock().getY()][nextBlock().getX()].position;
+			      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
 			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
 			      path.getElements().add(moveTo); 
 			      path.getElements().add(lineTo);        
 			      PathTransition pathTransition = new PathTransition();
 			      pathTransition.setDuration(Duration.millis(1000));
-			      pathTransition.setNode(ob); 
+			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
 			      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
 			      pathTransition.setCycleCount(1);
@@ -45,21 +45,26 @@ public class Rabbit extends Animal {
 		          if(!sq.getChildren().isEmpty())
 		        		  sq.play();
 		          setIndex(nextIndex);
-		          MapHolder.map[nextIndex.getY()][nextIndex.getX()].runEvent(thisRabbit);
+		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
 		    }
 		});
 	    sq.play();
 	}
-	
-	public void move()
-	{
+
+	@Override
+	public void startRuning() {
+		// TODO Auto-generated method stub
 		
 	}
-	public Pair nextBlock() {
-		return MapHolder.map[index.getY()][index.getX()].coor[this.direction];
-	}
+
 	@Override
-	public void draw(GraphicsContext gc) {
+	public void stopRuning() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void runLoop() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -69,4 +74,11 @@ public class Rabbit extends Animal {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public Pair nextBlock() {
+		return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
+	}
+	
+
 }

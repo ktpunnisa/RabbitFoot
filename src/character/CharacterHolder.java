@@ -1,15 +1,17 @@
-package model;
+package character;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import map.Block;
 import utility.Pair;
-import view.Drawer;
 
 public class CharacterHolder {
-	public static List<Animal> entities;
+	public static ObservableList<Animal> aniData;
 	private Comparator<Animal> comparator;
 	public CharacterHolder()
 	{
@@ -21,21 +23,17 @@ public class CharacterHolder {
 	}
 	public void genAnimal(int diff)
 	{
-		entities = new ArrayList<Animal>();
+		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
-		Rabbit r = new Rabbit(7,5);
-		r.speed=1;
-		entities.add(r);
+		Rabbit r = new Rabbit(new Pair(4,3), 0, 1, 0);
+		aniData.add(r);
 	}
 	public void add(Animal animal)
 	{
-		entities.add(animal);
-		Collections.sort(entities, comparator);
+		
 	}
 	public void remove(Animal animal)
 	{
-		if(animal instanceof Rabbit)
-			Drawer.drawedAnimal.getChildren().remove(((Rabbit)animal).ob);
-		entities.remove(animal);
+		
 	}
 }
