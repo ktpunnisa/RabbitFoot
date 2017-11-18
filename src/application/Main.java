@@ -39,7 +39,7 @@ public class Main extends Application {
 			    }
 			    else if(mouseEvent.isSecondaryButtonDown())
 			    {
-			    	CharacterHolder.aniData.get(0).turnRight();
+			    		CharacterHolder.aniData.get(0).turnRight();
 			    }
 			}
 			});
