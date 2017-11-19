@@ -38,14 +38,17 @@ public abstract class Block {
 			};
 		}
 		else if(y == 6) {
-			temp = new Pair[]{
-					new Pair(x-1,y-1),
-					new Pair(x,y-1),
-					new Pair(x+1,y),
-					new Pair(x+1,y+1),
-					new Pair(x,y+1),
-					new Pair(x-1,y)
-			};
+				temp = new Pair[]{
+						new Pair(x-1,y-1),
+						new Pair(x,y-1),
+						new Pair(x+1,y-1),
+						new Pair(x+1,y),
+						new Pair(x,y+1),
+						new Pair(x-1,y)
+				};
+		
+			
+			
 		}
 		else {
 			temp = new Pair[]{

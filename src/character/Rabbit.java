@@ -38,7 +38,7 @@ public class Rabbit extends Animal {
 			      pathTransition.setDuration(Duration.millis(1000*speed));
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
-			      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
+			     // pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
 			      pathTransition.setCycleCount(1);
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
