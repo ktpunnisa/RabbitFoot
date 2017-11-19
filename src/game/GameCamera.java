@@ -3,12 +3,14 @@ package game;
 import application.Main;
 import character.CharacterHolder;
 import character.Rabbit;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import map.MapHolder;
 import ui.UIGame;
 
@@ -23,23 +25,18 @@ public class GameCamera {
 	public Thread gameCamera;
 	public boolean isTracking;
 	public int degree;
-	public double pivotx;
-	public double pivoty;
 	
 	public GameCamera(UIGame gameUI)
 	{
 		this.gameUI = gameUI;
 		this.isTracking = false;
 		
-		//looking for rabbit di and set*** 
 		Rotate r = new Rotate();
 		r.setAngle(-30);
-		pivotx = MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getX();
 		r.setPivotX(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getX());
-		pivoty = MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getY();
 		r.setPivotY(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getY());
-		gameUI.getTransforms().add(r);
-		this.degree = -30;
+		Platform.runLater(() -> gameUI.getTransforms().add(r));
+		Platform.runLater(() -> CharacterHolder.aniData.get(0).body.getTransforms().add(new Rotate(30,Rabbit.RABBIT_SIZE/2,Rabbit.RABBIT_SIZE/2)));
 	}
 	public void startTrack()
 	{
@@ -77,31 +74,38 @@ public class GameCamera {
             @Override
             public void run() {
             		Node rabbitBody = CharacterHolder.aniData.get(0).body;
-            		double x = Math.abs(rabbitBody.getTranslateX() - pivotx);
-            		double y = Math.abs(rabbitBody.getTranslateY() - pivoty);
-            		double xx = x * Math.cos(Math.toRadians(degree)) + y * Math.sin(Math.toRadians(degree)) + pivotx;
-            		double yy = x * Math.sin(Math.toRadians(degree)) - y * Math.cos(Math.toRadians(degree)) + pivoty;
-            		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - xx));
-            		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - yy));
+            		Bounds test = rabbitBody.localToScene(rabbitBody.getBoundsInLocal());
+            		double x = gameUI.getScene().getWidth()/2-(test.getMinX()+test.getMaxX())/2;
+            		double y = gameUI.getScene().getHeight()/2-(test.getMinY()+test.getMaxY())/2;
+            		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getTranslateX() + x));
+            		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getTranslateY() + y));
             }
         });
 	}
 	
 	public void rotateMap(int val)
 	{
-		Node Rabbits = CharacterHolder.aniData.get(0).body;
+		degree += -60*val;
+		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
+		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
+		rabbitRotation.setToAngle(degree);
+		rabbitRotation.setCycleCount(1);
+        Platform.runLater(() -> rabbitRotation.play());
+        
+        
+        /*RotateTransition mapRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),gameUI);
+        mapRotation.setToAngle(degree);
+        mapRotation.setCycleCount(1);
+        Platform.runLater(() ->  mapRotation.play());*/
+        
 		Rotate r = new Rotate();
 		r.setAngle(60*val);
-		degree+=60*val;
 		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
-		pivotx = MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX();
 		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
-		pivoty = MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY();
 		gameUI.getTransforms().add(r);
 		Rectangle a = new Rectangle(10,10);
 		a.setTranslateX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX()-5);
 		a.setTranslateY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY()-5);
 		UIGame.globalMap.getChildren().add(a);
-		System.out.println(Rabbits.getTranslateX()+ Rabbit.RABBIT_SIZE/2 + " " +Rabbits.getTranslateY()+ Rabbit.RABBIT_SIZE/2);
 	}
 }
