@@ -81,14 +81,16 @@ public class Wolf extends Animal{
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
-		        		  sq.play();
-		        		  runLoop();
+		        	  	  Platform.runLater(() -> {
+		        	  		  sq.play();
+		        	  		  runLoop();
+		        	  	  });
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
 		    }
 		});
-	    sq.play();
+		Platform.runLater(() -> sq.play());
 	}
 
 	@Override
