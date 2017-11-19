@@ -30,6 +30,7 @@ public class GameMain {
 		// TODO fill code
 		logic.stopGame();
 		Platform.runLater(GameMain::gameOver);
+		
 	}
 	
 	public static void gameOver() {

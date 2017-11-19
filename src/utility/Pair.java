@@ -49,5 +49,9 @@ public class Pair {
 		return Integer.toString(x) +","+ Integer.toString(y);
 	}
 	
+	public int distance(Pair o) {
+		return Math.abs(this.getX()-o.getX())+Math.abs(this.getY()-o.getY());
+	}
+	
 
 }
