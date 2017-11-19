@@ -132,12 +132,7 @@ public class Wolf extends Animal{
 
 	private void updateWolf(int i)
 	{
-		Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-            		body.setImage(img.get(i));
-            }
-        });
+		Platform.runLater(() -> body.setImage(img.get(i)));
 	}
 	@Override
 	public boolean isVisible() {

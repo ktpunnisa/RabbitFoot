@@ -14,6 +14,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import map.JumpBlock;
 import map.MapHolder;
 import utility.Pair;
 
@@ -44,8 +45,10 @@ public class Rabbit extends Animal {
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
-		        	  Platform.runLater(() -> sq.play());
-		        	  runLoop();
+		        	  	  Platform.runLater(() -> {
+		        	  		  sq.play();
+		        	  		  runLoop();
+		        	  	  });
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
@@ -75,15 +78,15 @@ public class Rabbit extends Animal {
 
 	@Override
 	public void runLoop() {
-		// TODO Auto-generated method stub
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
-					updateRabbit(i);
+						updateRabbit(i);
 					try {
 						Thread.sleep((long) ((1000*speed)/4));
 					} catch (Exception e) {
+						System.out.println("Some error occured!!! Thread cannot sleep");
 						e.printStackTrace();
 					}
 				}
@@ -93,12 +96,7 @@ public class Rabbit extends Animal {
 	
 	private void updateRabbit(int i)
 	{
-		Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-            		body.setImage(img.get(i));
-            }
-        });
+		Platform.runLater(() -> body.setImage(img.get(i)));
 	}
 	
 	@Override
@@ -109,6 +107,16 @@ public class Rabbit extends Animal {
 
 	@Override
 	public Pair nextBlock() {
+		if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock) {
+			//System.out.println("JumpBox"+index);
+			int jumpDi = ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).direction;
+			//System.out.println("DiR:"+Integer.toString(direction)+" DiJ"+Integer.toString(jumpDi));
+			if(Math.abs(this.direction - jumpDi)==3) {
+				return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
+			}
+			this.direction = jumpDi;
+			return ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).jumpTo;
+		}
 		return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 	}
 
