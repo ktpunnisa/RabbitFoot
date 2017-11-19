@@ -42,8 +42,8 @@ public abstract class Block {
 					new Pair(x-1,y-1),
 					new Pair(x,y-1),
 					new Pair(x+1,y),
+					new Pair(x+1,y+1),
 					new Pair(x,y+1),
-					new Pair(x-1,y+1),
 					new Pair(x-1,y)
 			};
 		}

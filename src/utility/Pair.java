@@ -1,5 +1,7 @@
 package utility;
 
+import java.util.Objects;
+
 public class Pair {
 	private int x;
 	private int y;
@@ -22,6 +24,29 @@ public class Pair {
 	}
 	public void setY(int y) {
 		this.y = y;
+	}
+	@Override
+	public boolean equals(Object o) { 
+        if (o == this) {
+            return true;
+        }
+ 
+        if (!(o instanceof Pair)) {
+            return false;
+        }
+         
+        Pair c = (Pair) o;
+         
+        // Compare the data members and return accordingly 
+		return this.x==c.x && this.y==c.y;
+	}
+	@Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+	@Override
+	public String toString(){
+		return Integer.toString(x) +","+ Integer.toString(y);
 	}
 	
 
