@@ -57,7 +57,7 @@ public class Wolf extends Animal{
 		super(index, speed, direction, z);
 		// TODO Auto-generated constructor stub
 		startRunning();
-		Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
+		//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
@@ -172,30 +172,34 @@ public class Wolf extends Animal{
 				}
 			}
 		}
-		//System.out.println("Find!");
-		//System.out.println(r);
+		System.out.println("Find!");
+		System.out.println(r);
 		Pair tmp = r;
-		while(ans.get(tmp).index!=index) {
-			//System.out.println(ans.get(tmp).index);
-			tmp = ans.get(tmp).index;
-		}
-		//System.out.println("best"+tmp);
-		bestBlock = tmp;
-		/*
-		for(int i = 0; i < 6; i++) {
-			Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-			if(nextW != null) {
-				//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
-				if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
-					int dis = Animal.distanceRW(r,nextW);
-					if(dis < min) {
-						bestBlock = nextW;
-						min = dis;
+		try {
+			while(ans.get(tmp).index!=index) {
+				//System.out.println(ans.get(tmp).index);
+				tmp = ans.get(tmp).index;
+			}
+			//System.out.println("best : "+tmp);
+			bestBlock = tmp;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			int min = 100;
+			for(int i = 0; i < 6; i++) {
+				Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
+				if(nextW != null) {
+					//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
+					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+						int dis = Animal.distanceRW(r,nextW);
+						if(dis < min) {
+							bestBlock = nextW;
+							min = dis;
+						}
 					}
 				}
 			}
 		}
-		*/
 		
 		return bestBlock;
 	}
