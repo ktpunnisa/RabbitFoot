@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import map.Block;
+import map.MapHolder;
 import utility.Pair;
 import utility.RandomGenerator;
 
@@ -22,14 +23,20 @@ public class CharacterHolder {
 			return -1;
 		};
 	}
-	public void genAnimal(int diff)
+	public void genAnimal(int diff,int wolfCount)
 	{
 		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
 		Rabbit r = new Rabbit(new Pair(4,3), 1.2, 1, 0);
 		aniData.add(r);
-		Wolf w = new Wolf(RandomGenerator.randomIndex(), 0.9, 1, 0);
-		aniData.add(w);
+		for(int i=0; i<wolfCount; i++) {
+			Pair tmp = RandomGenerator.randomIndex();
+			while(tmp.distance(aniData.get(0).index)<=5) {
+				tmp = RandomGenerator.randomIndex();
+			}
+			Wolf w = new Wolf(tmp, 1, 1, 0);
+			aniData.add(w);
+		}
 	}
 	public void add(Animal animal)
 	{

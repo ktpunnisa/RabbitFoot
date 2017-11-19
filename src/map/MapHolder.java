@@ -75,8 +75,10 @@ public class MapHolder {
 			mapData.add(tempRow);
 		}
 		while(carrot.size() < 10) {
-			creatCarrot();
+			createCarrot();
 		}
+		createTrap();
+		
 	}
 	private Polygon draw(double x, double y)
 	{
@@ -91,22 +93,26 @@ public class MapHolder {
 		return a;
 	}
 	
-	public static void creatCarrot() {
+	public static void createCarrot() {
 		Pair tmp = RandomGenerator.randomIndex();
-		Boolean check = true;
-		while(check) {
-			check = false;
-			while(carrot.contains(tmp)) {
-				tmp = RandomGenerator.randomIndex();
-			}
+		while(carrot.contains(tmp)) {
+			tmp = RandomGenerator.randomIndex();
 		}
-		System.out.println(Integer.toString(carrot.size())+":"+tmp);
+		//System.out.println(Integer.toString(carrot.size())+":"+tmp);
 		carrot.add(tmp);
 		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasCarrot = true;
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
-	public void deleteTrap(int x, int y)
+	public static void createTrap() {
+		Pair tmp = RandomGenerator.randomIndex();
+		while(carrot.contains(tmp)) {
+			tmp = RandomGenerator.randomIndex();
+		}
+		//do something to change normal to trap
+	}
+	public static void deleteTrap(Pair index)
 	{
+		//do something to change trap to normal
 		
 	}
 	

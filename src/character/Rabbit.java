@@ -27,9 +27,8 @@ public class Rabbit extends Animal {
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event){
-		          sq.getChildren().clear();
+		          sq.getChildren().clear();   
 		          if(nextBlock()==null) {GameMain.gameOver();}
-		          
 		          Path path = new Path(); 
 			      MoveTo moveTo = new MoveTo(body.getTranslateX() + 20, body.getTranslateY()+ 20);
 			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
@@ -47,7 +46,7 @@ public class Rabbit extends Animal {
 			      }
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
-			     // pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
+			      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
 			      pathTransition.setCycleCount(1);
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
