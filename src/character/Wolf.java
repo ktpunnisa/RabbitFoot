@@ -81,7 +81,7 @@ public class Wolf extends Animal{
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
 		        		  sq.play();
-		        		  runLoop();
+		        		  runLoop(true);
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
@@ -110,7 +110,7 @@ public class Wolf extends Animal{
 	}
 
 	@Override
-	public void runLoop() {
+	public void runLoop(boolean x) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

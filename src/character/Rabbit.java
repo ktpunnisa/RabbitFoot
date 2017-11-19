@@ -18,10 +18,8 @@ import map.MapHolder;
 import utility.Pair;
 
 public class Rabbit extends Animal {
-	boolean canJump;
 	public Rabbit(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
-		canJump = true;
 		startRunning();
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
@@ -37,7 +35,13 @@ public class Rabbit extends Animal {
 			      path.getElements().add(moveTo); 
 			      path.getElements().add(lineTo);
 			      PathTransition pathTransition = new PathTransition();
-			      pathTransition.setDuration(Duration.millis(1000*speed));
+			      if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+			    		  MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+			    	  pathTransition.setDuration(Duration.millis(1000*speed));
+			      }
+			      else {
+			    	  pathTransition.setDuration(Duration.millis(1000));
+			      }
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
 			     // pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
@@ -46,7 +50,14 @@ public class Rabbit extends Animal {
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
 		        	  sq.play();
-		        	  runLoop();
+		        	  if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+				    		  MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+		        		  runLoop(true);
+				      }
+		        	  else {
+		        		  runLoop(false);
+		        	  }
+		        	  
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
@@ -76,15 +87,21 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void runLoop() {
+	public void runLoop(boolean jumpNow) {
 		// TODO Auto-generated method stub
+		double[] sleepJump = {0.1,0.1,0.6,0.1};
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
 					body.setImage(img.get(i));
 					try {
-						Thread.sleep((long) ((1000*speed)/4));
+						if(jumpNow) {
+							Thread.sleep((long) ((1000*speed)*sleepJump[i]));
+						}
+						else {
+							Thread.sleep((long) ((1000)/4));
+						}
 					} catch (Exception e) {
 						System.out.println("Some error occured!!! Thread cannot sleep");
 						e.printStackTrace();

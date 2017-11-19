@@ -12,7 +12,8 @@ import utility.Pair;
 public abstract class Animal {
 	
 	public Pair index;
-	public double speed; 
+	// speed rabbit when jump , speed wolf when walk
+	public double speed;  
 	public int direction;
 	public int z;
 	
@@ -35,7 +36,7 @@ public abstract class Animal {
 	//animation
 	public abstract void startRunning();
 	public abstract void stopRunning();
-	public abstract void runLoop();
+	public abstract void runLoop(boolean jumpNow);
 	public abstract boolean isVisible();
 	
 	public abstract Pair nextBlock();
@@ -71,5 +72,7 @@ public abstract class Animal {
 	public void setZ(int z) {
 		this.z = z;
 	}
+
+	
 	
 }
