@@ -35,9 +35,7 @@ public class GameCamera {
 		this.isTracking = false;
 	}
 	public void tracking()
-	{
-		Bounds boundsInScene;
-		
+	{	
 		long lastLoopStartTime = System.nanoTime();
 		while (isTracking) {
 			long now = System.nanoTime();
@@ -47,6 +45,8 @@ public class GameCamera {
 				Node rabbitBody = CharacterHolder.aniData.get(0).body;
 				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
+				
+				System.out.println(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 			}
 			
 			try {
