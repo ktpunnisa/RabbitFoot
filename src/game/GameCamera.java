@@ -77,12 +77,12 @@ public class GameCamera {
             @Override
             public void run() {
             		Node rabbitBody = CharacterHolder.aniData.get(0).body;
-            		double x = rabbitBody.getTranslateX() - pivotx;
-            		double y = rabbitBody.getTranslateY() - pivoty;
+            		double x = Math.abs(rabbitBody.getTranslateX() - pivotx);
+            		double y = Math.abs(rabbitBody.getTranslateY() - pivoty);
             		double xx = x * Math.cos(Math.toRadians(degree)) + y * Math.sin(Math.toRadians(degree)) + pivotx;
             		double yy = x * Math.sin(Math.toRadians(degree)) - y * Math.cos(Math.toRadians(degree)) + pivoty;
-				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - xx);
-				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - yy);
+            		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - xx));
+            		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - yy));
             }
         });
 	}
