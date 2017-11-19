@@ -25,12 +25,13 @@ public class GameCamera {
 	public Thread gameCamera;
 	public boolean isTracking;
 	public int degree;
+	public int prevDirection;
 	
 	public GameCamera(UIGame gameUI)
 	{
 		this.gameUI = gameUI;
 		this.isTracking = false;
-		
+		this.prevDirection = CharacterHolder.aniData.get(0).direction;
 		Rotate r = new Rotate();
 		r.setAngle(-30);
 		r.setPivotX(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getX());
@@ -79,33 +80,31 @@ public class GameCamera {
             		double y = gameUI.getScene().getHeight()/2-(test.getMinY()+test.getMaxY())/2;
             		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getTranslateX() + x));
             		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getTranslateY() + y));
+            		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
+            		if(prevDirection != rabbit.direction) {
+	            		degree = 60*(rabbit.direction-1);
+	            		System.out.println(degree);
+	            		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
+	            		rabbitRotation.setToAngle(degree);
+	            		rabbitRotation.setCycleCount(1);
+	                 Platform.runLater(() -> rabbitRotation.play());
+	                 
+	                 prevDirection = rabbit.direction;
+            		}
             }
         });
 	}
 	
 	public void rotateMap(int val)
-	{
-		degree += -60*val;
-		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
-		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
-		rabbitRotation.setToAngle(degree);
-		rabbitRotation.setCycleCount(1);
-        Platform.runLater(() -> rabbitRotation.play());
-        
-        
-        /*RotateTransition mapRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),gameUI);
-        mapRotation.setToAngle(degree);
-        mapRotation.setCycleCount(1);
-        Platform.runLater(() ->  mapRotation.play());*/
-        
+	{   
 		Rotate r = new Rotate();
 		r.setAngle(60*val);
 		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
 		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
 		gameUI.getTransforms().add(r);
-		Rectangle a = new Rectangle(10,10);
+		/*Rectangle a = new Rectangle(10,10);
 		a.setTranslateX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX()-5);
 		a.setTranslateY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY()-5);
-		UIGame.globalMap.getChildren().add(a);
+		UIGame.globalMap.getChildren().add(a);*/
 	}
 }
