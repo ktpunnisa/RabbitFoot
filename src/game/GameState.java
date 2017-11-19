@@ -10,7 +10,10 @@ public class GameState {
 	
 	public CharacterHolder character;
 	public MapHolder map;
+
 	public static int result;
+	public static int score = 0;
+
 	public GameState(int diff)
 	{
 		map = new MapHolder();

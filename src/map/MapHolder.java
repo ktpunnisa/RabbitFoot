@@ -2,7 +2,9 @@ package map;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +12,12 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.shape.Polygon;
 import utility.Pair;
+import utility.RandomGenerator;
 
 public class MapHolder {
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
+	public static Set<Pair> carrot = new HashSet<Pair>();
 	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
 		{0,0,0,0,0,0,0,0,1,1,1,1,1},
@@ -70,6 +74,9 @@ public class MapHolder {
 			}
 			mapData.add(tempRow);
 		}
+		while(carrot.size() < 10) {
+			creatCarrot();
+		}
 	}
 	private Polygon draw(double x, double y)
 	{
@@ -83,8 +90,24 @@ public class MapHolder {
 		a.getPoints().addAll(x-BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
 		return a;
 	}
+	
+	public static void creatCarrot() {
+		Pair tmp = RandomGenerator.randomIndex();
+		Boolean check = true;
+		while(check) {
+			check = false;
+			while(carrot.contains(tmp)) {
+				tmp = RandomGenerator.randomIndex();
+			}
+		}
+		System.out.println(Integer.toString(carrot.size())+":"+tmp);
+		carrot.add(tmp);
+		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasCarrot = true;
+		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
+	}
 	public void deleteTrap(int x, int y)
 	{
 		
 	}
+	
 }

@@ -28,7 +28,7 @@ public class CharacterHolder {
 		//temp
 		Rabbit r = new Rabbit(new Pair(4,3), 1.2, 1, 0);
 		aniData.add(r);
-		Wolf w = new Wolf(new Pair(10,6), 0.9, 1, 0);
+		Wolf w = new Wolf(RandomGenerator.randomIndex(), 0.9, 1, 0);
 		aniData.add(w);
 	}
 	public void add(Animal animal)
