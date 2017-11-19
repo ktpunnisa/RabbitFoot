@@ -25,9 +25,9 @@ public class CharacterHolder {
 	{
 		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
-		Rabbit r = new Rabbit(new Pair(4,3), 0, 1, 0);
+		Rabbit r = new Rabbit(new Pair(4,3), 1, 1, 0);
 		aniData.add(r);
-		Wolf w = new Wolf(new Pair(10,6), 0, 1, 0);
+		Wolf w = new Wolf(new Pair(10,6), 0.9, 1, 0);
 		aniData.add(w);
 	}
 	public void add(Animal animal)
