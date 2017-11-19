@@ -5,12 +5,14 @@ import map.MapHolder;
 
 public class GameState {
 	
-	public static CharacterHolder character;
-	public static MapHolder map;
+	public CharacterHolder character;
+	public MapHolder map;
 	
-	public GameState(MapHolder m,CharacterHolder c)
+	public GameState(int diff)
 	{
-		this.map=m;
-		this.character=c;
+		map = new MapHolder();
+		map.genMap(diff);
+		character = new CharacterHolder();
+		character.genAnimal(diff);
 	}
 }

@@ -1,5 +1,6 @@
 package character;
 
+import application.Main;
 import game.GameMain;
 import javafx.animation.PathTransition;
 import javafx.event.ActionEvent;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import map.MapHolder;
 import utility.Pair;

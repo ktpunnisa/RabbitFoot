@@ -1,9 +1,13 @@
 package game;
 
 import application.Main;
+import character.CharacterHolder;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.transform.Rotate;
+import ui.UIGame;
+
 import java.lang.Math;
 
 public class GameCamera {
@@ -11,28 +15,20 @@ public class GameCamera {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	
-	public Group view;
+	public UIGame gameUI;
 	public Thread gameCamera;
-	public static boolean isTracking;
+	public boolean isTracking;
 	
-	public GameCamera(Group view)
+	public GameCamera(UIGame gameUI)
 	{
-		this.view = view;
+		this.gameUI = gameUI;
 		this.isTracking = false;
-		//temp
-		//view.setScaleX(3);
-		//view.setScaleY(3);
 	}
 	public void startTrack()
 	{
+		this.isTracking = true;
 		gameCamera = new Thread(this::tracking, "Game Camera Thread");
-		//gameCamera.start();
-		//this.isTracking = true;
-		Node Rabbit = view.getChildren().get(0);
-		Bounds boundsInScene = Rabbit.localToScreen(Rabbit.getBoundsInLocal());
-		//view.setTranslateX(view.getTranslateX()+1);
-		view.setTranslateX(100);
-		view.setTranslateY(100);
+		gameCamera.start();
 	}
 	public void stopTrack()
 	{
@@ -41,24 +37,33 @@ public class GameCamera {
 	public void tracking()
 	{
 		Bounds boundsInScene;
-		Node Rabbit = view.getChildren().get(0);
+		
 		long lastLoopStartTime = System.nanoTime();
 		while (isTracking) {
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
 				
-				boundsInScene = Rabbit.localToScene(Rabbit.getBoundsInLocal());
-				//view.setTranslateX(view.getTranslateX()+1);
-				view.setTranslateX(boundsInScene.getMaxX());
-				view.setTranslateY(boundsInScene.getMaxY());
+				Node rabbitBody = CharacterHolder.aniData.get(0).body;
+				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
+				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
 			}
-
+			
 			try {
 				Thread.sleep(1);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	public void rotateMap(int val)
+	{
+		return;
+		/*Rotate r = new Rotate();
+		r.setAngle(120*val);
+		r.setPivotX(CharacterHolder.aniData.get(0).body.getTranslateX());
+		r.setPivotY(CharacterHolder.aniData.get(0).body.getTranslateY());
+		UIGame.globalMap.getTransforms().add(r);*/
 	}
 }
