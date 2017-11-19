@@ -1,5 +1,15 @@
 package character;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Map.Entry;
+
+
+import java.util.PriorityQueue;
+import java.util.Set;
+
 import game.GameMain;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
@@ -18,6 +28,27 @@ import map.MapHolder;
 import map.NormalBlock;
 import utility.Pair;
 
+class MyNode implements Comparable<MyNode>{
+	Pair index;
+	int dis;
+	public MyNode(Pair index,int dis) {
+		this.index = index;
+		this.dis = dis;
+	}
+	@Override
+	public int compareTo(MyNode o){
+		if(this.getClass() ==  o.getClass()) {
+			 return this.dis - o.dis;
+		}
+		return -1;
+	}
+	
+	@Override
+	public String toString() {
+		return index+"("+Integer.toString(dis)+")";
+	}
+	
+}
 public class Wolf extends Animal{
 
 	int id = 0;
@@ -26,6 +57,7 @@ public class Wolf extends Animal{
 		super(index, speed, direction, z);
 		// TODO Auto-generated constructor stub
 		startRunning();
+		//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
@@ -104,23 +136,71 @@ public class Wolf extends Animal{
 	public Pair nextBlock() {
 		// TODO Auto-generated method stub
 		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
+		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>(); 
+		Set<Pair> mark = new HashSet<Pair>();
+		Map<Pair,MyNode> ans = new HashMap<>();
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
-		Pair bestBlock = index;
-		int min = Animal.distanceRW(r,index) ;
-		for(int i = 0; i < 6; i++) {
-			Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-			if(nextW != null) {
-				//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
-				if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
-					int dis = Animal.distanceRW(r,nextW);
-					if(dis < min) {
-						bestBlock = nextW;
-						min = dis;
+		Pair bestBlock = null;
+		q.add(new MyNode(index,Animal.distanceRW(r,index)));
+		ans.put(index, new MyNode(index,0));
+		while(!q.isEmpty()) {
+			MyNode w = q.poll();
+			//System.out.println(w.index);
+			if(mark.contains(w.index)) {
+				continue;
+			}
+			mark.add(w.index);
+			if(w.index.equals(r)) {
+				break;
+			}
+			for(int i = 0; i < 6; i++) {
+				Pair nextW = MapHolder.mapData.get(w.index.getY()).get(w.index.getX()).nextBlock[i];
+				if(nextW != null && !mark.contains(nextW)) {
+					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+						int dis = Animal.distanceRW(r,nextW);
+						if(ans.containsKey(nextW) && (ans.get(w.index).dis+1 < ans.get(nextW).dis)){
+							ans.replace(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
+							q.add(new MyNode(nextW,dis));
+							//System.out.println(nextW+"(1):"+ans.get(nextW));
+						}
+						if(!ans.containsKey(nextW)){
+							ans.put(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
+							q.add(new MyNode(nextW,dis));
+							//System.out.println(nextW+"(2):"+ans.get(nextW));
+						}
 					}
 				}
 			}
 		}
-		//System.out.println("bestBox : "+Integer.toString(bestBlock.getX())+","+Integer.toString(bestBlock.getY()));
+		System.out.println("Find!");
+		System.out.println(r);
+		Pair tmp = r;
+		try {
+			while(ans.get(tmp).index!=index) {
+				//System.out.println(ans.get(tmp).index);
+				tmp = ans.get(tmp).index;
+			}
+			//System.out.println("best : "+tmp);
+			bestBlock = tmp;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			int min = 100;
+			for(int i = 0; i < 6; i++) {
+				Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
+				if(nextW != null) {
+					//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
+					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+						int dis = Animal.distanceRW(r,nextW);
+						if(dis < min) {
+							bestBlock = nextW;
+							min = dis;
+						}
+					}
+				}
+			}
+		}
+		
 		return bestBlock;
 	}
 	
