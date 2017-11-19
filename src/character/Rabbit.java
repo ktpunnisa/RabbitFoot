@@ -103,9 +103,9 @@ public class Rabbit extends Animal {
 	@Override
 	public Pair nextBlock() {
 		if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock) {
-			System.out.println("JumpBox"+index);
+			//System.out.println("JumpBox"+index);
 			int jumpDi = ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).direction;
-			System.out.println("DiR:"+Integer.toString(direction)+" DiJ"+Integer.toString(jumpDi));
+			//System.out.println("DiR:"+Integer.toString(direction)+" DiJ"+Integer.toString(jumpDi));
 			if(Math.abs(this.direction - jumpDi)==3) {
 				return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 			}
