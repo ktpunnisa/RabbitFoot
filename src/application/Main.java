@@ -9,6 +9,7 @@ import game.GameCamera;
 import game.GameMain;
 import game.GameState;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
@@ -41,6 +42,7 @@ public class Main extends Application {
 	public void stop() throws Exception {
 		// TODO Auto-generated method stub
 		GameMain.stopGame();
+		
 	}
 
 	public static void main(String[] args) {

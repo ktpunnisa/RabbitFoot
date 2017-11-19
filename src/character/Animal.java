@@ -71,8 +71,5 @@ public abstract class Animal {
 	public void setZ(int z) {
 		this.z = z;
 	}
-	public static int distanceRW(Pair r,Pair w) {
-		return Math.abs(r.getX()-w.getX())+Math.abs(r.getY()-w.getY());
-	}
 	
 }
