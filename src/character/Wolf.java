@@ -83,7 +83,7 @@ public class Wolf extends Animal{
 		          if(!sq.getChildren().isEmpty()) {
 		        	  	  Platform.runLater(() -> {
 		        	  		  sq.play();
-		        	  		  runLoop();
+		        	  		  runLoop(true);
 		        	  	  });
 		          }
 		          setIndex(nextIndex);
@@ -113,7 +113,7 @@ public class Wolf extends Animal{
 	}
 
 	@Override
-	public void runLoop() {
+	public void runLoop(boolean x) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

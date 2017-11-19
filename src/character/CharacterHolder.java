@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import map.Block;
 import utility.Pair;
+import utility.RandomGenerator;
 
 public class CharacterHolder {
 	public static ObservableList<Animal> aniData;
@@ -25,7 +26,7 @@ public class CharacterHolder {
 	{
 		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
-		Rabbit r = new Rabbit(new Pair(4,3), 1, 1, 0);
+		Rabbit r = new Rabbit(new Pair(4,3), 1.2, 1, 0);
 		aniData.add(r);
 		Wolf w = new Wolf(new Pair(10,6), 0.9, 1, 0);
 		aniData.add(w);

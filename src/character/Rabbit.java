@@ -37,7 +37,13 @@ public class Rabbit extends Animal {
 			      path.getElements().add(moveTo); 
 			      path.getElements().add(lineTo);
 			      PathTransition pathTransition = new PathTransition();
-			      pathTransition.setDuration(Duration.millis(1000*speed));
+			      if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+			    		  MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+			    	  pathTransition.setDuration(Duration.millis(1000*speed));
+			      }
+			      else {
+			    	  pathTransition.setDuration(Duration.millis(1000));
+			      }
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
 			     // pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
@@ -46,8 +52,14 @@ public class Rabbit extends Animal {
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
 		        	  	  Platform.runLater(() -> {
-		        	  		  sq.play();
-		        	  		  runLoop();
+		        	  		    sq.play();
+		        	          if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+				    		            MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+		        		              runLoop(true);
+				                }
+		        	          else {
+		        		              runLoop(false);
+		        	          }
 		        	  	  });
 		          }
 		          setIndex(nextIndex);
@@ -77,14 +89,21 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void runLoop() {
+	public void runLoop(boolean jumpNow) {
+		// TODO Auto-generated method stub
+		double[] sleepJump = {0.1,0.1,0.6,0.1};
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
 						updateRabbit(i);
 					try {
-						Thread.sleep((long) ((1000*speed)/4));
+						if(jumpNow) {
+							Thread.sleep((long) ((1000*speed)*sleepJump[i]));
+						}
+						else {
+							Thread.sleep((long) ((1000)/4));
+						}
 					} catch (Exception e) {
 						System.out.println("Some error occured!!! Thread cannot sleep");
 						e.printStackTrace();
