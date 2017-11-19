@@ -1,5 +1,7 @@
 package game;
 
+import character.Animal;
+import character.CharacterHolder;
 import ui.UIGame;
 
 public class GameLogic {
@@ -10,7 +12,7 @@ public class GameLogic {
 	private UIGame gameUI;
 	private GameState state;
 	private GameCamera camera;
-	private boolean isGameRunning;
+	public static boolean isGameRunning;
 	
 	public GameLogic(UIGame gameUI, GameState state, GameCamera camera)
 	{
@@ -18,17 +20,17 @@ public class GameLogic {
 		this.state = state;
 		this.camera = camera;
 		this.camera.startTrack();
-		this.isGameRunning = false;
+		isGameRunning = false;
 	}
 	public void startGame() {
-		this.isGameRunning = true;
+		isGameRunning = true;
 		//canvas.setWordString(model.getCurrentWordString());
 		new Thread(this::gameLoop, "Game Loop Thread").start();
 	}
 
 	public void stopGame() {
 		camera.stopTrack();
-		this.isGameRunning = false;
+		isGameRunning = false;
 	}
 	
 	private void gameLoop() {
@@ -51,6 +53,10 @@ public class GameLogic {
 	
 	private void updateGame()
 	{
-		//to do
+		for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
+			if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
+				GameMain.stopGame();
+			}
+		}
 	}
 }

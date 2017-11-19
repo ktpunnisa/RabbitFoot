@@ -30,15 +30,11 @@ public class GameMain {
 		// TODO fill code
 		logic.stopGame();
 		Platform.runLater(GameMain::gameOver);
-		
 	}
 	
 	public static void gameOver() {
 		// TODO fill code
-		Alert alert = new Alert(AlertType.NONE, 
-                "Game Over!", 
-                ButtonType.OK);
-
+		Alert alert = new Alert(AlertType.NONE, "Game Over!", ButtonType.OK);
 		alert.show();
 	}
 

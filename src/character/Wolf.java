@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import game.GameLogic;
 import game.GameMain;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
@@ -52,7 +53,8 @@ class MyNode implements Comparable<MyNode>{
 	
 }
 public class Wolf extends Animal{
-
+	
+	public static int WOLF_SIZE = 60;
 	int id = 0;
 	
 	public Wolf(Pair index, double speed, int direction, int z) {
@@ -65,9 +67,11 @@ public class Wolf extends Animal{
 		    @Override
 		    public void handle(ActionEvent event){
 		          sq.getChildren().clear();
+		          if(!GameLogic.isGameRunning) return;
 		          Path path = new Path(); 
-			      MoveTo moveTo = new MoveTo(body.getTranslateX() + 30, body.getTranslateY()+ 30);
+			      MoveTo moveTo = new MoveTo(body.getTranslateX() + WOLF_SIZE/2, body.getTranslateY()+ WOLF_SIZE/2);
 			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
+			      if(nextIndex.equals(getIndex())) return;
 			      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
 			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
 			      path.getElements().add(moveTo); 
@@ -98,12 +102,12 @@ public class Wolf extends Animal{
 		// TODO Auto-generated method stub
 		isRunning = true;
 	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/wolf_"+i+".png"));
+	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	    //Image wolf = new Image("file:res/animal/wolf_1.png", 60, 60, false, false);
 	  	body.setImage(img.get(0));
-	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-30);
-	  	body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-30);
+	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-WOLF_SIZE/2);
+	  	body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-WOLF_SIZE/2);
 	}
 
 	@Override
@@ -217,7 +221,7 @@ public class Wolf extends Animal{
 				}
 			}
 		}
-	return bestBlock;
+		return bestBlock;
 	}
 	
 	
