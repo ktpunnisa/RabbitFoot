@@ -1,20 +1,27 @@
 package character;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utility.Pair;
 
 public abstract class Animal {
 	
 	public Pair index;
-	public int speed;
+	public double speed; 
 	public int direction;
 	public int z;
 	
 	public ImageView body;
 	public SequentialTransition sq;
+	public List<Image> img = new ArrayList<>();
+	public boolean isRunning;
 	
-	public Animal(Pair index, int speed, int direction, int z)
+	public Animal(Pair index, double speed, int direction, int z)
 	{
 		this.index = index;
 		this.speed = speed;
@@ -26,8 +33,8 @@ public abstract class Animal {
 	}
 	
 	//animation
-	public abstract void startRuning();
-	public abstract void stopRuning();
+	public abstract void startRunning();
+	public abstract void stopRunning();
 	public abstract void runLoop();
 	public abstract boolean isVisible();
 	
@@ -46,7 +53,7 @@ public abstract class Animal {
 	public void setIndex(Pair index) {
 		this.index = index;
 	}
-	public int getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 	public void setSpeed(int speed) {
