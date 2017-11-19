@@ -2,6 +2,7 @@ package game;
 
 import application.Main;
 import character.CharacterHolder;
+import javafx.application.Platform;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -42,11 +43,7 @@ public class GameCamera {
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
 				
-				Node rabbitBody = CharacterHolder.aniData.get(0).body;
-				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
-				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
-				
-				System.out.println(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
+				updateMap();
 			}
 			
 			try {
@@ -57,6 +54,19 @@ public class GameCamera {
 			}
 		}
 	}
+	
+	private void updateMap()
+	{
+		Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+            		Node rabbitBody = CharacterHolder.aniData.get(0).body;
+				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
+				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
+            }
+        });
+	}
+	
 	public void rotateMap(int val)
 	{
 		return;

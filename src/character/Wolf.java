@@ -14,6 +14,7 @@ import game.GameMain;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -80,14 +81,16 @@ public class Wolf extends Animal{
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
-		        		  sq.play();
-		        		  runLoop(true);
+		        	  	  Platform.runLater(() -> {
+		        	  		  sq.play();
+		        	  		  runLoop();
+		        	  	  });
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
 		    }
 		});
-	    sq.play();
+		Platform.runLater(() -> sq.play());
 	}
 
 	@Override
@@ -115,7 +118,7 @@ public class Wolf extends Animal{
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
-					body.setImage(img.get(i));
+						updateWolf(i);
 					try {
 						Thread.sleep((long) ((1000*speed)/4));
 					} catch (Exception e) {
@@ -127,6 +130,10 @@ public class Wolf extends Animal{
 		}).start();
 	}
 
+	private void updateWolf(int i)
+	{
+		Platform.runLater(() -> body.setImage(img.get(i)));
+	}
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub

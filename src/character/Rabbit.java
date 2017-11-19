@@ -4,6 +4,7 @@ import application.Main;
 import game.GameMain;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -18,6 +19,7 @@ import map.MapHolder;
 import utility.Pair;
 
 public class Rabbit extends Animal {
+	int id = 0;
 	public Rabbit(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
 		startRunning();
@@ -49,35 +51,35 @@ public class Rabbit extends Animal {
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
-		        	  sq.play();
-		        	  if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
-				    		  MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
-		        		  runLoop(true);
-				      }
-		        	  else {
-		        		  runLoop(false);
-		        	  }
-		        	  
+		        	  	  Platform.runLater(() -> {
+		        	  		    sq.play();
+		        	          if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+				    		            MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+		        		              runLoop(true);
+				                }
+		        	          else {
+		        		              runLoop(false);
+		        	          }
+		        	  	  });
 		          }
 		          setIndex(nextIndex);
 		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
 		    }
 		});
-	    sq.play();
+		Platform.runLater(() -> sq.play());
+	    startRunning();
 	}
 
 	@Override
 	public void startRunning() {
 		// TODO Auto-generated method stub
 		isRunning = true;
-	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/rabbit_"+i+".png"));
+		for (int i = 1; i <= 4; i++) {
+			img.add(new Image("file:res/character/rabbit_"+i+".png"));
 	    }
-		//Image rabbit = new Image("file:res/character/rabbit_1.png", 40, 40, false, false);
 		body.setImage(img.get(0));
 		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-20);
 		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-20);
-		
 	}
 
 	@Override
@@ -94,7 +96,7 @@ public class Rabbit extends Animal {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
-					body.setImage(img.get(i));
+						updateRabbit(i);
 					try {
 						if(jumpNow) {
 							Thread.sleep((long) ((1000*speed)*sleepJump[i]));
@@ -110,7 +112,12 @@ public class Rabbit extends Animal {
 			}	
 		}).start();
 	}
-
+	
+	private void updateRabbit(int i)
+	{
+		Platform.runLater(() -> body.setImage(img.get(i)));
+	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
