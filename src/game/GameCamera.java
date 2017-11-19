@@ -46,7 +46,7 @@ public class GameCamera {
 				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
 				
-				System.out.println("running");
+				System.out.println(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 			}
 			
 			try {
