@@ -4,6 +4,7 @@ import application.Main;
 import game.GameMain;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
@@ -13,15 +14,13 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import map.JumpBlock;
 import map.MapHolder;
 import utility.Pair;
 
 public class Rabbit extends Animal {
-	boolean canJump;
+	int id = 0;
 	public Rabbit(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
-		canJump = true;
 		startRunning();
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
@@ -53,20 +52,19 @@ public class Rabbit extends Animal {
 		    }
 		});
 	    sq.play();
+	    startRunning();
 	}
 
 	@Override
 	public void startRunning() {
 		// TODO Auto-generated method stub
 		isRunning = true;
-	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/rabbit_"+i+".png"));
+		for (int i = 1; i <= 4; i++) {
+			img.add(new Image("file:res/character/rabbit_"+i+".png"));
 	    }
-		//Image rabbit = new Image("file:res/character/rabbit_1.png", 40, 40, false, false);
 		body.setImage(img.get(0));
 		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-20);
 		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-20);
-		
 	}
 
 	@Override
@@ -82,18 +80,27 @@ public class Rabbit extends Animal {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
-					body.setImage(img.get(i));
+					updateRabbit(i);
 					try {
 						Thread.sleep((long) ((1000*speed)/4));
 					} catch (Exception e) {
-						System.out.println("Some error occured!!! Thread cannot sleep");
 						e.printStackTrace();
 					}
 				}
 			}	
 		}).start();
 	}
-
+	
+	private void updateRabbit(int i)
+	{
+		Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+            		body.setImage(img.get(i));
+            }
+        });
+	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
@@ -102,16 +109,6 @@ public class Rabbit extends Animal {
 
 	@Override
 	public Pair nextBlock() {
-		if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock) {
-			System.out.println("JumpBox"+index);
-			int jumpDi = ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).direction;
-			System.out.println("DiR:"+Integer.toString(direction)+" DiJ"+Integer.toString(jumpDi));
-			if(Math.abs(this.direction - jumpDi)==3) {
-				return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
-			}
-			this.direction = jumpDi;
-			return ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).jumpTo;
-		}
 		return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 	}
 
