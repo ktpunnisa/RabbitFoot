@@ -15,12 +15,12 @@ public class RandomGenerator {
 		return from + RandomGenerator.rand.nextInt(to - from);
 	} 
 	public static Pair randomIndex() {
-		int x = RandomGenerator.random(0, 12);
-		int y = RandomGenerator.random(0, 12);
-		while(!(MapHolder.mapData.get(x).get(y) instanceof NormalBlock)) {
-			x = RandomGenerator.random(0, 12);
-			y = RandomGenerator.random(0, 12);
+		int x = RandomGenerator.random(0, 1100007)%13;
+		int y = RandomGenerator.random(0, 1100007)%13;
+		while(MapHolder.typeBlock[x][y] != 0) {
+			x = RandomGenerator.random(0, 1100007)%13;
+			y = RandomGenerator.random(0, 1100007)%13;
 		}
-		return new Pair(x,y); 
+		return new Pair(y,x); 
 	}
 }

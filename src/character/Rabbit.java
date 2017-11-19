@@ -29,6 +29,7 @@ public class Rabbit extends Animal {
 		    public void handle(ActionEvent event){
 		          sq.getChildren().clear();
 		          if(nextBlock()==null) {GameMain.gameOver();}
+		          
 		          Path path = new Path(); 
 			      MoveTo moveTo = new MoveTo(body.getTranslateX() + 20, body.getTranslateY()+ 20);
 			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());

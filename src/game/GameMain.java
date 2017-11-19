@@ -36,7 +36,7 @@ public class GameMain {
 	public static void gameOver() {
 		// TODO fill code
 		Alert alert = new Alert(AlertType.NONE, 
-                "Game Over!", 
+                "Game Over! Score: "+ Integer.toString(GameState.score) , 
                 ButtonType.OK);
 
 		alert.show();
