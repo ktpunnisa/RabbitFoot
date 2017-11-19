@@ -24,6 +24,7 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
+import map.JumpBlock;
 import map.MapHolder;
 import map.NormalBlock;
 import utility.Pair;
@@ -136,12 +137,15 @@ public class Wolf extends Animal{
 	public Pair nextBlock() {
 		// TODO Auto-generated method stub
 		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
-		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>(); 
-		Set<Pair> mark = new HashSet<Pair>();
-		Map<Pair,MyNode> ans = new HashMap<>();
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
-		q.add(new MyNode(index,Animal.distanceRW(r,index)));
+		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock) {
+			return bestBlock = lowNextBlock();
+		}
+		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>(); 
+		Set<Pair> mark = new HashSet<Pair>();
+		Map<Pair,MyNode> ans = new HashMap<>();	
+		q.add(new MyNode(index,index.distance(r)));
 		ans.put(index, new MyNode(index,0));
 		while(!q.isEmpty()) {
 			MyNode w = q.poll();
@@ -157,7 +161,7 @@ public class Wolf extends Animal{
 				Pair nextW = MapHolder.mapData.get(w.index.getY()).get(w.index.getX()).nextBlock[i];
 				if(nextW != null && !mark.contains(nextW)) {
 					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
-						int dis = Animal.distanceRW(r,nextW);
+						int dis = nextW.distance(r);
 						if(ans.containsKey(nextW) && (ans.get(w.index).dis+1 < ans.get(nextW).dis)){
 							ans.replace(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
 							q.add(new MyNode(nextW,dis));
@@ -172,10 +176,9 @@ public class Wolf extends Animal{
 				}
 			}
 		}
-		System.out.println("Find!");
-		System.out.println(r);
-		Pair tmp = r;
 		try {
+			//System.out.println("Find!");
+			Pair tmp = r;
 			while(ans.get(tmp).index!=index) {
 				//System.out.println(ans.get(tmp).index);
 				tmp = ans.get(tmp).index;
@@ -185,23 +188,29 @@ public class Wolf extends Animal{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			int min = 100;
-			for(int i = 0; i < 6; i++) {
-				Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-				if(nextW != null) {
-					//System.out.println("nextFox : "+Integer.toString(nextW.getX())+","+Integer.toString(nextW.getY()));
-					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
-						int dis = Animal.distanceRW(r,nextW);
-						if(dis < min) {
-							bestBlock = nextW;
-							min = dis;
-						}
+			lowNextBlock();
+		}
+		
+		return bestBlock;
+	}
+	
+	Pair lowNextBlock() {
+		Pair r = CharacterHolder.aniData.get(0).getIndex();
+		Pair bestBlock = null;
+		int min = 100;
+		for(int i = 0; i < 6; i++) {
+			Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
+			if(nextW != null) {
+				if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+					int dis = nextW.distance(r);
+					if(dis < min) {
+						bestBlock = nextW;
+						min = dis;
 					}
 				}
 			}
 		}
-		
-		return bestBlock;
+	return bestBlock;
 	}
 	
 	

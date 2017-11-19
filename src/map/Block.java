@@ -19,7 +19,7 @@ public abstract class Block {
 		this.nextBlock = getNextBlock(this.index);
 		for(int i=0;i<6;++i) {
 			if(nextBlock[i].getX()<0 || nextBlock[i].getY() < 0 || nextBlock[i].getX()>=13 || nextBlock[i].getY()>=13) nextBlock[i] = null;
-			else if(MapHolder.voidBlock[nextBlock[i].getY()][nextBlock[i].getX()]==1) nextBlock[i] = null;
+			else if(MapHolder.typeBlock[nextBlock[i].getY()][nextBlock[i].getX()]==1) nextBlock[i] = null;
 		}
 	}
 	
@@ -41,14 +41,11 @@ public abstract class Block {
 				temp = new Pair[]{
 						new Pair(x-1,y-1),
 						new Pair(x,y-1),
-						new Pair(x+1,y-1),
 						new Pair(x+1,y),
 						new Pair(x,y+1),
+						new Pair(x-1,y+1),
 						new Pair(x-1,y)
-				};
-		
-			
-			
+				};	
 		}
 		else {
 			temp = new Pair[]{

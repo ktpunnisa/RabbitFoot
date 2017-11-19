@@ -14,7 +14,7 @@ import utility.Pair;
 public class MapHolder {
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
-	public static int[][] voidBlock = new int[][] {
+	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
 		{0,0,0,0,0,0,0,0,1,1,1,1,1},
 		{0,0,0,0,0,0,0,0,0,1,1,1,1},
@@ -43,13 +43,13 @@ public class MapHolder {
 			for(int j=0;j<13-Math.abs(i);++j)
 			{
 				Block temp;
-				if(voidBlock[i+6][j]==0) {
+				if(typeBlock[i+6][j]==0) {
 					temp = new NormalBlock(j,i+6,count);
 				}
-				else if(voidBlock[i+6][j]==1) {
+				else if(typeBlock[i+6][j]==1) {
 					temp = new VoidBlock(j,i+6,count);
 				}
-				else if(voidBlock[i+6][j]==2) {
+				else if(typeBlock[i+6][j]==2) {
 					temp = new JumpBlock(j,i+6,count);
 				}
 				else {
