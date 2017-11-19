@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.util.Duration;
 import map.MapHolder;
 import ui.UIGame;
@@ -24,20 +25,22 @@ public class GameCamera {
 	public UIGame gameUI;
 	public Thread gameCamera;
 	public boolean isTracking;
-	public int degree;
 	public int prevDirection;
+	public int prevDegree;
 	
 	public GameCamera(UIGame gameUI)
 	{
 		this.gameUI = gameUI;
 		this.isTracking = false;
 		this.prevDirection = CharacterHolder.aniData.get(0).direction;
+		this.prevDegree = 0;
 		Rotate r = new Rotate();
 		r.setAngle(-30);
 		r.setPivotX(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getX());
 		r.setPivotY(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getY());
 		Platform.runLater(() -> gameUI.getTransforms().add(r));
 		Platform.runLater(() -> CharacterHolder.aniData.get(0).body.getTransforms().add(new Rotate(30,Rabbit.RABBIT_SIZE/2,Rabbit.RABBIT_SIZE/2)));
+		//RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*CharacterHolder.aniData.get(0).speed),CharacterHolder.aniData.get(0).body);
 	}
 	public void startTrack()
 	{
@@ -80,23 +83,36 @@ public class GameCamera {
             		double y = gameUI.getScene().getHeight()/2-(test.getMinY()+test.getMaxY())/2;
             		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getTranslateX() + x));
             		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getTranslateY() + y));
-            		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
+            		/*Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
             		if(prevDirection != rabbit.direction) {
-	            		degree = 60*(rabbit.direction-1);
-	            		System.out.println(degree);
-	            		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
+            			RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
+	            		int degree = (60*(rabbit.direction+5))%360;
+	            		if(prevDegree==0 && degree==300) degree = -60;
 	            		rabbitRotation.setToAngle(degree);
 	            		rabbitRotation.setCycleCount(1);
-	                 Platform.runLater(() -> rabbitRotation.play());
+	                 rabbitRotation.play();
 	                 
-	                 prevDirection = rabbit.direction;
-            		}
+	                Rotate r = new Rotate();
+	         		r.setAngle(60*(prevDirection-rabbit.direction));
+	         		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
+	         		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
+	         		gameUI.getTransforms().add(r);
+	                prevDirection = rabbit.direction;
+	                prevDegree = (degree+360)%360;
+            		}*/
             }
         });
 	}
 	
 	public void rotateMap(int val)
 	{   
+		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
+		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
+		int degree = (60*(rabbit.direction+5))%360;
+		if(prevDegree==0 && degree==300) degree = -60;
+		rabbitRotation.setToAngle(degree);
+		rabbitRotation.setCycleCount(1);
+		rabbitRotation.play();
 		Rotate r = new Rotate();
 		r.setAngle(60*val);
 		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
