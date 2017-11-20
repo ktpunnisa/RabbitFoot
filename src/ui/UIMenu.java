@@ -26,7 +26,7 @@ public class UIMenu extends Group {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
 		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-		            GameMain.newGame(5);
+		            GameMain.newGame(5,1);
 		        }
 		    }
 		});

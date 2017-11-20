@@ -35,7 +35,6 @@ public class Rabbit extends Animal {
 		          sq.getChildren().clear();
 		          if(!GameLogic.isGameRunning) return;
 		          if(nextBlock()==null) {GameMain.gameOver();}
-		          
 		          Path path = new Path(); 
 			      MoveTo moveTo = new MoveTo(body.getTranslateX() + RABBIT_SIZE/2, body.getTranslateY() + RABBIT_SIZE/2);
 			      nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
@@ -53,7 +52,7 @@ public class Rabbit extends Animal {
 			      }
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
-			     // pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
+			      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
 			      pathTransition.setCycleCount(1);
 			      pathTransition.setAutoReverse(false); 
 		          sq.getChildren().add(pathTransition);

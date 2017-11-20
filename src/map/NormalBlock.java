@@ -41,13 +41,13 @@ public class NormalBlock extends Block{
 				@Override
 				public void run() {
 					try {
-						System.out.println("eat me!");
+						//System.out.println("eat me!");
 						setHasCarrot(false);
 						MapHolder.carrot.remove(index);
-						MapHolder.creatCarrot(); 
+						MapHolder.createCarrot(); 
 						Thread.sleep(1000);
 						GameState.score++;
-						System.out.println(Integer.toString(GameState.score));
+						//System.out.println(Integer.toString(GameState.score));
 						MapHolder.mapData.get(index.getY()).get(index.getX()).loadImage();
 					} catch (Exception e) {
 						System.out.println("Some error occured!!! can't eat");
