@@ -18,6 +18,9 @@ public class CharacterHolder {
 	
 	public CharacterHolder()
 	{
+		aniData = FXCollections.<Animal>observableArrayList();
+		Rabbit r = new Rabbit(new Pair(5,12), 1.2, 1, 0);
+		aniData.add(r);
 		comparator = (Animal o1, Animal o2) -> {
 			if(o1.getZ() > o2.getZ())
 				return 1;
@@ -26,10 +29,7 @@ public class CharacterHolder {
 	}
 	public static void genAnimal(int diff)
 	{
-		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
-		Rabbit r = new Rabbit(new Pair(5,12), 1.2, 1, 0);
-		aniData.add(r);
 		/*for(int i=0;i<diff;++i) {
 			Pair tmp = RandomGenerator.randomIndex();
 			while(tmp.distance(aniData.get(0).index)<=5) {
