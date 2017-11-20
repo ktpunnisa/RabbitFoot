@@ -2,6 +2,7 @@ package game;
 
 import character.Animal;
 import character.CharacterHolder;
+import map.MapHolder;
 import ui.UIGame;
 
 public class GameLogic {
@@ -57,6 +58,12 @@ public class GameLogic {
 			if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 				GameMain.stopGame();
 			}
+		}
+		while(MapHolder.carrot.size() < 10) {
+			MapHolder.createCarrot();
+		}
+		while(MapHolder.trap.size() < CharacterHolder.aniData.size()-1) {
+			MapHolder.createTrap();
 		}
 	}
 }

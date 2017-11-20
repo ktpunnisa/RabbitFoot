@@ -2,6 +2,7 @@ package map;
 
 import character.Animal;
 import character.CharacterHolder;
+import character.Rabbit;
 import game.GameState;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,9 +35,9 @@ public class NormalBlock extends Block{
 	}
 
 	@Override
-	public void checkEvent() {
+	public void checkEvent(Animal animal) {
 		// TODO Auto-generated method stub
-		if(this.index.equals(CharacterHolder.aniData.get(0).index) && hasCarrot) {
+		if(animal instanceof Rabbit && hasCarrot) {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -68,7 +69,6 @@ public class NormalBlock extends Block{
 
 	public void setHasCarrot(Boolean hasCarrot) {
 		this.hasCarrot = hasCarrot;
-		
 	}
 	
 

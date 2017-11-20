@@ -19,7 +19,7 @@ public class GameState {
 		map = new MapHolder();
 		map.genMap(diff);
 		character = new CharacterHolder();
-		character.genAnimal(diff,wolf);
+		character.genAnimal(diff);
 	}
 
 }

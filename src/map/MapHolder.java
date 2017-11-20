@@ -18,6 +18,8 @@ public class MapHolder {
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
 	public static Set<Pair> carrot = new HashSet<Pair>();
+	public static Set<Pair> trap = new HashSet<Pair>();
+	public static int count = 0;
 	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
 		{0,0,0,0,0,0,0,0,1,1,1,1,1},
@@ -39,7 +41,7 @@ public class MapHolder {
 	}
 	public void genMap(int diff)
 	{
-		int count = 0;
+		count = 0;
 		mapData = FXCollections.<List<Block>>observableArrayList();
 		for(int i=-6;i<=6;++i)
 		{
@@ -74,10 +76,7 @@ public class MapHolder {
 			}
 			mapData.add(tempRow);
 		}
-		while(carrot.size() < 10) {
-			createCarrot();
-		}
-		createTrap();
+		//createTrap();
 		
 	}
 	private Polygon draw(double x, double y)
@@ -105,10 +104,36 @@ public class MapHolder {
 	}
 	public static void createTrap() {
 		Pair tmp = RandomGenerator.randomIndex();
-		while(carrot.contains(tmp)) {
+		while(trap.contains(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		//do something to change normal to trap
+		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), count++);
+		int i = tmp.getY() - 6;
+		int j = tmp.getX();
+		double x = 0;
+		double y = 0;
+		if(tmp.getY()%2==0) {
+			tb.position=new Point2D(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE + BLOCK_SIZE/Math.sqrt(3));
+			x = BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE;
+			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE;
+		}
+		else {
+			tb.position=new Point2D((Math.abs(i)+1+2*j)/2*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +5*BLOCK_SIZE/(2*Math.sqrt(3)));
+			x = (Math.abs(i)+1+2*j)/2*BLOCK_SIZE;
+			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +3*BLOCK_SIZE/(2*Math.sqrt(3));
+		}
+		Polygon a = new Polygon();
+		a.setStrokeWidth(2);
+		a.getPoints().addAll(x,y);
+		a.getPoints().addAll(x+BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
+		a.getPoints().addAll(x+BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
+		a.getPoints().addAll(x,y+2*BLOCK_SIZE/Math.sqrt(3));
+		a.getPoints().addAll(x-BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
+		a.getPoints().addAll(x-BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
+		tb.hexagon=a;
+		tb.loadImage();
+		mapData.get(tmp.getY()).set(tmp.getX(), tb);
 	}
 	public static void deleteTrap(Pair index)
 	{

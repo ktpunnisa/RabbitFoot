@@ -23,20 +23,19 @@ public class CharacterHolder {
 			return -1;
 		};
 	}
-	public void genAnimal(int diff,int wolfCount)
+	public void genAnimal(int diff)
 	{
 		aniData = FXCollections.<Animal>observableArrayList();
 		//temp
 		Rabbit r = new Rabbit(new Pair(4,3), 1.2, 1, 0);
 		aniData.add(r);
-		for(int i=0; i<wolfCount; i++) {
-			Pair tmp = RandomGenerator.randomIndex();
-			while(tmp.distance(aniData.get(0).index)<=5) {
-				tmp = RandomGenerator.randomIndex();
-			}
-			Wolf w = new Wolf(tmp, 1, 1, 0);
-			aniData.add(w);
+		Pair tmp = RandomGenerator.randomIndex();
+		while(tmp.distance(aniData.get(0).index)<=5) {
+			tmp = RandomGenerator.randomIndex();
 		}
+		Wolf w = new Wolf(tmp, 1, 1, 0);
+		aniData.add(w);
+		
 	}
 	public void add(Animal animal)
 	{

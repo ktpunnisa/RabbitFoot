@@ -23,18 +23,22 @@ public class Rabbit extends Animal {
 	
 	public static int RABBIT_SIZE = 40;
 	public static Pair nextIndex;
+	public Animal instance;
 	int id = 0;
 	
 	public Rabbit(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
+		this.instance = this;
 		startRunning();
 		sq.setCycleCount(1);
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event){
 		          sq.getChildren().clear();
+		          
 		          if(!GameLogic.isGameRunning) return;
-		          if(nextBlock()==null) {GameMain.gameOver();}
+		          if(nextBlock()==null) {GameMain.stopGame();}
+		          
 		          Path path = new Path(); 
 			      MoveTo moveTo = new MoveTo(body.getTranslateX() + RABBIT_SIZE/2, body.getTranslateY() + RABBIT_SIZE/2);
 			      nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
@@ -69,7 +73,7 @@ public class Rabbit extends Animal {
 		        	  	  });
 		          }
 		          setIndex(nextIndex);
-		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
+		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent(instance);
 		    }
 		});
 		Platform.runLater(() -> sq.play());

@@ -1,5 +1,6 @@
 package map;
 
+import character.Animal;
 import javafx.scene.paint.Color;
 
 public class VoidBlock extends Block {
@@ -16,7 +17,7 @@ public class VoidBlock extends Block {
 	}
 
 	@Override
-	public void checkEvent() {
+	public void checkEvent(Animal animal) {
 		// TODO Auto-generated method stub
 		
 	}

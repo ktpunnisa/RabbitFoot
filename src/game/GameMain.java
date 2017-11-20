@@ -16,8 +16,8 @@ public class GameMain {
 	public static GameCamera camera;
 	private static UIGame gameUI;
 	
-	public static void newGame(int diff,int wolf) {
-		state = new GameState(diff,wolf);
+	public static void newGame(int diff) {
+		state = new GameState(diff);
 		gameUI = new UIGame(state);
 		camera = new GameCamera(gameUI);
 		logic = new GameLogic(gameUI, state, camera);

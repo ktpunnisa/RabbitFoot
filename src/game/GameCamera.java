@@ -49,7 +49,6 @@ public class GameCamera {
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-				
 				updateMap();
 			}
 			

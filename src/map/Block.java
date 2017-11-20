@@ -61,5 +61,5 @@ public abstract class Block {
 		
 	}
 	public abstract void loadImage();
-	public abstract void checkEvent();
+	public abstract void checkEvent(Animal animal);
 }

@@ -56,9 +56,10 @@ public class Wolf extends Animal{
 	
 	public static int WOLF_SIZE = 60;
 	int id = 0;
-	
+	public Animal instance;
 	public Wolf(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
+		instance = this;
 		// TODO Auto-generated constructor stub
 		startRunning();
 		//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
@@ -91,7 +92,7 @@ public class Wolf extends Animal{
 		        	  	  });
 		          }
 		          setIndex(nextIndex);
-		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent();
+		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent(instance);
 		    }
 		});
 		Platform.runLater(() -> sq.play());
