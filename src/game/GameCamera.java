@@ -109,10 +109,10 @@ public class GameCamera {
 		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
 		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
 		int degree = (60*(rabbit.direction+5))%360;
-		if(prevDegree==0 && degree==300) degree = -60;
 		rabbitRotation.setToAngle(degree);
 		rabbitRotation.setCycleCount(1);
 		rabbitRotation.play();
+		prevDegree = (degree+360)%360;
 		Rotate r = new Rotate();
 		r.setAngle(60*val);
 		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
@@ -122,5 +122,14 @@ public class GameCamera {
 		a.setTranslateX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX()-5);
 		a.setTranslateY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY()-5);
 		UIGame.globalMap.getChildren().add(a);*/
+		/*Rotate r = new Rotate();
+		//r.setAngle(60*val);
+		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
+		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
+		gameUI.getTransforms().add(r);
+		 Timeline timeline = new Timeline(
+	                new KeyFrame(Duration.ZERO, new KeyValue(r.angleProperty(), 0)),
+	                new KeyFrame(Duration.seconds(1), new KeyValue(r.angleProperty(), 60*val)));
+		 Platform.runLater(() -> timeline.play());*/
 	}
 }
