@@ -77,7 +77,6 @@ public class Rabbit extends Animal {
 		    }
 		});
 		Platform.runLater(() -> sq.play());
-	    startRunning();
 	}
 
 	@Override

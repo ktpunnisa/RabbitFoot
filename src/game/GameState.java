@@ -22,6 +22,7 @@ public class GameState {
 		map.genMap(diff);
 		character = new CharacterHolder();
 		GameState.diff = diff;
+		GameState.level = diff;
 		CharacterHolder.genAnimal(diff);
 	}
 
