@@ -1,6 +1,7 @@
 package character;
 
 import application.Main;
+import game.GameLogic;
 import game.GameMain;
 import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
@@ -19,7 +20,11 @@ import map.MapHolder;
 import utility.Pair;
 
 public class Rabbit extends Animal {
+	
+	public static int RABBIT_SIZE = 40;
+	public static Pair nextIndex;
 	int id = 0;
+	
 	public Rabbit(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
 		startRunning();
@@ -27,11 +32,12 @@ public class Rabbit extends Animal {
 		sq.setOnFinished(new EventHandler<ActionEvent>(){
 		    @Override
 		    public void handle(ActionEvent event){
-		          sq.getChildren().clear();   
+		          sq.getChildren().clear();
+		          if(!GameLogic.isGameRunning) return;
 		          if(nextBlock()==null) {GameMain.gameOver();}
 		          Path path = new Path(); 
-			      MoveTo moveTo = new MoveTo(body.getTranslateX() + 20, body.getTranslateY()+ 20);
-			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
+			      MoveTo moveTo = new MoveTo(body.getTranslateX() + RABBIT_SIZE/2, body.getTranslateY() + RABBIT_SIZE/2);
+			      nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
 			      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
 			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
 			      path.getElements().add(moveTo); 
@@ -39,10 +45,10 @@ public class Rabbit extends Animal {
 			      PathTransition pathTransition = new PathTransition();
 			      if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
 			    		  MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
-			    	  pathTransition.setDuration(Duration.millis(1000*speed));
+			    	  	pathTransition.setDuration(Duration.millis(1000*speed));
 			      }
 			      else {
-			    	  pathTransition.setDuration(Duration.millis(1000));
+			    	  	pathTransition.setDuration(Duration.millis(1000));
 			      }
 			      pathTransition.setNode(body); 
 			      pathTransition.setPath(path);  
@@ -52,14 +58,14 @@ public class Rabbit extends Animal {
 		          sq.getChildren().add(pathTransition);
 		          if(!sq.getChildren().isEmpty()) {
 		        	  	  Platform.runLater(() -> {
-		        	  		    sq.play();
-		        	          if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
-				    		            MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
-		        		              runLoop(true);
-				                }
-		        	          else {
-		        		              runLoop(false);
-		        	          }
+		        	  		    	sq.play();
+			        	        if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock &&
+			        	        		MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()) instanceof JumpBlock) {
+			        		    		runLoop(true);
+					        	}
+			        	        else {
+			        	        		runLoop(false);
+			        	        }
 		        	  	  });
 		          }
 		          setIndex(nextIndex);
@@ -75,11 +81,11 @@ public class Rabbit extends Animal {
 		// TODO Auto-generated method stub
 		isRunning = true;
 		for (int i = 1; i <= 4; i++) {
-			img.add(new Image("file:res/character/rabbit_"+i+".png"));
+			img.add(new Image("file:res/character/rabbit_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
 		body.setImage(img.get(0));
-		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-20);
-		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-20);
+		body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-RABBIT_SIZE/2);
+		body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-RABBIT_SIZE/2);
 	}
 
 	@Override
@@ -138,8 +144,4 @@ public class Rabbit extends Animal {
 		}
 		return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 	}
-
-	
-	
-
 }
