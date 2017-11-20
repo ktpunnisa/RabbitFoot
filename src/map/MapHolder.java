@@ -76,8 +76,6 @@ public class MapHolder {
 			}
 			mapData.add(tempRow);
 		}
-		//createTrap();
-		
 	}
 	private Polygon draw(double x, double y)
 	{

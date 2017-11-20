@@ -54,6 +54,10 @@ public class GameLogic {
 	
 	private void updateGame()
 	{
+		if(CharacterHolder.aniData.size()==1) {
+			GameState.diff+=1;
+			CharacterHolder.genAnimal(GameState.diff);
+		}
 		for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 			if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 				GameMain.stopGame();
