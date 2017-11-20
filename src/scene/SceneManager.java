@@ -9,7 +9,7 @@ import ui.UIMenu;
 public class SceneManager {
 	
 	private static Stage primaryStage;
-	private static Group mainMenu;
+	private static Pane mainMenu;
 	private static Scene mainScene;
 	private static Pane mainFrame;
 	public static final int SCENE_WIDTH = 800;
@@ -26,18 +26,24 @@ public class SceneManager {
 	}
 	
 	public static void gotoMenu() {
-		//TODO Fill Code
 		primaryStage.setScene(mainScene);
 		mainMenu.requestFocus();
 	}
 
 	public static void gotoScene(Group group) {
-		//TODO Fill Code
 		Pane gameFrame = new Pane(group);
 		gameFrame.setPrefWidth(SCENE_WIDTH);
 		gameFrame.setPrefHeight(SCENE_HEIGHT);
 		Scene gameScene = new Scene(gameFrame);
 		primaryStage.setScene(gameScene);
 		group.requestFocus();
+	}
+	
+	public static void gotoScene(Pane gameFrame) {
+		gameFrame.setPrefWidth(SCENE_WIDTH);
+		gameFrame.setPrefHeight(SCENE_HEIGHT);
+		Scene gameScene = new Scene(gameFrame);
+		primaryStage.setScene(gameScene);
+		gameFrame.requestFocus();
 	}
 }

@@ -1,5 +1,6 @@
 package map;
 
+import character.Animal;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -48,7 +49,7 @@ public class JumpBlock extends Block {
 	}
 
 	@Override
-	public void checkEvent() {
+	public void checkEvent(Animal animal) {
 		// TODO Auto-generated method stub
 		
 	}

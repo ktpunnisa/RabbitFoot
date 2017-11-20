@@ -25,22 +25,12 @@ public class GameCamera {
 	public UIGame gameUI;
 	public Thread gameCamera;
 	public boolean isTracking;
-	public int prevDirection;
-	public int prevDegree;
 	
 	public GameCamera(UIGame gameUI)
 	{
 		this.gameUI = gameUI;
 		this.isTracking = false;
-		this.prevDirection = CharacterHolder.aniData.get(0).direction;
-		this.prevDegree = 0;
-		Rotate r = new Rotate();
-		r.setAngle(-30);
-		r.setPivotX(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getX());
-		r.setPivotY(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getY());
-		Platform.runLater(() -> gameUI.getTransforms().add(r));
-		Platform.runLater(() -> CharacterHolder.aniData.get(0).body.getTransforms().add(new Rotate(30,Rabbit.RABBIT_SIZE/2,Rabbit.RABBIT_SIZE/2)));
-		//RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*CharacterHolder.aniData.get(0).speed),CharacterHolder.aniData.get(0).body);
+		
 	}
 	public void startTrack()
 	{
@@ -59,7 +49,6 @@ public class GameCamera {
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-				
 				updateMap();
 			}
 			
@@ -78,49 +67,9 @@ public class GameCamera {
             @Override
             public void run() {
             		Node rabbitBody = CharacterHolder.aniData.get(0).body;
-            		Bounds test = rabbitBody.localToScene(rabbitBody.getBoundsInLocal());
-            		double x = gameUI.getScene().getWidth()/2-(test.getMinX()+test.getMaxX())/2;
-            		double y = gameUI.getScene().getHeight()/2-(test.getMinY()+test.getMaxY())/2;
-            		Platform.runLater(() -> gameUI.setTranslateX(gameUI.getTranslateX() + x));
-            		Platform.runLater(() -> gameUI.setTranslateY(gameUI.getTranslateY() + y));
-            		/*Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
-            		if(prevDirection != rabbit.direction) {
-            			RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
-	            		int degree = (60*(rabbit.direction+5))%360;
-	            		if(prevDegree==0 && degree==300) degree = -60;
-	            		rabbitRotation.setToAngle(degree);
-	            		rabbitRotation.setCycleCount(1);
-	                 rabbitRotation.play();
-	                 
-	                Rotate r = new Rotate();
-	         		r.setAngle(60*(prevDirection-rabbit.direction));
-	         		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
-	         		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
-	         		gameUI.getTransforms().add(r);
-	                prevDirection = rabbit.direction;
-	                prevDegree = (degree+360)%360;
-            		}*/
+				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
+				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());
             }
         });
-	}
-	
-	public void rotateMap(int val)
-	{   
-		Rabbit rabbit = (Rabbit) CharacterHolder.aniData.get(0);
-		RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*rabbit.speed),rabbit.body);
-		int degree = (60*(rabbit.direction+5))%360;
-		if(prevDegree==0 && degree==300) degree = -60;
-		rabbitRotation.setToAngle(degree);
-		rabbitRotation.setCycleCount(1);
-		rabbitRotation.play();
-		Rotate r = new Rotate();
-		r.setAngle(60*val);
-		r.setPivotX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX());
-		r.setPivotY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY());
-		gameUI.getTransforms().add(r);
-		/*Rectangle a = new Rectangle(10,10);
-		a.setTranslateX(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getX()-5);
-		a.setTranslateY(MapHolder.mapData.get(Rabbit.nextIndex.getY()).get(Rabbit.nextIndex.getX()).position.getY()-5);
-		UIGame.globalMap.getChildren().add(a);*/
 	}
 }

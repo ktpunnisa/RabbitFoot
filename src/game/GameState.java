@@ -13,13 +13,14 @@ public class GameState {
 
 	public static int result;
 	public static int score = 0;
-
+	public static int diff;
 	public GameState(int diff)
 	{
 		map = new MapHolder();
 		map.genMap(diff);
 		character = new CharacterHolder();
-		character.genAnimal(diff,wolf);
+		GameState.diff = diff;
+		CharacterHolder.genAnimal(diff);
 	}
 
 }

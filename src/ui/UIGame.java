@@ -39,11 +39,9 @@ public class UIGame extends Group {
 			public void handle(KeyEvent event) {
 				if(event.getCode().equals(KeyCode.LEFT)) {
 					CharacterHolder.aniData.get(0).turnLeft();
-					GameMain.camera.rotateMap(1);
 				}
 				else if(event.getCode().equals(KeyCode.RIGHT)) {
 					CharacterHolder.aniData.get(0).turnRight();
-					GameMain.camera.rotateMap(-1);
 				}
 			}
 			

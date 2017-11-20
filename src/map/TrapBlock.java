@@ -1,6 +1,8 @@
 package map;
 
+import character.Animal;
 import character.CharacterHolder;
+import character.Wolf;
 import game.GameMain;
 import game.GameState;
 import javafx.scene.image.Image;
@@ -25,46 +27,47 @@ public class TrapBlock extends Block{
 	}
 
 	@Override
-	public void checkEvent() {
-		// TODO Auto-generated method stub
-		if(index.distance(CharacterHolder.aniData.get(0).index) >=10) {
-			MapHolder.deleteTrap(index);
-			MapHolder.createTrap();
+	public void checkEvent(Animal animal) {
+		if(animal instanceof Wolf) {
+			
 		}
-		if(index.equals((CharacterHolder.aniData.get(0).index))){
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try { 
-						Thread.sleep(1000);
-						//System.out.println(Integer.toString(GameState.score));
-						GameMain.gameOver();
-					} catch (Exception e) {
-						System.out.println("Some error occured!!! can't die");
-						e.printStackTrace();
-					}
-				}	
-			}).start();
-		}
-		int size = CharacterHolder.aniData.size();
-		for(i = size-1;i>=1;i--) {
-			if(index.equals((CharacterHolder.aniData.get(i).index))) {
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try { 
-							Thread.sleep(1000);
-							//System.out.println(Integer.toString(GameState.score));
-							CharacterHolder.aniData.remove(i);
-						} catch (Exception e) {
-							System.out.println("Some error occured!!! can't die");
-							e.printStackTrace();
-						}
-					}	
-				}).start();
-			}
-		}
-		
 		
 	}
 }
+/*if(index.distance(CharacterHolder.aniData.get(0).index) >=10) {
+	MapHolder.deleteTrap(index);
+	MapHolder.createTrap();
+}
+if(index.equals((CharacterHolder.aniData.get(0).index))){
+	new Thread(new Runnable() {
+		@Override
+		public void run() {
+			try { 
+				Thread.sleep(1000);
+				//System.out.println(Integer.toString(GameState.score));
+				GameMain.gameOver();
+			} catch (Exception e) {
+				System.out.println("Some error occured!!! can't die");
+				e.printStackTrace();
+			}
+		}	
+	}).start();
+}
+int size = CharacterHolder.aniData.size();
+for(i = size-1;i>=1;i--) {
+	if(index.equals((CharacterHolder.aniData.get(i).index))) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try { 
+					Thread.sleep(1000);
+					//System.out.println(Integer.toString(GameState.score));
+					CharacterHolder.aniData.remove(i);
+				} catch (Exception e) {
+					System.out.println("Some error occured!!! can't die");
+					e.printStackTrace();
+				}
+			}	
+		}).start();
+	}
+}*/
