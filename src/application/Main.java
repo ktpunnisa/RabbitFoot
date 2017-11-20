@@ -36,6 +36,10 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(event -> {
+			Platform.exit();
+			System.exit(0);
+		});
 	}
 	
 	@Override
