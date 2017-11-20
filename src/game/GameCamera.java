@@ -40,6 +40,7 @@ public class GameCamera {
 		r.setPivotY(MapHolder.mapData.get(CharacterHolder.aniData.get(0).index.getY()).get(CharacterHolder.aniData.get(0).index.getX()).position.getY());
 		Platform.runLater(() -> gameUI.getTransforms().add(r));
 		Platform.runLater(() -> CharacterHolder.aniData.get(0).body.getTransforms().add(new Rotate(30,Rabbit.RABBIT_SIZE/2,Rabbit.RABBIT_SIZE/2)));
+		
 		//RotateTransition rabbitRotation = new RotateTransition(Duration.millis(1000*CharacterHolder.aniData.get(0).speed),CharacterHolder.aniData.get(0).body);
 	}
 	public void startTrack()
