@@ -66,7 +66,7 @@ public class GameCamera {
 		Platform.runLater(new Runnable() {
             @Override
             public void run() {
-            		//ystem.out.println(CharacterHolder.aniData.size());
+            		//System.out.println(CharacterHolder.aniData.size());
             		Node rabbitBody = CharacterHolder.aniData.get(0).body;
 				gameUI.setTranslateX(gameUI.getScene().getWidth()/2 - rabbitBody.getTranslateX());
 				gameUI.setTranslateY(gameUI.getScene().getHeight()/2 - rabbitBody.getTranslateY());

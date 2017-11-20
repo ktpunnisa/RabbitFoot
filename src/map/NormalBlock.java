@@ -38,26 +38,11 @@ public class NormalBlock extends Block{
 	public void checkEvent(Animal animal) {
 		// TODO Auto-generated method stub
 		if(animal instanceof Rabbit && hasCarrot) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						//System.out.println("eat me!");
-						setHasCarrot(false);
-						MapHolder.carrot.remove(index);
-						MapHolder.createCarrot(); 
-						Thread.sleep(1000);
-						GameState.score++;
-						//System.out.println(Integer.toString(GameState.score));
-						MapHolder.mapData.get(index.getY()).get(index.getX()).loadImage();
-					} catch (Exception e) {
-						System.out.println("Some error occured!!! can't eat");
-						e.printStackTrace();
-					}
-				}	
-			}).start();
-			
-			
+			setHasCarrot(false);
+			MapHolder.carrot.remove(index);
+			MapHolder.createCarrot(); 
+			GameState.score++;
+			loadImage();
 		}
 		
 		
