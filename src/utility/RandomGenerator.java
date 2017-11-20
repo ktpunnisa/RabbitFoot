@@ -23,4 +23,8 @@ public class RandomGenerator {
 		}
 		return new Pair(y,x); 
 	}
+	
+	public static void setSeed(long seed) {
+		rand = new Random(seed);
+	}
 }
