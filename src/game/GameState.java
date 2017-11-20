@@ -14,6 +14,8 @@ public class GameState {
 	public static int result;
 	public static int score = 0;
 	public static int diff;
+	public static int level;
+	
 	public GameState(int diff)
 	{
 		map = new MapHolder();
