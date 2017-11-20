@@ -189,7 +189,7 @@ public class Wolf extends Animal{
 			}
 		}
 		try {
-			//System.out.println("Find!");
+			System.out.println("Find!");
 			Pair tmp = r;
 			while(ans.get(tmp).index!=index) {
 				//System.out.println(ans.get(tmp).index);

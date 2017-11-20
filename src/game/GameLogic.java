@@ -4,6 +4,7 @@ import character.Animal;
 import character.CharacterHolder;
 import map.MapHolder;
 import ui.UIGame;
+import utility.RandomGenerator;
 
 public class GameLogic {
 	
@@ -54,6 +55,8 @@ public class GameLogic {
 	
 	private void updateGame()
 	{
+		RandomGenerator.setSeed(System.nanoTime());
+		
 		if(CharacterHolder.aniData.size()==1) {
 			GameState.diff+=1;
 			CharacterHolder.genAnimal(GameState.diff);
