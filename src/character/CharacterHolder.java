@@ -30,14 +30,15 @@ public class CharacterHolder {
 	public static void genAnimal(int diff)
 	{
 		//temp
-		/*for(int i=0;i<diff;++i) {
+		System.out.println("gen wolf");
+		for(int i=0;i<diff;++i) {
 			Pair tmp = RandomGenerator.randomIndex();
 			while(tmp.distance(aniData.get(0).index)<=5) {
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 1, 1, 0);
+			Wolf w = new Wolf(tmp, 0.9, 1, 0);
 			aniData.add(w);
-		}*/
+		}
 	}
 	public void add(Animal animal)
 	{

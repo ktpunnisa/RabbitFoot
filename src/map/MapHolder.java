@@ -46,8 +46,7 @@ public class MapHolder {
 		for(int i=-6;i<=6;++i)
 		{
 			List<Block> tempRow = new ArrayList<>();
-			for(int j=0;j<13-Math.abs(i);++j)
-			{
+			for(int j=0;j<13-Math.abs(i);++j){
 				Block temp;
 				if(typeBlock[i+6][j]==0) {
 					temp = new NormalBlock(j,i+6,count);
@@ -105,8 +104,10 @@ public class MapHolder {
 		while(trap.contains(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
+		trap.add(tmp);
+		System.out.println("Trap"+Integer.toString(trap.size())+":"+tmp);
 		//do something to change normal to trap
-		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), count++);
+		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
 		int i = tmp.getY() - 6;
 		int j = tmp.getX();
 		double x = 0;
@@ -132,6 +133,8 @@ public class MapHolder {
 		tb.hexagon=a;
 		tb.loadImage();
 		mapData.get(tmp.getY()).set(tmp.getX(), tb);
+		//System.out.println("mapData: "+tmp+" "+mapData.get(tmp.getY()).get(tmp.getX()).getClass());
+		
 	}
 	public static void deleteTrap(Pair index)
 	{
