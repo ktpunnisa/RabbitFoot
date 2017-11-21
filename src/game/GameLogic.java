@@ -55,7 +55,7 @@ public class GameLogic {
 	
 	private void updateGame()
 	{
-		/*RandomGenerator.setSeed(System.nanoTime());
+		RandomGenerator.setSeed(System.nanoTime());
 		
 		if(CharacterHolder.aniData.size()==1) {
 			GameState.level+=GameState.diff;
@@ -72,6 +72,6 @@ public class GameLogic {
 		}
 		while(MapHolder.trap.size() < CharacterHolder.aniData.size()) {
 			MapHolder.createTrap();
-		}*/
+		}
 	}
 }
