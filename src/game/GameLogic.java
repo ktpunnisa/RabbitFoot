@@ -70,7 +70,7 @@ public class GameLogic {
 		while(MapHolder.carrot.size() < 10-GameState.diff) {
 			MapHolder.createCarrot();
 		}
-		while(MapHolder.trap.size() < CharacterHolder.aniData.size()) {
+		while(MapHolder.trap.size() < GameState.level) {
 			MapHolder.createTrap();
 		}
 	}

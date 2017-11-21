@@ -39,6 +39,8 @@ public class Rabbit extends Animal {
 		          if(!GameLogic.isGameRunning) return;
 		          if(nextBlock()==null) {GameMain.stopGame();}
 		          
+		          //System.out.println("Rabit : "+ nextBlock());
+		          
 		          Path path = new Path(); 
 			      MoveTo moveTo = new MoveTo(body.getTranslateX() + RABBIT_SIZE/2, body.getTranslateY() + RABBIT_SIZE/2);
 			      nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());

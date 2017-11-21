@@ -2,6 +2,7 @@ package map;
 
 import character.Animal;
 import character.CharacterHolder;
+import character.Rabbit;
 import character.Wolf;
 import game.GameMain;
 import game.GameState;
@@ -28,46 +29,16 @@ public class TrapBlock extends Block{
 
 	@Override
 	public void checkEvent(Animal animal) {
+		if(animal instanceof Rabbit) {
+			System.out.println("Rabbit die !!");
+			GameMain.stopGame();
+		}
 		if(animal instanceof Wolf) {
+			System.out.println("Wolf die !!");
+			CharacterHolder.aniData.remove(animal);
+			MapHolder.trap.remove(this);
 			
 		}
 		
 	}
 }
-/*if(index.distance(CharacterHolder.aniData.get(0).index) >=10) {
-	MapHolder.deleteTrap(index);
-	MapHolder.createTrap();
-}
-if(index.equals((CharacterHolder.aniData.get(0).index))){
-	new Thread(new Runnable() {
-		@Override
-		public void run() {
-			try { 
-				Thread.sleep(1000);
-				//System.out.println(Integer.toString(GameState.score));
-				GameMain.gameOver();
-			} catch (Exception e) {
-				System.out.println("Some error occured!!! can't die");
-				e.printStackTrace();
-			}
-		}	
-	}).start();
-}
-int size = CharacterHolder.aniData.size();
-for(i = size-1;i>=1;i--) {
-	if(index.equals((CharacterHolder.aniData.get(i).index))) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try { 
-					Thread.sleep(1000);
-					//System.out.println(Integer.toString(GameState.score));
-					CharacterHolder.aniData.remove(i);
-				} catch (Exception e) {
-					System.out.println("Some error occured!!! can't die");
-					e.printStackTrace();
-				}
-			}	
-		}).start();
-	}
-}*/
