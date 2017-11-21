@@ -29,6 +29,7 @@ import javafx.util.Duration;
 import map.JumpBlock;
 import map.MapHolder;
 import map.NormalBlock;
+import map.TrapBlock;
 import utility.Pair;
 
 class MyNode implements Comparable<MyNode>{
@@ -151,7 +152,13 @@ public class Wolf extends Animal{
 		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
-		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock) {
+		Boolean seeTrap = false;
+		if(index.distance(r)>=5){
+			seeTrap = true;
+		}
+		//if(!seeTrap)	System.out.println("not see trap");
+		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock ||
+				MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof TrapBlock ) {
 			return bestBlock = lowNextBlock();
 		}
 		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>(); 
@@ -172,7 +179,8 @@ public class Wolf extends Animal{
 			for(int i = 0; i < 6; i++) {
 				Pair nextW = MapHolder.mapData.get(w.index.getY()).get(w.index.getX()).nextBlock[i];
 				if(nextW != null && !mark.contains(nextW)) {
-					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
+					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock ||
+							(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof TrapBlock && !seeTrap)) {
 						int dis = nextW.distance(r);
 						if(ans.containsKey(nextW) && (ans.get(w.index).dis+1 < ans.get(nextW).dis)){
 							ans.replace(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
@@ -189,7 +197,7 @@ public class Wolf extends Animal{
 			}
 		}
 		try {
-			System.out.println("Find!");
+			//System.out.println("Find!");
 			Pair tmp = r;
 			while(ans.get(tmp).index!=index) {
 				//System.out.println(ans.get(tmp).index);
