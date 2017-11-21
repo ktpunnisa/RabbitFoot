@@ -103,30 +103,25 @@ public class Rabbit extends Animal {
 	public void runLoop(boolean jumpNow) {
 		// TODO Auto-generated method stub
 		double[] sleepJump = {0.1,0.1,0.6,0.1};
-		new Thread(new Runnable() {
+		Platform.runLater(() -> new Thread(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < 4; i++) {
 						updateRabbit(i);
-					try {
-						if(jumpNow) {
-							Thread.sleep((long) ((1000*speed)*sleepJump[i]));
-						}
-						else {
-							Thread.sleep((long) ((1000)/4));
-						}
-					} catch (Exception e) {
-						System.out.println("Some error occured!!! Thread cannot sleep");
-						e.printStackTrace();
-					}
 				}
 			}	
-		}).start();
+		}).start());
 	}
 	
 	private void updateRabbit(int i)
 	{
-		Platform.runLater(() -> body.setImage(img.get(i)));
+		body.setImage(img.get(i));
+		try {
+			Thread.sleep((long) ((1000)/4));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
