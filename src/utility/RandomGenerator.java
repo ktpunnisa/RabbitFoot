@@ -17,11 +17,11 @@ public class RandomGenerator {
 	public static Pair randomIndex() {
 		int x = RandomGenerator.random(0, 1100007)%13;
 		int y = RandomGenerator.random(0, 1100007)%13;
-		while(MapHolder.typeBlock[x][y] != 0) {
+		while(MapHolder.typeBlock[y][x] != 0) {
 			x = RandomGenerator.random(0, 1100007)%13;
 			y = RandomGenerator.random(0, 1100007)%13;
 		}
-		return new Pair(y,x); 
+		return new Pair(x,y); 
 	}
 	
 	public static void setSeed(long seed) {

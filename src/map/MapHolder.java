@@ -91,7 +91,7 @@ public class MapHolder {
 	
 	public static void createCarrot() {
 		Pair tmp = RandomGenerator.randomIndex();
-		while(carrot.contains(tmp)) {
+		while(carrot.contains(tmp) || trap.contains(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		//System.out.println(Integer.toString(carrot.size())+":"+tmp);
@@ -101,18 +101,20 @@ public class MapHolder {
 	}
 	public static void createTrap() {
 		Pair tmp = RandomGenerator.randomIndex();
-		while(trap.contains(tmp)) {
+		while(trap.contains(tmp) || carrot.contains(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		trap.add(tmp);
 		System.out.println("Trap"+Integer.toString(trap.size())+":"+tmp);
 		//do something to change normal to trap
 		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
-		int i = tmp.getY() - 6;
+		tb.position = mapData.get(tmp.getY()).get(tmp.getX()).position;
+		tb.hexagon = mapData.get(tmp.getY()).get(tmp.getX()).hexagon;
+		/*int i = tmp.getY() - 6;
 		int j = tmp.getX();
 		double x = 0;
 		double y = 0;
-		if(tmp.getY()%2==0) {
+		if(i%2==0) {
 			tb.position=new Point2D(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE + BLOCK_SIZE/Math.sqrt(3));
 			x = BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE;
 			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE;
@@ -122,6 +124,7 @@ public class MapHolder {
 			x = (Math.abs(i)+1+2*j)/2*BLOCK_SIZE;
 			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +3*BLOCK_SIZE/(2*Math.sqrt(3));
 		}
+		//System.out.println("x:"+tb.position.getX()+",y:"+tb.position.getY()+"oldx:"+mapData.get(tmp.getY()).get(tmp.getX()).position.getX()+"oldy:"+mapData.get(tmp.getY()).get(tmp.getX()).position.getY());
 		Polygon a = new Polygon();
 		a.setStrokeWidth(2);
 		a.getPoints().addAll(x,y);
@@ -130,9 +133,9 @@ public class MapHolder {
 		a.getPoints().addAll(x,y+2*BLOCK_SIZE/Math.sqrt(3));
 		a.getPoints().addAll(x-BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
 		a.getPoints().addAll(x-BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
-		tb.hexagon=a;
-		tb.loadImage();
+		tb.hexagon=a;*/
 		mapData.get(tmp.getY()).set(tmp.getX(), tb);
+		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 		//System.out.println("mapData: "+tmp+" "+mapData.get(tmp.getY()).get(tmp.getX()).getClass());
 		
 	}

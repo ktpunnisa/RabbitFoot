@@ -4,10 +4,17 @@ import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
 import game.GameState;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Duration;
 
 public class NormalBlock extends Block{
 
@@ -42,7 +49,9 @@ public class NormalBlock extends Block{
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
 			GameState.score++;
-			loadImage();
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
+			timeline.setCycleCount(1);
+			timeline.play();
 		}
 		
 		

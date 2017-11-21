@@ -33,7 +33,7 @@ public class CharacterHolder {
 		System.out.println("gen wolf");
 		for(int i=0;i<diff;++i) {
 			Pair tmp = RandomGenerator.randomIndex();
-			while(tmp.distance(aniData.get(0).index)<=5) {
+			while(tmp.distance(aniData.get(0).index)<=5 && !MapHolder.trap.contains(tmp)) {
 				tmp = RandomGenerator.randomIndex();
 			}
 			Wolf w = new Wolf(tmp, 0.9, 1, 0);
