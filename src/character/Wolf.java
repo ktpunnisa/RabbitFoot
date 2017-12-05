@@ -1,5 +1,6 @@
 package character;
 
+import java.util.AbstractQueue;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,8 +59,10 @@ public class Wolf extends Animal{
 	public static int WOLF_SIZE = 60;
 	int id = 0;
 	public Animal instance;
+	boolean runAway;
 	public Wolf(Pair index, double speed, int direction, int z) {
 		super(index, speed, direction, z);
+		runAway = true;
 		instance = this;
 		// TODO Auto-generated constructor stub
 		startRunning();
@@ -211,6 +214,24 @@ public class Wolf extends Animal{
 			lowNextBlock();
 		}
 		
+		if(runAway) {
+			Pair tmp = bestBlock;
+			for(int i=0;i<6;i++) {
+				Pair nextBlock = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
+				if(nextBlock == null)	continue;
+				if(MapHolder.typeBlock[nextBlock.getY()][nextBlock.getX()] !=3)	continue;				
+				if(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof NormalBlock ||
+							(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof TrapBlock && !seeTrap)) {
+					if(nextBlock.distance(bestBlock) > tmp.distance(bestBlock)){
+						tmp = nextBlock;
+					}
+					else if(nextBlock.distance(bestBlock) == tmp.distance(bestBlock) && nextBlock.distance(r) > tmp.distance(r)) {
+						tmp = nextBlock;
+					}
+				}
+			}
+			bestBlock = tmp;
+		}	
 		return bestBlock;
 	}
 	

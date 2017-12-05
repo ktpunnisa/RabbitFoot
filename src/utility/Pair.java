@@ -1,6 +1,15 @@
 package utility;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Queue;
+import java.util.Set;
+
+import map.MapHolder;
+
 
 public class Pair {
 	private int x;
@@ -50,7 +59,26 @@ public class Pair {
 	}
 	
 	public int distance(Pair o) {
-		return Math.abs(this.getX()-o.getX())+Math.abs(this.getY()-o.getY());
+		Queue<Pair> q = new LinkedList<Pair>();
+		Map<Pair,Integer> ans = new HashMap<>();	
+		q.add(this);
+		ans.put(this, 0);
+		while(!q.isEmpty()) {
+			Pair ind = q.poll();
+			if(ind.equals(o)){
+				break;
+			}
+			for(int i = 0; i<6;i++) {
+				Pair next = MapHolder.mapData.get(ind.getY()).get(ind.getX()).nextBlock[i];
+				if(next!=null && !ans.containsKey(next)) {
+					ans.put(next, ans.get(ind)+1);
+					q.add(next);
+				}
+			}
+		}
+		return ans.get(o);
+		
+		
 	}
 	
 
