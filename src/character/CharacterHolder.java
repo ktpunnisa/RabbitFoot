@@ -15,11 +15,14 @@ import utility.RandomGenerator;
 public class CharacterHolder {
 	public static ObservableList<Animal> aniData;
 	private Comparator<Animal> comparator;
+	public static boolean inverse;
+
 	
 	public CharacterHolder()
 	{
+		inverse = true;
 		aniData = FXCollections.<Animal>observableArrayList();
-		Rabbit r = new Rabbit(new Pair(5,12), 1.2, 1, 0);
+		Rabbit r = new Rabbit(new Pair(5,12), 0.5, 1, 0,inverse);
 		aniData.add(r);
 		comparator = (Animal o1, Animal o2) -> {
 			if(o1.getZ() > o2.getZ())
@@ -36,7 +39,8 @@ public class CharacterHolder {
 			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) {
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 0.9, 1, 0);
+			System.out.println("wolf#"+(i+1)+" : "+tmp);
+			Wolf w = new Wolf(tmp, 1.5, 1, 0,inverse);
 			aniData.add(w);
 		}
 	}

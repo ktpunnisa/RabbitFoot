@@ -19,20 +19,22 @@ public class MapHolder {
 	public static ObservableList<List<Block>> mapData;
 	public static Set<Pair> carrot = new HashSet<Pair>();
 	public static Set<Pair> trap = new HashSet<Pair>();
+	public static Pair potion = new Pair(-1,-1);
+	public static Boolean hasPotion = false;
 	public static int count = 0;
 	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
-		{0,0,0,0,0,0,0,0,1,1,1,1,1},
-		{0,0,0,0,0,0,0,0,0,1,1,1,1},
-		{0,0,0,2,0,0,2,0,0,0,1,1,1},
-		{0,0,0,0,1,1,1,0,0,0,0,1,1},
-		{0,0,0,0,1,1,1,1,0,0,0,0,1},
-		{0,0,0,2,1,1,1,1,1,2,0,0,0},
-		{0,0,0,0,1,1,1,1,0,0,0,0,1},
-		{0,0,0,0,1,1,1,0,0,0,0,1,1},
-		{0,0,0,2,0,0,2,0,0,0,1,1,1},
-		{0,0,0,0,0,0,0,0,0,1,1,1,1},
-		{0,0,0,0,0,0,0,0,1,1,1,1,1},
+		{0,3,3,3,3,3,3,0,1,1,1,1,1},
+		{0,3,3,3,3,3,3,3,0,1,1,1,1},
+		{0,3,3,2,0,0,2,3,3,0,1,1,1},
+		{0,3,3,0,1,1,1,0,3,3,0,1,1},
+		{0,3,3,0,1,1,1,1,0,3,3,0,1},
+		{0,3,3,2,1,1,1,1,1,2,3,3,0},
+		{0,3,3,0,1,1,1,1,0,3,3,0,1},
+		{0,3,3,0,1,1,1,0,3,3,0,1,1},
+		{0,3,3,2,0,0,2,3,3,0,1,1,1},
+		{0,3,3,3,3,3,3,3,0,1,1,1,1},
+		{0,3,3,3,3,3,3,0,1,1,1,1,1},
 		{0,0,0,0,0,0,0,1,1,1,1,1,1}
 	};
 	public MapHolder()
@@ -48,7 +50,7 @@ public class MapHolder {
 			List<Block> tempRow = new ArrayList<>();
 			for(int j=0;j<13-Math.abs(i);++j){
 				Block temp;
-				if(typeBlock[i+6][j]==0) {
+				if(typeBlock[i+6][j]==0 ||typeBlock[i+6][j]==3) {
 					temp = new NormalBlock(j,i+6,count);
 				}
 				else if(typeBlock[i+6][j]==1) {
@@ -91,7 +93,7 @@ public class MapHolder {
 	
 	public static void createCarrot() {
 		Pair tmp = RandomGenerator.randomIndex();
-		while(carrot.contains(tmp) || trap.contains(tmp)) {
+		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		//System.out.println(Integer.toString(carrot.size())+":"+tmp);
@@ -101,7 +103,7 @@ public class MapHolder {
 	}
 	public static void createTrap() {
 		Pair tmp = RandomGenerator.randomIndex();
-		while(trap.contains(tmp) || carrot.contains(tmp)) {
+		while(trap.contains(tmp) || carrot.contains(tmp) || tmp.equals(potion)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		trap.add(tmp);
@@ -110,39 +112,40 @@ public class MapHolder {
 		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
 		tb.position = mapData.get(tmp.getY()).get(tmp.getX()).position;
 		tb.hexagon = mapData.get(tmp.getY()).get(tmp.getX()).hexagon;
-		/*int i = tmp.getY() - 6;
-		int j = tmp.getX();
-		double x = 0;
-		double y = 0;
-		if(i%2==0) {
-			tb.position=new Point2D(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE + BLOCK_SIZE/Math.sqrt(3));
-			x = BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE;
-			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE;
-		}
-		else {
-			tb.position=new Point2D((Math.abs(i)+1+2*j)/2*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +5*BLOCK_SIZE/(2*Math.sqrt(3)));
-			x = (Math.abs(i)+1+2*j)/2*BLOCK_SIZE;
-			y = ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +3*BLOCK_SIZE/(2*Math.sqrt(3));
-		}
-		//System.out.println("x:"+tb.position.getX()+",y:"+tb.position.getY()+"oldx:"+mapData.get(tmp.getY()).get(tmp.getX()).position.getX()+"oldy:"+mapData.get(tmp.getY()).get(tmp.getX()).position.getY());
-		Polygon a = new Polygon();
-		a.setStrokeWidth(2);
-		a.getPoints().addAll(x,y);
-		a.getPoints().addAll(x+BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
-		a.getPoints().addAll(x+BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
-		a.getPoints().addAll(x,y+2*BLOCK_SIZE/Math.sqrt(3));
-		a.getPoints().addAll(x-BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
-		a.getPoints().addAll(x-BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
-		tb.hexagon=a;*/
 		mapData.get(tmp.getY()).set(tmp.getX(), tb);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
-		//System.out.println("mapData: "+tmp+" "+mapData.get(tmp.getY()).get(tmp.getX()).getClass());
 		
 	}
 	public static void deleteTrap(Pair index)
 	{
-		//do something to change trap to normal
+		trap.remove(index);
+		System.out.println("delete Trap"+Integer.toString(trap.size())+":"+index);
+		//do something to change normal to trap
+		NormalBlock nb = new NormalBlock(index.getX(), index.getY(), mapData.get(index.getY()).get(index.getX()).id);
+		nb.position = mapData.get(index.getY()).get(index.getX()).position;
+		nb.hexagon = mapData.get(index.getY()).get(index.getX()).hexagon;
+		mapData.get(index.getY()).set(index.getX(), nb);
+		mapData.get(index.getY()).get(index.getX()).loadImage();
 		
 	}
+	
+	public static void createPotion() {
+		Pair tmp = RandomGenerator.randomIndex();
+		while(carrot.contains(tmp) || trap.contains(tmp)) {
+			tmp = RandomGenerator.randomIndex();
+		}
+		potion = tmp;
+		hasPotion = true;
+		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
+		mapData.get(potion.getY()).get(potion.getX()).loadImage();
+	}
+	public static void deletePotion() {
+		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
+		mapData.get(potion.getY()).get(potion.getX()).loadImage();
+		potion = new Pair(-1,-1);
+		hasPotion = false;
+	}
+	
+	
 	
 }

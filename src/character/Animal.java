@@ -21,13 +21,15 @@ public abstract class Animal {
 	public SequentialTransition sq;
 	public List<Image> img = new ArrayList<>();
 	public boolean isRunning;
+	public boolean inverse;
 	
-	public Animal(Pair index, double speed, int direction, int z)
+	public Animal(Pair index, double speed, int direction, int z,boolean inverse)
 	{
 		this.index = index;
 		this.speed = speed;
 		this.direction = direction;
 		this.z = z;
+		this.inverse = inverse;
 		
 		body = new ImageView();
 		sq = new SequentialTransition();
@@ -57,8 +59,8 @@ public abstract class Animal {
 	public double getSpeed() {
 		return speed;
 	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setSpeed(double d) {
+		this.speed = d;
 	}
 	public int getDirection() {
 		return direction;
@@ -73,6 +75,17 @@ public abstract class Animal {
 		this.z = z;
 	}
 
+	public boolean isInverse() {
+		return inverse;
+	}
+
+	public void setInverse(boolean inverse) {
+		this.inverse = inverse;
+	}
+
+
+
+	
 	
 	
 }

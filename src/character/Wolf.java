@@ -12,8 +12,6 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameMain;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -58,8 +56,8 @@ public class Wolf extends Animal{
 	public static int WOLF_SIZE = 60;
 	int id = 0;
 	public Animal instance;
-	public Wolf(Pair index, double speed, int direction, int z) {
-		super(index, speed, direction, z);
+	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
+		super(index, speed, direction, z,inverse);
 		instance = this;
 		// TODO Auto-generated constructor stub
 		startRunning();
@@ -211,6 +209,24 @@ public class Wolf extends Animal{
 			lowNextBlock();
 		}
 		
+		if(inverse) {
+			Pair tmp = bestBlock;
+			for(int i=0;i<6;i++) {
+				Pair nextBlock = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
+				if(nextBlock == null)	continue;
+				if(MapHolder.typeBlock[nextBlock.getY()][nextBlock.getX()] !=3)	continue;				
+				if(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof NormalBlock ||
+							(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof TrapBlock && !seeTrap)) {
+					if(nextBlock.distance(bestBlock) > tmp.distance(bestBlock)){
+						tmp = nextBlock;
+					}
+					else if(nextBlock.distance(bestBlock) == tmp.distance(bestBlock) && nextBlock.distance(r) > tmp.distance(r)) {
+						tmp = nextBlock;
+					}
+				}
+			}
+			bestBlock = tmp;
+		}	
 		return bestBlock;
 	}
 	
@@ -232,7 +248,7 @@ public class Wolf extends Animal{
 		}
 		return bestBlock;
 	}
-	
+
 	
 
 }

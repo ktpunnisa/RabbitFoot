@@ -17,7 +17,7 @@ public class RandomGenerator {
 	public static Pair randomIndex() {
 		int x = RandomGenerator.random(0, 1100007)%13;
 		int y = RandomGenerator.random(0, 1100007)%13;
-		while(MapHolder.typeBlock[y][x] != 0) {
+		while(MapHolder.typeBlock[y][x] == 1 || MapHolder.typeBlock[y][x] == 2) {
 			x = RandomGenerator.random(0, 1100007)%13;
 			y = RandomGenerator.random(0, 1100007)%13;
 		}

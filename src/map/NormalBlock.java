@@ -19,9 +19,11 @@ import javafx.util.Duration;
 public class NormalBlock extends Block{
 
 	Boolean hasCarrot;
+	Boolean hasPotion;
 	public NormalBlock(int x, int y, int c) {
 		super(x, y, c);
 		hasCarrot = false;
+		hasPotion = false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -31,6 +33,9 @@ public class NormalBlock extends Block{
 		Image img;
 		if(hasCarrot) {
 			img = new Image("file:res/block/carrot.png");
+		}
+		else if(hasPotion){
+			img = new Image("file:res/block/potion.png");
 		}
 		else {
 			img = new Image("file:res/block/grass.png");
@@ -54,7 +59,28 @@ public class NormalBlock extends Block{
 			timeline.play();
 		}
 		
-		
+		if(animal instanceof Rabbit && hasPotion) {
+			setHasPotion(false);
+			CharacterHolder.inverse = true;
+			for(Animal x : CharacterHolder.aniData) {
+				x.setInverse(true);
+				if(x instanceof Rabbit){
+					x.setSpeed(0.1);
+				}
+				else {
+					x.setSpeed(1.5);
+				}
+			}
+			MapHolder.deletePotion();
+		}		
+	}
+
+	public Boolean getHasPotion() {
+		return hasPotion;
+	}
+
+	public void setHasPotion(Boolean hasPotion) {
+		this.hasPotion = hasPotion;
 	}
 
 	public Boolean getHasCarrot() {

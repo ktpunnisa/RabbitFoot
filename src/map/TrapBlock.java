@@ -36,7 +36,7 @@ public class TrapBlock extends Block{
 		if(animal instanceof Wolf) {
 			System.out.println("Wolf die !!");
 			CharacterHolder.aniData.remove(animal);
-			MapHolder.trap.remove(this);
+			MapHolder.deleteTrap(index);
 			
 		}
 		
