@@ -150,10 +150,10 @@ public class Wolf extends Animal{
 		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
-		Boolean seeTrap = false;
-		if(index.distance(r)>=5){
+		Boolean seeTrap = true;
+		/*if(index.distance(r)>=5){
 			seeTrap = true;
-		}
+		}*/
 		//if(!seeTrap)	System.out.println("not see trap");
 		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock ||
 				MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof TrapBlock ) {
