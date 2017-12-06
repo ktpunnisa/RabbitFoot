@@ -1,6 +1,5 @@
 package character;
 
-import java.util.AbstractQueue;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,8 +12,6 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameMain;
-import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -59,10 +56,8 @@ public class Wolf extends Animal{
 	public static int WOLF_SIZE = 60;
 	int id = 0;
 	public Animal instance;
-	boolean runAway;
-	public Wolf(Pair index, double speed, int direction, int z) {
-		super(index, speed, direction, z);
-		runAway = true;
+	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
+		super(index, speed, direction, z,inverse);
 		instance = this;
 		// TODO Auto-generated constructor stub
 		startRunning();
@@ -214,7 +209,7 @@ public class Wolf extends Animal{
 			lowNextBlock();
 		}
 		
-		if(runAway) {
+		if(inverse) {
 			Pair tmp = bestBlock;
 			for(int i=0;i<6;i++) {
 				Pair nextBlock = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
@@ -253,7 +248,7 @@ public class Wolf extends Animal{
 		}
 		return bestBlock;
 	}
-	
+
 	
 
 }

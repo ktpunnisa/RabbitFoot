@@ -1,9 +1,13 @@
 package game;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import character.Animal;
 import character.CharacterHolder;
 import map.MapHolder;
 import ui.UIGame;
+import utility.Pair;
 import utility.RandomGenerator;
 
 public class GameLogic {
@@ -41,7 +45,6 @@ public class GameLogic {
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-
 				updateGame();
 			}
 
@@ -61,10 +64,23 @@ public class GameLogic {
 			GameState.level+=GameState.diff;
 			CharacterHolder.genAnimal(GameState.level);
 		}
-		if(CharacterHolder.aniData.size()>1)
+		if(CharacterHolder.aniData.size()>1) {
+			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
-					GameMain.stopGame();
+					if(CharacterHolder.aniData.get(0).isInverse()) {
+						System.out.println("Rabbit eat wolf!! @ "+ a.index);
+						kill.add(a);
+						GameState.score+=10;
+					}
+					else {
+						GameMain.stopGame();
+					}
+				}
+			}
+			for(Animal a : kill) {
+				//System.out.println("kill"+a.index);
+				CharacterHolder.aniData.remove(a);
 			}
 		}
 		while(MapHolder.carrot.size() < 10-GameState.diff) {
@@ -73,5 +89,6 @@ public class GameLogic {
 		while(MapHolder.trap.size() < GameState.level) {
 			MapHolder.createTrap();
 		}
+		
 	}
 }

@@ -26,8 +26,8 @@ public class Rabbit extends Animal {
 	public Animal instance;
 	int id = 0;
 	
-	public Rabbit(Pair index, double speed, int direction, int z) {
-		super(index, speed, direction, z);
+	public Rabbit(Pair index, double speed, int direction, int z,boolean inverse) {
+		super(index, speed, direction, z,inverse);
 		this.instance = this;
 		startRunning();
 		sq.setCycleCount(1);
@@ -102,7 +102,7 @@ public class Rabbit extends Animal {
 	@Override
 	public void runLoop(boolean jumpNow) {
 		// TODO Auto-generated method stub
-		double[] sleepJump = {0.1,0.1,0.6,0.1};
+		//double[] sleepJump = {0.1,0.1,0.6,0.1};
 		Platform.runLater(() -> new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -144,4 +144,7 @@ public class Rabbit extends Animal {
 		}
 		return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 	}
+
+	
+	
 }

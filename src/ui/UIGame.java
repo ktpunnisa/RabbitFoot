@@ -77,8 +77,8 @@ public class UIGame extends Group {
 	private Group drawAnimal()
 	{
 		Group temp = new Group();
-		for(Animal a : CharacterHolder.aniData)
-				temp.getChildren().add(a.body);
+		for(Animal a : CharacterHolder.aniData) 
+			temp.getChildren().add(a.body);
 		return temp;
 	}
 }
