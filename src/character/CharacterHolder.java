@@ -16,13 +16,14 @@ public class CharacterHolder {
 	public static ObservableList<Animal> aniData;
 	private Comparator<Animal> comparator;
 	public static boolean inverse;
-
+	public static long timeInverse;
 	
 	public CharacterHolder()
 	{
-		inverse = true;
+		inverse = false;
+		timeInverse = 0;
 		aniData = FXCollections.<Animal>observableArrayList();
-		Rabbit r = new Rabbit(new Pair(5,12), 0.5, 1, 0,inverse);
+		Rabbit r = new Rabbit(new Pair(5,12), 1, 1, 0,inverse);
 		aniData.add(r);
 		comparator = (Animal o1, Animal o2) -> {
 			if(o1.getZ() > o2.getZ())
@@ -40,7 +41,7 @@ public class CharacterHolder {
 				tmp = RandomGenerator.randomIndex();
 			}
 			System.out.println("wolf#"+(i+1)+" : "+tmp);
-			Wolf w = new Wolf(tmp, 1.5, 1, 0,inverse);
+			Wolf w = new Wolf(tmp, 0.8, 1, 0,inverse);
 			aniData.add(w);
 		}
 	}
@@ -52,4 +53,6 @@ public class CharacterHolder {
 	{
 		
 	}
+	
+	
 }

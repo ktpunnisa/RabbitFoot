@@ -5,6 +5,7 @@ import java.util.Set;
 
 import character.Animal;
 import character.CharacterHolder;
+import character.Rabbit;
 import map.MapHolder;
 import ui.UIGame;
 import utility.Pair;
@@ -19,6 +20,7 @@ public class GameLogic {
 	private GameState state;
 	private GameCamera camera;
 	public static boolean isGameRunning;
+	public static long seconds;
 	
 	public GameLogic(UIGame gameUI, GameState state, GameCamera camera)
 	{
@@ -41,10 +43,13 @@ public class GameLogic {
 	
 	private void gameLoop() {
 		long lastLoopStartTime = System.nanoTime();
+		long startTime = System.nanoTime();
 		while (isGameRunning) {
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
+				seconds = (long)((double)(System.nanoTime() - startTime) / 1000000000.0);
+				//System.out.println((int)seconds);
 				updateGame();
 			}
 
@@ -89,6 +94,29 @@ public class GameLogic {
 		while(MapHolder.trap.size() < GameState.level) {
 			MapHolder.createTrap();
 		}
-		
+		if(seconds%10==0 && MapHolder.potionTime!=seconds && !CharacterHolder.inverse) {
+			System.out.println(seconds+" seconds");
+			if(MapHolder.potionTime!=0) {
+				System.out.println("delete potion");
+				MapHolder.deletePotion();
+			}
+			System.out.println("create potion");
+			MapHolder.potionTime = seconds;
+			MapHolder.createPotion();
+		}
+		if(CharacterHolder.timeInverse+15==seconds && CharacterHolder.inverse) {
+			System.out.println("normal mode");
+			CharacterHolder.inverse = false;
+			CharacterHolder.timeInverse = 0;
+			for(Animal x : CharacterHolder.aniData) {
+				x.setInverse(false);
+				if(x instanceof Rabbit){
+					x.setSpeed(1);
+				}
+				else {
+					x.setSpeed(0.8);
+				}
+			}
+		}
 	}
 }
