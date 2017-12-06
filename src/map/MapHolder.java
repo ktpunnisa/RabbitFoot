@@ -20,7 +20,7 @@ public class MapHolder {
 	public static Set<Pair> carrot = new HashSet<Pair>();
 	public static Set<Pair> trap = new HashSet<Pair>();
 	public static Pair potion = new Pair(-1,-1);
-	public static Boolean hasPotion = false;
+	public static long potionTime = 0;
 	public static int count = 0;
 	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
@@ -135,15 +135,13 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		potion = tmp;
-		hasPotion = true;
+		System.out.println("potion:" + tmp);
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
 	public static void deletePotion() {
-		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
-		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 		potion = new Pair(-1,-1);
-		hasPotion = false;
+		potionTime = 0;
 	}
 	
 	

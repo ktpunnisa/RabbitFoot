@@ -3,6 +3,7 @@ package map;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
+import game.GameLogic;
 import game.GameState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -54,24 +55,32 @@ public class NormalBlock extends Block{
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
 			GameState.score++;
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
+ 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
 			timeline.setCycleCount(1);
 			timeline.play();
+			
 		}
 		
 		if(animal instanceof Rabbit && hasPotion) {
 			setHasPotion(false);
+			System.out.println("inverse mode");
+			System.out.println(GameLogic.seconds);
 			CharacterHolder.inverse = true;
+			CharacterHolder.timeInverse = GameLogic.seconds;
 			for(Animal x : CharacterHolder.aniData) {
 				x.setInverse(true);
 				if(x instanceof Rabbit){
-					x.setSpeed(0.1);
+					x.setSpeed(0.5);
 				}
 				else {
 					x.setSpeed(1.5);
 				}
 			}
 			MapHolder.deletePotion();
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
+			timeline.setCycleCount(1);
+			timeline.play();
+			
 		}		
 	}
 
