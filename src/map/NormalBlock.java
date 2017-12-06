@@ -62,9 +62,7 @@ public class NormalBlock extends Block{
 		}
 		
 		if(animal instanceof Rabbit && hasPotion) {
-			setHasPotion(false);
-			System.out.println("inverse mode");
-			System.out.println(GameLogic.seconds);
+			System.out.println("inverse mode @ "+ GameLogic.seconds);
 			CharacterHolder.inverse = true;
 			CharacterHolder.timeInverse = GameLogic.seconds;
 			for(Animal x : CharacterHolder.aniData) {
@@ -76,7 +74,7 @@ public class NormalBlock extends Block{
 					x.setSpeed(1.5);
 				}
 			}
-			MapHolder.deletePotion();
+			MapHolder.deletePotion(false);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
 			timeline.setCycleCount(1);
 			timeline.play();

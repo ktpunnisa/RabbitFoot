@@ -139,7 +139,11 @@ public class MapHolder {
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
-	public static void deletePotion() {
+	public static void deletePotion(boolean loadMap) {
+		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
+		if(loadMap) {
+			mapData.get(potion.getY()).get(potion.getX()).loadImage();
+		}
 		potion = new Pair(-1,-1);
 		potionTime = 0;
 	}

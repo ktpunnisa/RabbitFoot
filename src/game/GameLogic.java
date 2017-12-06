@@ -65,10 +65,10 @@ public class GameLogic {
 	{
 		RandomGenerator.setSeed(System.nanoTime());
 		
-		if(CharacterHolder.aniData.size()==1) {
+		/*if(CharacterHolder.aniData.size()==1) {
 			GameState.level+=GameState.diff;
 			CharacterHolder.genAnimal(GameState.level);
-		}
+		}*/
 		if(CharacterHolder.aniData.size()>1) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
@@ -98,14 +98,15 @@ public class GameLogic {
 			System.out.println(seconds+" seconds");
 			if(MapHolder.potionTime!=0) {
 				System.out.println("delete potion");
-				MapHolder.deletePotion();
+				MapHolder.deletePotion(true);
+				
 			}
 			System.out.println("create potion");
 			MapHolder.potionTime = seconds;
 			MapHolder.createPotion();
 		}
 		if(CharacterHolder.timeInverse+15==seconds && CharacterHolder.inverse) {
-			System.out.println("normal mode");
+			System.out.println("normal mode : "+ seconds);
 			CharacterHolder.inverse = false;
 			CharacterHolder.timeInverse = 0;
 			for(Animal x : CharacterHolder.aniData) {
