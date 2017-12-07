@@ -96,6 +96,10 @@ public class Rabbit extends Animal {
 						new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalAni.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalAni.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {

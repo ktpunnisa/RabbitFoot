@@ -54,7 +54,7 @@ public class GameCamera {
 	{
 		this.isTracking = true;
 		gameCamera = new Thread(this::tracking, "Game Camera Thread");
-		gameCamera.start();
+		//gameCamera.start();
 	}
 	public void stopTrack()
 	{

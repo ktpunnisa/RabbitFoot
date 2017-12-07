@@ -24,6 +24,7 @@ public class UIGame extends Group {
 	
 	public static Group globalMap;
 	public static Group globalAni;
+	public static Node globalRabbit;
 	private GameState state;
 	
 	public UIGame(GameState state)
@@ -31,8 +32,10 @@ public class UIGame extends Group {
 		this.state = state;
 		globalMap = drawMap();
 		globalAni = drawAnimal();
+		globalRabbit = CharacterHolder.aniData.get(0).body;
 		this.getChildren().add(globalMap);
 		this.getChildren().add(globalAni);
+		this.getChildren().add(globalRabbit);
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -77,7 +80,7 @@ public class UIGame extends Group {
 	private Group drawAnimal()
 	{
 		Group temp = new Group();
-		for(Animal a : CharacterHolder.aniData) 
+		for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) 
 			temp.getChildren().add(a.body);
 		return temp;
 	}
