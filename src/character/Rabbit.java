@@ -89,14 +89,23 @@ public class Rabbit extends Animal {
 				System.out.println("-------Rabbit @ "+index);
 				lastRunTime += runTime;
 				if(!runPath.isEmpty()) {
-					GameCamera.cameraQueue.add(nextBlock());
-					index = runPath.remove();
+					//GameCamera.cameraQueue.add(nextBlock());
+					Timeline timeline = new Timeline();
+					timeline.setCycleCount(1);
+					Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * CharacterHolder.aniData.get(0).speed), 
+							new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX())));
+					timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * CharacterHolder.aniData.get(0).speed), 
+							new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY())));
+					Platform.runLater(() -> timeline.play());
+					index = runPath.poll();
 				}
-				try {
+				if(nextBlock() != null)
 					runPath.add(nextBlock());
-				} catch(Exception e) {
+				else {
 					GameMain.stopGame();
 				}
+				
 				if(!runPath.isEmpty())
 					MapHolder.mapData.get(index.getY()).get(index.getX()).checkEvent(this);
 			}

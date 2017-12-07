@@ -129,7 +129,7 @@ public class Wolf extends Animal{
 	public void moveLoop() {
 		Pair prev = index;
 		while (isRunning) {
-			if(prev!=runPath.peek() && runPath!=null) {
+			/*if(prev!=runPath.peek() && runPath!=null) {
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
 				if(MapHolder.mapData == null) System.out.println("fasdfffffffff");
@@ -147,7 +147,7 @@ public class Wolf extends Animal{
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 	@Override

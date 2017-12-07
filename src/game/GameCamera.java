@@ -50,7 +50,7 @@ public class GameCamera {
 	{
 		this.isTracking = true;
 		gameCamera = new Thread(this::tracking, "Game Camera Thread");
-		gameCamera.start();
+		//gameCamera.start();
 	}
 	public void stopTrack()
 	{
@@ -69,6 +69,7 @@ public class GameCamera {
 						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY())));
 				Platform.runLater(() -> timeline.play());
 				cameraQueue.poll();
+				System.out.println("play");
 			}
 			try {
 				Thread.sleep(1);
