@@ -12,7 +12,10 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameMain;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,116 +31,115 @@ import map.JumpBlock;
 import map.MapHolder;
 import map.NormalBlock;
 import map.TrapBlock;
+import scene.SceneManager;
+import ui.UIGame;
+import utility.MyNode;
 import utility.Pair;
 
-class MyNode implements Comparable<MyNode>{
-	Pair index;
-	int dis;
-	public MyNode(Pair index,int dis) {
-		this.index = index;
-		this.dis = dis;
-	}
-	@Override
-	public int compareTo(MyNode o){
-		if(this.getClass() ==  o.getClass()) {
-			 return this.dis - o.dis;
-		}
-		return -1;
-	}
-	
-	@Override
-	public String toString() {
-		return index+"("+Integer.toString(dis)+")";
-	}
-	
-}
 public class Wolf extends Animal{
 	
 	public static int WOLF_SIZE = 60;
-	int id = 0;
-	public Animal instance;
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
-		instance = this;
-		// TODO Auto-generated constructor stub
-		startRunning();
-		//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
-		sq.setCycleCount(1);
-		sq.setOnFinished(new EventHandler<ActionEvent>(){
-		    @Override
-		    public void handle(ActionEvent event){
-		          sq.getChildren().clear();
-		          if(!GameLogic.isGameRunning) return;
-		          Path path = new Path(); 
-			      MoveTo moveTo = new MoveTo(body.getTranslateX() + WOLF_SIZE/2, body.getTranslateY()+ WOLF_SIZE/2);
-			      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
-			      if(nextIndex.equals(getIndex())) return;
-			      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
-			      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
-			      path.getElements().add(moveTo); 
-			      path.getElements().add(lineTo);        
-			      PathTransition pathTransition = new PathTransition();
-			      pathTransition.setDuration(Duration.millis(1000*speed));
-			      pathTransition.setNode(body); 
-			      pathTransition.setPath(path);  
-			      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
-			      pathTransition.setCycleCount(1);
-			      pathTransition.setAutoReverse(false); 
-		          sq.getChildren().add(pathTransition);
-		          if(!sq.getChildren().isEmpty()) {
-		        	  	  Platform.runLater(() -> {
-		        	  		  sq.play();
-		        	  		  runLoop(true);
-		        	  	  });
-		          }
-		          setIndex(nextIndex);
-		          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent(instance);
-		    }
-		});
-		Platform.runLater(() -> sq.play());
+	    for (int i = 1; i <= 4; i++) {
+	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+	    }
+	  	body.setImage(img.get(0));
+	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-WOLF_SIZE/2);
+	  	body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-WOLF_SIZE/2);
+	  	runPath.add(nextBlock());
+		//startRunning();
 	}
 
 	@Override
 	public void startRunning() {
-		// TODO Auto-generated method stub
 		isRunning = true;
-	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-	    }
-	    //Image wolf = new Image("file:res/animal/wolf_1.png", 60, 60, false, false);
-	  	body.setImage(img.get(0));
-	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-WOLF_SIZE/2);
-	  	body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-WOLF_SIZE/2);
+	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
+		runThread = new Thread(this::runLoop, "Wolf running Thread");
+		Thread moveThread = new Thread(this::moveLoop, "Wolf move Thread");
+		animationThread.start();
+		runThread.start();
+		moveThread.start();
 	}
 
 	@Override
 	public void stopRunning() {
-		// TODO Auto-generated method stub
 		isRunning = false;
 	}
 
 	@Override
-	public void runLoop(boolean x) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				for (int i = 0; i < 4; i++) {
-						updateWolf(i);
-					try {
-						Thread.sleep((long) ((1000*speed)/4));
-					} catch (Exception e) {
-						System.out.println("Some error occured!!! Thread cannot sleep");
-						e.printStackTrace();
-					}
+	public void animateLoop() {
+		long lastAnimateTime = System.currentTimeMillis();
+		long animateTime = (long) (100 * speed);
+		int i = 0;
+		while (isRunning) {
+			long now = System.currentTimeMillis();
+			if (now - lastAnimateTime >= animateTime) {
+				lastAnimateTime += animateTime;
+				int t=i++;
+				Platform.runLater(() -> body.setImage(img.get((t)%4)));
+			}
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	@Override
+	public void runLoop() {
+		long lastRunTime = System.currentTimeMillis();
+		long runTime = (long) (500 * speed);
+		while (isRunning) {
+			long now = System.currentTimeMillis();
+			if (now - lastRunTime >= runTime) {
+				lastRunTime += runTime;
+				System.out.println("Wolf @ "+index);
+				if(!runPath.isEmpty())
+					index = runPath.remove();
+				try {
+					runPath.add(nextBlock());
+				} catch(Exception e) {
+					System.out.println("Wolf went wrong");
 				}
-			}	
-		}).start();
+				if(!runPath.isEmpty())
+					MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(this);
+			}
+			
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
-
-	private void updateWolf(int i)
-	{
-		Platform.runLater(() -> body.setImage(img.get(i)));
+	
+	public void moveLoop() {
+		Pair prev = index;
+		while (isRunning) {
+			if(prev!=runPath.peek() && runPath!=null) {
+				Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				if(MapHolder.mapData == null) System.out.println("fasdfffffffff");
+				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				System.out.println(t+ " "+UIGame.globalMap.localToScene(t) );
+				Point2D tt = UIGame.globalMap.localToScene(t);
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (body.translateXProperty(), tt.getX())));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (body.translateYProperty(), tt.getY())));
+				Platform.runLater(() -> timeline.play());
+				prev = runPath.peek();
+			}
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub
@@ -248,7 +250,39 @@ public class Wolf extends Animal{
 		}
 		return bestBlock;
 	}
-
-	
-
 }
+
+//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
+/*sq.setCycleCount(1);
+sq.setOnFinished(new EventHandler<ActionEvent>(){
+    @Override
+    public void handle(ActionEvent event){
+          sq.getChildren().clear();
+          if(!GameLogic.isGameRunning) return;
+          Path path = new Path(); 
+	      MoveTo moveTo = new MoveTo(body.getTranslateX() + WOLF_SIZE/2, body.getTranslateY()+ WOLF_SIZE/2);
+	      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
+	      if(nextIndex.equals(getIndex())) return;
+	      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
+	      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
+	      path.getElements().add(moveTo); 
+	      path.getElements().add(lineTo);        
+	      PathTransition pathTransition = new PathTransition();
+	      pathTransition.setDuration(Duration.millis(1000*speed));
+	      pathTransition.setNode(body); 
+	      pathTransition.setPath(path);  
+	      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
+	      pathTransition.setCycleCount(1);
+	      pathTransition.setAutoReverse(false); 
+          sq.getChildren().add(pathTransition);
+          if(!sq.getChildren().isEmpty()) {
+        	  	  Platform.runLater(() -> {
+        	  		  sq.play();
+        	  		  runLoop(true);
+        	  	  });
+          }
+          setIndex(nextIndex);
+          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent(instance);
+    }
+});
+Platform.runLater(() -> sq.play());*/

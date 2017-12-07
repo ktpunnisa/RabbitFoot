@@ -33,7 +33,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Catch me if you can!");
 			primaryStage.centerOnScreen();
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); 
 		}
 		primaryStage.show();
 		primaryStage.setOnCloseRequest(event -> {

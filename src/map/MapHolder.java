@@ -15,6 +15,7 @@ import utility.Pair;
 import utility.RandomGenerator;
 
 public class MapHolder {
+	
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
 	public static Set<Pair> carrot = new HashSet<Pair>();
@@ -37,14 +38,15 @@ public class MapHolder {
 		{0,3,3,3,3,3,3,0,1,1,1,1,1},
 		{0,0,0,0,0,0,0,1,1,1,1,1,1}
 	};
+	
 	public MapHolder()
-	{
-		
-	}
-	public void genMap(int diff)
 	{
 		count = 0;
 		mapData = FXCollections.<List<Block>>observableArrayList();
+	}
+	
+	public void genMap(int diff)
+	{
 		for(int i=-6;i<=6;++i)
 		{
 			List<Block> tempRow = new ArrayList<>();
@@ -62,36 +64,15 @@ public class MapHolder {
 				else {
 					temp = new TrapBlock(j,i+6,count);
 				}
-				
-				if(i%2==0) {
-					temp.position=new Point2D(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE + BLOCK_SIZE/Math.sqrt(3));
-					temp.hexagon=draw(BLOCK_SIZE/2+(Math.abs(i)/2+j)*BLOCK_SIZE,((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE);
-				}
-				else {
-					temp.position=new Point2D((Math.abs(i)+1+2*j)/2*BLOCK_SIZE , ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +5*BLOCK_SIZE/(2*Math.sqrt(3)));
-					temp.hexagon=draw((Math.abs(i)+1+2*j)/2*BLOCK_SIZE, ((i+6)/2)*Math.sqrt(3)*BLOCK_SIZE +3*BLOCK_SIZE/(2*Math.sqrt(3)));
-				}
-				temp.loadImage();
 				tempRow.add(temp);
 				count++;
 			}
 			mapData.add(tempRow);
 		}
 	}
-	private Polygon draw(double x, double y)
-	{
-		Polygon a = new Polygon();
-		a.setStrokeWidth(2);
-		a.getPoints().addAll(x,y);
-		a.getPoints().addAll(x+BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
-		a.getPoints().addAll(x+BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
-		a.getPoints().addAll(x,y+2*BLOCK_SIZE/Math.sqrt(3));
-		a.getPoints().addAll(x-BLOCK_SIZE/2,y+Math.sqrt(3)*BLOCK_SIZE/2);
-		a.getPoints().addAll(x-BLOCK_SIZE/2,y+BLOCK_SIZE/(2*Math.sqrt(3)));
-		return a;
-	}
 	
-	public static void createCarrot() {
+	public static void createCarrot() 
+	{
 		Pair tmp = RandomGenerator.randomIndex();
 		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion)) {
 			tmp = RandomGenerator.randomIndex();
@@ -101,7 +82,9 @@ public class MapHolder {
 		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasCarrot = true;
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
-	public static void createTrap() {
+	
+	public static void createTrap() 
+	{
 		Pair tmp = RandomGenerator.randomIndex();
 		while(trap.contains(tmp) || carrot.contains(tmp) || tmp.equals(potion)) {
 			tmp = RandomGenerator.randomIndex();
@@ -116,6 +99,7 @@ public class MapHolder {
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 		
 	}
+	
 	public static void deleteTrap(Pair index)
 	{
 		trap.remove(index);
@@ -129,7 +113,8 @@ public class MapHolder {
 		
 	}
 	
-	public static void createPotion() {
+	public static void createPotion() 
+	{
 		Pair tmp = RandomGenerator.randomIndex();
 		while(carrot.contains(tmp) || trap.contains(tmp)) {
 			tmp = RandomGenerator.randomIndex();
@@ -139,7 +124,9 @@ public class MapHolder {
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
-	public static void deletePotion(boolean loadMap) {
+	
+	public static void deletePotion(boolean loadMap) 
+	{
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
 		if(loadMap) {
 			mapData.get(potion.getY()).get(potion.getX()).loadImage();
@@ -147,7 +134,5 @@ public class MapHolder {
 		potion = new Pair(-1,-1);
 		potionTime = 0;
 	}
-	
-	
-	
+
 }

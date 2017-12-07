@@ -7,7 +7,7 @@ public class VoidBlock extends Block {
 
 	public VoidBlock(int x, int y, int c) {
 		super(x, y, c);
-		// TODO Auto-generated constructor stub
+		loadImage();
 	}
 
 	@Override

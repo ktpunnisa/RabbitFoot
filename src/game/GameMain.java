@@ -23,19 +23,18 @@ public class GameMain {
 		logic = new GameLogic(gameUI, state, camera);
 		logic.startGame();
 		SceneManager.gotoScene(gameUI);
-		logic.startGame();
 	}
 	
 	public static void stopGame() {
 		// TODO fill code
 		logic.stopGame();
-		Platform.runLater(GameMain::gameOver);
+		//Platform.runLater(GameMain::gameOver);
 	}
 	
 	public static void gameOver() {
 		// TODO fill code
 		Alert alert = new Alert(AlertType.NONE, "Game Over!", ButtonType.OK);
-		alert.show();
+		alert.showAndWait();
 	}
 
 }

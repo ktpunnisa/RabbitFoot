@@ -14,10 +14,10 @@ import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 
 public class TrapBlock extends Block{
-	int i;
+
 	public TrapBlock(int x, int y, int c) {
 		super(x, y, c);
-		// TODO Auto-generated constructor stub
+		loadImage();
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class TrapBlock extends Block{
 			//MapHolder.deleteTrap(index);
 			GameMain.stopGame();
 		}
-		if(animal instanceof Wolf) {
+		else if(animal instanceof Wolf) {
 			System.out.println("Wolf die !!");
 			CharacterHolder.aniData.remove(animal);
 			MapHolder.deleteTrap(index);
