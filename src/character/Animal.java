@@ -20,6 +20,8 @@ public abstract class Animal {
 	public ImageView body;
 	public SequentialTransition sq;
 	public List<Image> img = new ArrayList<>();
+	public List<Image> imgInv = new ArrayList<>();
+	public List<Image> imgInv2s = new ArrayList<>();
 	public boolean isRunning;
 	public boolean inverse;
 	

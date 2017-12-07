@@ -103,6 +103,8 @@ public class Wolf extends Animal{
 		isRunning = true;
 	    for (int i = 1; i <= 4; i++) {
 	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+	    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+	    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	    //Image wolf = new Image("file:res/animal/wolf_1.png", 60, 60, false, false);
 	  	body.setImage(img.get(0));
@@ -136,7 +138,19 @@ public class Wolf extends Animal{
 
 	private void updateWolf(int i)
 	{
-		Platform.runLater(() -> body.setImage(img.get(i)));
+		Platform.runLater(() -> {
+			if(inverse) {
+				if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
+					body.setImage(imgInv2s.get(i));
+				}
+				else {
+					body.setImage(imgInv.get(i));
+				}
+			}
+			else {
+				body.setImage(img.get(i));
+			}
+		});
 	}
 	@Override
 	public boolean isVisible() {

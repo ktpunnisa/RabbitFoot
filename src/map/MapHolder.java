@@ -140,8 +140,8 @@ public class MapHolder {
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
 	public static void deletePotion(boolean loadMap) {
-		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
 		if(loadMap) {
+			((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
 			mapData.get(potion.getY()).get(potion.getX()).loadImage();
 		}
 		potion = new Pair(-1,-1);
