@@ -81,11 +81,13 @@ public class GameLogic {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
 						System.out.println("Rabbit eat wolf!! @ "+ a.index);
+						GameSound.playSoundWolfDie();
 						kill.add(a);
 						GameState.score+=10;
 					}
 					else {
 						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
+						GameSound.playSoundWolf();
 						GameMain.stopGame();
 					}
 				}

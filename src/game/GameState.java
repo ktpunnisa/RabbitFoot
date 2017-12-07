@@ -46,6 +46,7 @@ public class GameState extends Canvas{
 	}
 	
 	public void startState() {
+		GameSound.playSoundBG();
 		gameState = new Thread(this::stateLoop, "Game Animation Thread");
 		isStateRunning = true;
 		gameState.start();
@@ -53,6 +54,7 @@ public class GameState extends Canvas{
 
 	public void stopState() {
 		isStateRunning = false;
+		GameSound.stopSoundBG();
 	}
 
 	private void stateLoop() {
