@@ -124,11 +124,10 @@ public class MapHolder {
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
-	
-	public static void deletePotion(boolean loadMap) 
-	{
-		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
+
+	public static void deletePotion(boolean loadMap) {
 		if(loadMap) {
+			((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
 			mapData.get(potion.getY()).get(potion.getX()).loadImage();
 		}
 		potion = new Pair(-1,-1);

@@ -28,6 +28,7 @@ public class GameLogic {
 		this.state = state;
 		this.camera = camera;
 		this.camera.startTrack();
+		this.state.startState();
 		isGameRunning = false;
 	}
 	public void startGame() {
@@ -40,6 +41,7 @@ public class GameLogic {
 
 	public void stopGame() {
 		camera.stopTrack();
+		state.stopState();
 		isGameRunning = false;
 		for(Animal a:CharacterHolder.aniData)
 			a.stopRunning();

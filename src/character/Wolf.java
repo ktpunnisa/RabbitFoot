@@ -43,6 +43,8 @@ public class Wolf extends Animal{
 		super(index, speed, direction, z,inverse);
 	    for (int i = 1; i <= 4; i++) {
 	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+	    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+	    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	  	body.setImage(img.get(0));
 	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-WOLF_SIZE/2);
@@ -77,7 +79,17 @@ public class Wolf extends Animal{
 			if (now - lastAnimateTime >= animateTime) {
 				lastAnimateTime += animateTime;
 				int t=i++;
-				Platform.runLater(() -> body.setImage(img.get((t)%4)));
+				if(inverse) {
+					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
+						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
+					}
+					else {
+						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
+					}
+				}
+				else {
+					Platform.runLater(() -> body.setImage(img.get(t%4)));
+				}
 			}
 			try {
 				Thread.sleep(1);
@@ -113,8 +125,7 @@ public class Wolf extends Animal{
 				e.printStackTrace();
 			}
 		}
-	}
-	
+	}	
 	public void moveLoop() {
 		Pair prev = index;
 		while (isRunning) {
@@ -139,7 +150,6 @@ public class Wolf extends Animal{
 			}
 		}
 	}
-	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub

@@ -58,7 +58,17 @@ public class Rabbit extends Animal {
 			if (now - lastAnimateTime >= animateTime) {
 				lastAnimateTime += animateTime;
 				int t=i++;
-				Platform.runLater(() -> body.setImage(img.get((t)%4)));
+				if(inverse) {
+					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
+						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
+					}
+					else {
+						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
+					}
+				}
+				else {
+					Platform.runLater(() -> body.setImage(img.get(t%4)));
+				}
 			}
 			try {
 				Thread.sleep(1);

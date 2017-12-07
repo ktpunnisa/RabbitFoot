@@ -25,6 +25,8 @@ public abstract class Animal {
 	public Thread runThread;
 	public ImageView body;
 	public List<Image> img = new ArrayList<>();
+	public List<Image> imgInv = new ArrayList<>();
+	public List<Image> imgInv2s = new ArrayList<>();
 	public boolean isRunning;
 	public boolean inverse;
 	
