@@ -2,6 +2,9 @@ package character;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javafx.animation.Animation;
 import javafx.animation.SequentialTransition;
@@ -16,9 +19,11 @@ public abstract class Animal {
 	public double speed;  
 	public int direction;
 	public int z;
+	public Queue<Pair> runPath;
 	
+	public Thread animationThread;
+	public Thread runThread;
 	public ImageView body;
-	public SequentialTransition sq;
 	public List<Image> img = new ArrayList<>();
 	public List<Image> imgInv = new ArrayList<>();
 	public List<Image> imgInv2s = new ArrayList<>();
@@ -32,15 +37,15 @@ public abstract class Animal {
 		this.direction = direction;
 		this.z = z;
 		this.inverse = inverse;
-		
-		body = new ImageView();
-		sq = new SequentialTransition();
+		this.body = new ImageView();
+		this.runPath = new LinkedBlockingQueue<Pair>();
 	}
 	
 	//animation
 	public abstract void startRunning();
 	public abstract void stopRunning();
-	public abstract void runLoop(boolean jumpNow);
+	public abstract void animateLoop();
+	public abstract void runLoop();
 	public abstract boolean isVisible();
 	
 	public abstract Pair nextBlock();

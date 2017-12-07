@@ -35,12 +35,16 @@ public class GameLogic {
 		isGameRunning = true;
 		//canvas.setWordString(model.getCurrentWordString());
 		new Thread(this::gameLoop, "Game Loop Thread").start();
+		for(Animal a : CharacterHolder.aniData)
+			a.startRunning();
 	}
 
 	public void stopGame() {
 		camera.stopTrack();
 		state.stopState();
 		isGameRunning = false;
+		for(Animal a:CharacterHolder.aniData)
+			a.stopRunning();
 	}
 	
 	private void gameLoop() {
@@ -81,6 +85,7 @@ public class GameLogic {
 						GameState.score+=10;
 					}
 					else {
+						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
 						GameMain.stopGame();
 					}
 				}

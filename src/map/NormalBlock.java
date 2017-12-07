@@ -21,16 +21,16 @@ public class NormalBlock extends Block{
 
 	Boolean hasCarrot;
 	Boolean hasPotion;
+	
 	public NormalBlock(int x, int y, int c) {
 		super(x, y, c);
 		hasCarrot = false;
 		hasPotion = false;
-		// TODO Auto-generated constructor stub
+		loadImage();
 	}
 
 	@Override
 	public void loadImage() {
-		// TODO Auto-generated method stub
 		Image img;
 		if(hasCarrot) {
 			img = new Image("file:res/block/carrot.png");
@@ -42,20 +42,18 @@ public class NormalBlock extends Block{
 			img = new Image("file:res/block/grass.png");
 		}
 		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		//this.hexagon.setFill(Color.ORANGE);
 		this.hexagon.setStrokeWidth(3);
 		this.hexagon.setStroke(Color.BLACK);
 	}
 
 	@Override
 	public void checkEvent(Animal animal) {
-		// TODO Auto-generated method stub
 		if(animal instanceof Rabbit && hasCarrot) {
 			setHasCarrot(false);
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
 			GameState.score++;
- 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
+ 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> loadImage()));
 			timeline.setCycleCount(1);
 			timeline.play();
 			
@@ -65,7 +63,7 @@ public class NormalBlock extends Block{
 			System.out.println("inverse mode @ "+ GameLogic.seconds);
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000*animal.speed), ae -> loadImage()));
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed), ae -> loadImage()));
 			timeline.setCycleCount(1);
 			timeline.play();
 			CharacterHolder.inverse = true;
@@ -78,8 +76,7 @@ public class NormalBlock extends Block{
 				else {
 					x.setSpeed(1.5);
 				}
-			}
-			
+			}			
 		}		
 	}
 
