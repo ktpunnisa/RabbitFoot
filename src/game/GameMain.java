@@ -21,14 +21,17 @@ public class GameMain {
 		gameUI = new UIGame(state);
 		camera = new GameCamera(gameUI);
 		logic = new GameLogic(gameUI, state, camera);
-		logic.startGame();
+		//logic.startGame();
+		//state.startState();
 		SceneManager.gotoScene(gameUI);
 		logic.startGame();
+		state.startState();
 	}
 	
 	public static void stopGame() {
 		// TODO fill code
 		logic.stopGame();
+		state.stopState();
 		Platform.runLater(GameMain::gameOver);
 	}
 	
