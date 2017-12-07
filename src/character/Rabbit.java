@@ -35,12 +35,16 @@ public class Rabbit extends Animal {
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));
 		Platform.runLater(() -> body.setTranslateY(SceneManager.SCENE_HEIGHT/2-RABBIT_SIZE/2));
 		runPath.add(nextBlock());
-		System.out.println(nextBlock());
+		//System.out.println(nextBlock());
 		//startRunning();
 	}
 
 	@Override
 	public void startRunning() {
+		Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
+		Point2D nodeInScene = GameMain.gameUI.localToScene(t);
+		UIGame.globalMap.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX());
+		UIGame.globalMap.setTranslateY(SceneManager.SCENE_HEIGHT/2 - nodeInScene.getY());
 		isRunning = true;
 		animationThread = new Thread(this::animateLoop, "Rabbit animating Thread");
 		runThread = new Thread(this::runLoop, "Rabbit running Thread");
@@ -96,10 +100,7 @@ public class Rabbit extends Animal {
 						new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (UIGame.globalAni.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (UIGame.globalAni.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
+
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {

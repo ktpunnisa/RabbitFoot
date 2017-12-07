@@ -46,20 +46,24 @@ public class Wolf extends Animal{
 		super(index, speed, direction, z,inverse);
 		this.instance = this;
 	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-	    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-	    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
-	    Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    Platform.runLater(() -> body.setImage(img.get(0)));
-		Platform.runLater(() -> body.setTranslateX(t.getX()-WOLF_SIZE/2));
-		Platform.runLater(() -> body.setTranslateY(t.getY()-WOLF_SIZE/2));
 	  	runPath.add(nextBlock());
 		//startRunning();
 	}
 
 	@Override
 	public void startRunning() {
+	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
+	    System.out.println("to pos@"+a.getX()+" "+a.getY());
+	    Point2D t = UIGame.globalMap.localToScene(a);
+	    System.out.println("to sc@"+t.getX()+" "+t.getY());
+	    body.setImage(img.get(0));
+		body.setTranslateX(t.getX()-WOLF_SIZE/2);
+	    body.setTranslateY(t.getY()-WOLF_SIZE/2);
+	    System.out.println("set @"+body.getTranslateX()+" "+body.getTranslateY());
 		isRunning = true;
 	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");
@@ -80,6 +84,7 @@ public class Wolf extends Animal{
 		long animateTime = (long) (100 * speed);
 		int i = 0;
 		while (isRunning) {
+			
 			long now = System.currentTimeMillis();
 			if (now - lastAnimateTime >= animateTime) {
 				lastAnimateTime += animateTime;
@@ -110,6 +115,7 @@ public class Wolf extends Animal{
 		long runTime = (long) (500 * speed);
 		while (isRunning) {
 			if(!runPath.isEmpty()) {
+				System.out.println("to"+index+"body @"+body.getTranslateX()+" "+body.getTranslateY());
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
 				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;

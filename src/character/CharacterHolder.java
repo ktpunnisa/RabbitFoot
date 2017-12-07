@@ -34,14 +34,13 @@ public class CharacterHolder {
 	public static void genAnimal(int diff)
 	{
 		//temp
-		System.out.println("gen wolf");
 		for(int i=0;i<diff;++i) {
 			Pair tmp = RandomGenerator.randomIndex();
 			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) {
 				tmp = RandomGenerator.randomIndex();
 			}
 			System.out.println("wolf#"+(i+1)+" : "+tmp);
-			Wolf w = new Wolf(tmp, 1, 1, 0,inverse);
+			Wolf w = new Wolf(new Pair(3,10), 1, 1, 0,inverse);
 			aniData.add(w);
 		}
 	}

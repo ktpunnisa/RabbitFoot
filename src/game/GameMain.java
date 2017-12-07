@@ -14,7 +14,7 @@ public class GameMain {
 	private static GameState state;
 	private static GameLogic logic;
 	public static GameCamera camera;
-	private static UIGame gameUI;
+	public static UIGame gameUI;
 	
 	public static void newGame(int diff) {
 		state = new GameState(diff);
