@@ -35,8 +35,6 @@ public class Rabbit extends Animal {
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));
 		Platform.runLater(() -> body.setTranslateY(SceneManager.SCENE_HEIGHT/2-RABBIT_SIZE/2));
 		runPath.add(nextBlock());
-		//System.out.println(nextBlock());
-		//startRunning();
 	}
 
 	@Override
@@ -72,7 +70,7 @@ public class Rabbit extends Animal {
 						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
 					}
 					else {
-						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
+						Platform.runLater(() -> body.setImage(imgInv.get(t%2)));
 					}
 				}
 				else {
@@ -89,8 +87,6 @@ public class Rabbit extends Animal {
 	
 	@Override
 	public void runLoop() {
-		long lastRunTime = System.currentTimeMillis();
-		long runTime = (long) (500 * speed);
 		while (isRunning) {
 			if(!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();

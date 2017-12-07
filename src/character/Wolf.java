@@ -51,26 +51,19 @@ public class Wolf extends Animal{
 		    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	  	runPath.add(nextBlock());
-		//startRunning();
 	}
 
 	@Override
 	public void startRunning() {
 	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    System.out.println("to pos@"+a.getX()+" "+a.getY());
-	    Point2D t = UIGame.globalMap.localToScene(a);
-	    System.out.println("to sc@"+t.getX()+" "+t.getY());
 	    body.setImage(img.get(0));
-		body.setTranslateX(t.getX()-WOLF_SIZE/2);
-	    body.setTranslateY(t.getY()-WOLF_SIZE/2);
-	    System.out.println("set @"+body.getTranslateX()+" "+body.getTranslateY());
+		body.setTranslateX(a.getX()-WOLF_SIZE/2);
+	    body.setTranslateY(a.getY()-WOLF_SIZE/2);
 		isRunning = true;
 	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");
-		Thread moveThread = new Thread(this::moveLoop, "Wolf move Thread");
 		animationThread.start();
 		runThread.start();
-		moveThread.start();
 	}
 
 	@Override
@@ -111,18 +104,15 @@ public class Wolf extends Animal{
 	
 	@Override
 	public void runLoop() {
-		long lastRunTime = System.currentTimeMillis();
-		long runTime = (long) (500 * speed);
 		while (isRunning) {
 			if(!runPath.isEmpty()) {
-				System.out.println("to"+index+"body @"+body.getTranslateX()+" "+body.getTranslateY());
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
-				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), t.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateXProperty(), a.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), t.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
@@ -142,30 +132,7 @@ public class Wolf extends Animal{
 			}
 		}
 	}	
-	public void moveLoop() {
-		Pair prev = index;
-		while (isRunning) {
-			/*if(prev!=runPath.peek() && runPath!=null) {
-				Timeline timeline = new Timeline();
-				timeline.setCycleCount(1);
-				if(MapHolder.mapData == null) System.out.println("fasdfffffffff");
-				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
-				System.out.println(t+ " "+UIGame.globalMap.localToScene(t) );
-				Point2D tt = UIGame.globalMap.localToScene(t);
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), tt.getX())));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), tt.getY())));
-				Platform.runLater(() -> timeline.play());
-				prev = runPath.peek();
-			}
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
-		}
-	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub

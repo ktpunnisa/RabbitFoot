@@ -52,7 +52,6 @@ public class GameLogic {
 		long startTime = System.nanoTime();
 		int i=0;
 		while (isGameRunning) {
-			System.out.println("at"+ CharacterHolder.aniData.get(1).body.getTranslateX()+" "+CharacterHolder.aniData.get(1).body.getTranslateY());
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
