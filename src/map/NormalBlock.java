@@ -46,7 +46,7 @@ public class NormalBlock extends Block{
 			img = new Image("file:res/block/potion.png");
 		}
 		else if(hasItem) {
-			img = MapHolder.item.get(index).getImage();
+			img = MapHolder.item.get(index).getBlockImage();
 		}
 		else {
 			img = new Image("file:res/block/grass.png");
@@ -102,11 +102,9 @@ public class NormalBlock extends Block{
 		{
 			if(ItemHolder.itemData!=null) return;
 			Item i = MapHolder.item.get(index);
-			this.hasItem = false;
-			MapHolder.deleteItem(index);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
 					ae -> {
-						loadImage();
+						MapHolder.deleteItem(index);
 						GameSound.playSoundEat();
 						ItemHolder.setItemData(i);
 					}));

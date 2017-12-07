@@ -10,5 +10,6 @@ public abstract class Item {
 	{
 		index = p;
 	}
-	public abstract Image getImage();
+	public abstract Image getBlockImage();
+	public abstract Image getItemImage();
 }

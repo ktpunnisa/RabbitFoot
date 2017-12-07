@@ -38,7 +38,7 @@ public class ItemHolder {
 	}
 	public static void useItem()
 	{
-		if(itemData.equals(null)) return;
+		if(itemData==null) return;
 		if(itemData instanceof Antidote) 
 		{
 			//change rabbit image animation

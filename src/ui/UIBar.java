@@ -34,15 +34,15 @@ public class UIBar extends Group{
 		{
 			if(i instanceof Antidote) 
 			{
-				itemView.setFill(new ImagePattern(((Antidote)i).getImage(),0,0,1,1,true));
+				itemView.setFill(new ImagePattern(((Antidote)i).getItemImage(),0,0,1,1,true));
 			}
 			else if(i instanceof FartBomb)
 			{
-				itemView.setFill(new ImagePattern(((FartBomb)i).getImage(),0,0,1,1,true));
+				itemView.setFill(new ImagePattern(((FartBomb)i).getItemImage(),0,0,1,1,true));
 			}
 			else if(i instanceof Shit)
 			{
-				itemView.setFill(new ImagePattern(((Shit)i).getImage(),0,0,1,1,true));
+				itemView.setFill(new ImagePattern(((Shit)i).getItemImage(),0,0,1,1,true));
 			}
 		}
 	}

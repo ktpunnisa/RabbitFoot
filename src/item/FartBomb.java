@@ -11,8 +11,14 @@ public class FartBomb extends Item {
 	}
 
 	@Override
-	public Image getImage() {
+	public Image getBlockImage() {
 		// TODO Auto-generated method stub
 		return new Image("file:res/block/FartBomb.png");
+	}
+
+	@Override
+	public Image getItemImage() {
+		// TODO Auto-generated method stub
+		return new Image("file:res/item/FartBomb.png");
 	}
 }
