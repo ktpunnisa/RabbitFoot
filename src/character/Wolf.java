@@ -12,6 +12,7 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameMain;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PathTransition;
@@ -39,16 +40,20 @@ import utility.Pair;
 public class Wolf extends Animal{
 	
 	public static int WOLF_SIZE = 60;
+	public Wolf instance;
+	
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
+		this.instance = this;
 	    for (int i = 1; i <= 4; i++) {
 	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
-	  	body.setImage(img.get(0));
-	  	body.setTranslateX(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getX()-WOLF_SIZE/2);
-	  	body.setTranslateY(MapHolder.mapData.get(index.getY()).get(index.getX()).position.getY()-WOLF_SIZE/2);
+	    Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
+	    Platform.runLater(() -> body.setImage(img.get(0)));
+		Platform.runLater(() -> body.setTranslateX(t.getX()-WOLF_SIZE/2));
+		Platform.runLater(() -> body.setTranslateY(t.getY()-WOLF_SIZE/2));
 	  	runPath.add(nextBlock());
 		//startRunning();
 	}
@@ -104,21 +109,26 @@ public class Wolf extends Animal{
 		long lastRunTime = System.currentTimeMillis();
 		long runTime = (long) (500 * speed);
 		while (isRunning) {
-			long now = System.currentTimeMillis();
-			if (now - lastRunTime >= runTime) {
-				lastRunTime += runTime;
-				System.out.println("Wolf @ "+index);
-				if(!runPath.isEmpty())
-					index = runPath.remove();
-				try {
-					runPath.add(nextBlock());
-				} catch(Exception e) {
-					System.out.println("Wolf went wrong");
-				}
-				if(!runPath.isEmpty())
-					MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(this);
+			if(!runPath.isEmpty()) {
+				Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (body.translateXProperty(), t.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (body.translateYProperty(), t.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+				timeline.setOnFinished(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if(nextBlock() != null)
+							runPath.add(nextBlock());
+						if(!runPath.isEmpty())
+							MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(instance);
+					}
+				});
+				Platform.runLater(() -> timeline.play());
+				index = runPath.poll();
 			}
-			
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
@@ -129,7 +139,7 @@ public class Wolf extends Animal{
 	public void moveLoop() {
 		Pair prev = index;
 		while (isRunning) {
-			if(prev!=runPath.peek() && runPath!=null) {
+			/*if(prev!=runPath.peek() && runPath!=null) {
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
 				if(MapHolder.mapData == null) System.out.println("fasdfffffffff");
@@ -147,7 +157,7 @@ public class Wolf extends Animal{
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 	@Override

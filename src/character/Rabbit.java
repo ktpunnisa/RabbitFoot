@@ -3,10 +3,13 @@ package character;
 import game.GameCamera;
 import game.GameLogic;
 import game.GameMain;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -19,10 +22,12 @@ import utility.Pair;
 public class Rabbit extends Animal {
 	
 	public static int RABBIT_SIZE = 40;
+	public Rabbit instance;
 	int id = 0;
 	
 	public Rabbit(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
+		this.instance=this;
 		for (int i = 1; i <= 4; i++) {
 			img.add(new Image("file:res/character/rabbit_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
@@ -83,22 +88,32 @@ public class Rabbit extends Animal {
 		long lastRunTime = System.currentTimeMillis();
 		long runTime = (long) (500 * speed);
 		while (isRunning) {
-			long now = System.currentTimeMillis();
-			//System.out.println("Rabbit @ "+index);
-			if (now - lastRunTime >= runTime) {
-				System.out.println("-------Rabbit @ "+index);
-				lastRunTime += runTime;
-				if(!runPath.isEmpty()) {
-					GameCamera.cameraQueue.add(nextBlock());
-					index = runPath.remove();
-				}
-				try {
-					runPath.add(nextBlock());
-				} catch(Exception e) {
-					GameMain.stopGame();
-				}
-				if(!runPath.isEmpty())
-					MapHolder.mapData.get(index.getY()).get(index.getX()).checkEvent(this);
+			if(!runPath.isEmpty()) {
+				Timeline timeline = new Timeline();
+				timeline.setCycleCount(1);
+				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalAni.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (UIGame.globalAni.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
+				timeline.setOnFinished(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						if(nextBlock() != null)
+							runPath.add(nextBlock());
+						else {
+							GameMain.stopGame();
+						}
+						if(!runPath.isEmpty())
+							MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(instance);
+					}
+				});
+				Platform.runLater(() -> timeline.play());
+				index = runPath.poll();
 			}
 			try {
 				Thread.sleep(1);
