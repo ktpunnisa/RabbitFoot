@@ -5,13 +5,18 @@ import character.CharacterHolder;
 import character.Rabbit;
 import character.Wolf;
 import game.GameMain;
+import game.GameSound;
 import game.GameState;
+import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
+import scene.SceneManager;
+import ui.UIGame;
 
 public class TrapBlock extends Block{
 
@@ -35,12 +40,13 @@ public class TrapBlock extends Block{
 		if(animal instanceof Rabbit) {
 			System.out.println("Rabbit die !!");
 			//MapHolder.deleteTrap(index);
-			GameMain.stopGame();
-		}
-		else if(animal instanceof Wolf) {
-			System.out.println("Wolf die !!");
-			CharacterHolder.aniData.remove(animal);
-			MapHolder.deleteTrap(index);
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed), 
+					ae -> {
+						GameSound.playSoundDie();
+						GameMain.stopGame();
+					}));
+			timeline.setCycleCount(1);
+			timeline.play();
 		}
 		
 	}

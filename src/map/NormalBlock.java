@@ -4,6 +4,7 @@ import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
 import game.GameLogic;
+import game.GameSound;
 import game.GameState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -53,7 +54,11 @@ public class NormalBlock extends Block{
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
 			GameState.score++;
- 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> loadImage()));
+ 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.speed),
+ 					ae -> {
+ 				 		loadImage();
+ 				 		GameSound.playSoundEat();
+ 					}));
 			timeline.setCycleCount(1);
 			timeline.play();
 			
@@ -63,20 +68,25 @@ public class NormalBlock extends Block{
 			System.out.println("inverse mode @ "+ GameLogic.seconds);
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed), ae -> loadImage()));
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
+					ae -> {
+						loadImage();
+						GameSound.playSoundEat();
+						CharacterHolder.inverse = true;
+						CharacterHolder.timeInverse = GameLogic.seconds;
+						for(Animal x : CharacterHolder.aniData) {
+							x.setInverse(true);
+							if(x instanceof Rabbit){
+								x.setSpeed(0.5);
+							}
+							else {
+								x.setSpeed(1.5);
+							}
+						}		
+					}));
 			timeline.setCycleCount(1);
 			timeline.play();
-			CharacterHolder.inverse = true;
-			CharacterHolder.timeInverse = GameLogic.seconds;
-			for(Animal x : CharacterHolder.aniData) {
-				x.setInverse(true);
-				if(x instanceof Rabbit){
-					x.setSpeed(0.5);
-				}
-				else {
-					x.setSpeed(1.5);
-				}
-			}			
+				
 		}		
 	}
 
