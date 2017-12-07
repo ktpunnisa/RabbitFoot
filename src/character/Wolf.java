@@ -46,27 +46,24 @@ public class Wolf extends Animal{
 		super(index, speed, direction, z,inverse);
 		this.instance = this;
 	    for (int i = 1; i <= 4; i++) {
-	    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-	    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-	    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
-	    Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    Platform.runLater(() -> body.setImage(img.get(0)));
-		Platform.runLater(() -> body.setTranslateX(t.getX()-WOLF_SIZE/2));
-		Platform.runLater(() -> body.setTranslateY(t.getY()-WOLF_SIZE/2));
 	  	runPath.add(nextBlock());
-		//startRunning();
 	}
 
 	@Override
 	public void startRunning() {
+	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
+	    body.setImage(img.get(0));
+		body.setTranslateX(a.getX()-WOLF_SIZE/2);
+	    body.setTranslateY(a.getY()-WOLF_SIZE/2);
 		isRunning = true;
 	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");
-		Thread moveThread = new Thread(this::moveLoop, "Wolf move Thread");
 		animationThread.start();
 		runThread.start();
-		moveThread.start();
 	}
 
 	@Override
@@ -80,6 +77,7 @@ public class Wolf extends Animal{
 		long animateTime = (long) (100 * speed);
 		int i = 0;
 		while (isRunning) {
+			
 			long now = System.currentTimeMillis();
 			if (now - lastAnimateTime >= animateTime) {
 				lastAnimateTime += animateTime;
@@ -106,17 +104,15 @@ public class Wolf extends Animal{
 	
 	@Override
 	public void runLoop() {
-		long lastRunTime = System.currentTimeMillis();
-		long runTime = (long) (500 * speed);
 		while (isRunning) {
 			if(!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
-				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), t.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateXProperty(), a.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), t.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
@@ -136,30 +132,7 @@ public class Wolf extends Animal{
 			}
 		}
 	}	
-	public void moveLoop() {
-		Pair prev = index;
-		while (isRunning) {
-			/*if(prev!=runPath.peek() && runPath!=null) {
-				Timeline timeline = new Timeline();
-				timeline.setCycleCount(1);
-				if(MapHolder.mapData == null) System.out.println("fasdfffffffff");
-				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
-				System.out.println(t+ " "+UIGame.globalMap.localToScene(t) );
-				Point2D tt = UIGame.globalMap.localToScene(t);
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), tt.getX())));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), tt.getY())));
-				Platform.runLater(() -> timeline.play());
-				prev = runPath.peek();
-			}
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
-		}
-	}
+	
 	@Override
 	public boolean isVisible() {
 		// TODO Auto-generated method stub

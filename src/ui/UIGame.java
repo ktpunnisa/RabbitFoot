@@ -35,6 +35,8 @@ public class UIGame extends Group {
 		globalRabbit = CharacterHolder.aniData.get(0).body;
 		this.getChildren().add(globalMap);
 		this.getChildren().add(globalAni);
+		globalMap.translateXProperty().bindBidirectional(globalAni.translateXProperty());
+		globalMap.translateYProperty().bindBidirectional(globalAni.translateYProperty());
 		this.getChildren().add(globalRabbit);
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 

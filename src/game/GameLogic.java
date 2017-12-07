@@ -50,6 +50,7 @@ public class GameLogic {
 	private void gameLoop() {
 		long lastLoopStartTime = System.nanoTime();
 		long startTime = System.nanoTime();
+		int i=0;
 		while (isGameRunning) {
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
@@ -70,7 +71,6 @@ public class GameLogic {
 	private void updateGame()
 	{
 		RandomGenerator.setSeed(System.nanoTime());
-		
 		/*if(CharacterHolder.aniData.size()==1) {
 			GameState.level+=GameState.diff;
 			CharacterHolder.genAnimal(GameState.level);
