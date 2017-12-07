@@ -32,6 +32,7 @@ public class GameState extends Canvas{
 	public static int score = 0;
 	public static int diff;
 	public static int level;
+	public static boolean isImmortal;
 	
 	public GameState(int diff)
 	{
@@ -40,6 +41,7 @@ public class GameState extends Canvas{
 		character = new CharacterHolder();
 		GameState.diff = diff;
 		GameState.level = diff;
+		isImmortal = false;
 		CharacterHolder.genAnimal(diff);
 		this.isStateRunning = false;
 		startState();

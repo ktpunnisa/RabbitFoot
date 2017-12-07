@@ -2,10 +2,16 @@ package map;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import item.Antidote;
+import item.FartBomb;
+import item.Item;
+import item.Shit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -20,6 +26,7 @@ public class MapHolder {
 	public static ObservableList<List<Block>> mapData;
 	public static Set<Pair> carrot = new HashSet<Pair>();
 	public static Set<Pair> trap = new HashSet<Pair>();
+	public static Map<Pair,Item> item = new HashMap<>();
 	public static Pair potion = new Pair(-1,-1);
 	public static long potionTime = 0;
 	public static int count = 0;
@@ -74,7 +81,7 @@ public class MapHolder {
 	public static void createCarrot() 
 	{
 		Pair tmp = RandomGenerator.randomIndex();
-		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion)) {
+		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		//System.out.println(Integer.toString(carrot.size())+":"+tmp);
@@ -86,7 +93,7 @@ public class MapHolder {
 	public static void createTrap() 
 	{
 		Pair tmp = RandomGenerator.randomIndex();
-		while(trap.contains(tmp) || carrot.contains(tmp) || tmp.equals(potion)) {
+		while(trap.contains(tmp) || carrot.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		trap.add(tmp);
@@ -116,7 +123,7 @@ public class MapHolder {
 	public static void createPotion() 
 	{
 		Pair tmp = RandomGenerator.randomIndex();
-		while(carrot.contains(tmp) || trap.contains(tmp)) {
+		while(carrot.contains(tmp) || trap.contains(tmp) || item.containsKey(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		potion = tmp;
@@ -132,6 +139,28 @@ public class MapHolder {
 		}
 		potion = new Pair(-1,-1);
 		potionTime = 0;
+	}
+	
+	public static void createItem(int type) 
+	{
+		Pair tmp = RandomGenerator.randomIndex();
+		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
+			tmp = RandomGenerator.randomIndex();
+		}
+		if(type==0)
+			item.put(tmp, new Antidote(tmp));
+		if(type==1)
+			item.put(tmp, new FartBomb(tmp));
+		if(type==2)
+			item.put(tmp, new Shit(tmp));
+		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasItem = true;
+		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
+	}
+
+	public static void deleteItem(Pair index) {
+		item.remove(index);
+		((NormalBlock)mapData.get(index.getY()).get(index.getX())).hasItem = false;
+		mapData.get(index.getY()).get(index.getX()).loadImage();
 	}
 
 }

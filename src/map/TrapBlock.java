@@ -30,7 +30,6 @@ public class TrapBlock extends Block{
 		// TODO Auto-generated method stub
 		Image img = new Image("file:res/block/trap.png");
 		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		//this.hexagon.setFill(Color.ORANGE);
 		this.hexagon.setStrokeWidth(3);
 		this.hexagon.setStroke(Color.BLACK);
 	}

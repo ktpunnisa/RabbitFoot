@@ -75,7 +75,7 @@ public class GameLogic {
 			GameState.level+=GameState.diff;
 			CharacterHolder.genAnimal(GameState.level);
 		}*/
-		if(CharacterHolder.aniData.size()>1) {
+		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
@@ -88,12 +88,14 @@ public class GameLogic {
 					else {
 						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
 						GameSound.playSoundWolf();
+						//todo:move rab and wolf to same postition
 						GameMain.stopGame();
 					}
 				}
 			}
 			for(Animal a : kill) {
 				//System.out.println("kill"+a.index);
+				UIGame.globalAni.getChildren().remove(a.body);
 				CharacterHolder.aniData.remove(a);
 			}
 		}
@@ -127,6 +129,9 @@ public class GameLogic {
 					x.setSpeed(0.8);
 				}
 			}
+		}
+		if(MapHolder.item.size() <=3) {
+			MapHolder.createItem(RandomGenerator.random(0, 3));
 		}
 	}
 }

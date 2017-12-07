@@ -1,9 +1,14 @@
 package map;
 
 import character.Animal;
+import character.Rabbit;
+import game.GameSound;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Duration;
 import utility.Pair;
 
 public class JumpBlock extends Block {
@@ -42,14 +47,13 @@ public class JumpBlock extends Block {
 	public void loadImage() {
 		Image img = new Image("file:res/block/jump.png");
 		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		//this.hexagon.setFill(Color.ORANGE);
 		this.hexagon.setStrokeWidth(3);
 		this.hexagon.setStroke(Color.BLACK);
 	}
 
 	@Override
 	public void checkEvent(Animal animal) {
-		// TODO Auto-generated method stub
-		
+			if(animal instanceof Rabbit)
+				new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> GameSound.playSoundJump())).play();
 	}
 }

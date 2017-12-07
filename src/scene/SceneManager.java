@@ -22,7 +22,6 @@ public class SceneManager {
 		mainFrame.setPrefHeight(SCENE_HEIGHT);
 		mainScene = new Scene(mainFrame);
 		primaryStage = stage;
-		//primaryStage.show();
 	}
 	
 	public static void gotoMenu() {
