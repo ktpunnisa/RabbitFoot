@@ -40,8 +40,8 @@ import utility.Pair;
 public class Wolf extends Animal{
 	
 	public static int WOLF_SIZE = 60;
-	public static int angle[]= {-30,30,90,150,-150,-60-30};
 	public Wolf instance;
+	private boolean isStun;
 	
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
@@ -114,6 +114,8 @@ public class Wolf extends Animal{
 						if(MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i].equals(MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).index))
 							break;
 				}
+				setAngle(i);
+				this.direction = i;
 				timeline.setCycleCount(1);
 				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
@@ -121,7 +123,7 @@ public class Wolf extends Animal{
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.rotateProperty(), angle[i], Interpolator.EASE_BOTH)));
+						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
@@ -252,6 +254,15 @@ public class Wolf extends Animal{
 		}
 		return bestBlock;
 	}
+
+	public boolean isStun() {
+		return isStun;
+	}
+
+	public void setStun(boolean isStun) {
+		this.isStun = isStun;
+	}
+	
 }
 
 //Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());

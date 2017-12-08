@@ -53,6 +53,12 @@ public class ItemHolder {
 		else if(itemData instanceof FartBomb)
 		{
 			
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
+					ae -> {
+							
+					}));
+			timeline.setCycleCount(1);
+			timeline.play();
 		}
 		else if(itemData instanceof Shit)
 		{
