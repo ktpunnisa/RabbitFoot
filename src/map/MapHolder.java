@@ -24,11 +24,11 @@ public class MapHolder {
 	
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
-	public static Set<Pair> carrot = new HashSet<Pair>();
-	public static Set<Pair> trap = new HashSet<Pair>();
-	public static Map<Pair,Item> item = new HashMap<>();
-	public static Pair potion = new Pair(-1,-1);
-	public static long potionTime = 0;
+	public static Set<Pair> carrot;
+	public static Set<Pair> trap;
+	public static Map<Pair,Item> item;
+	public static Pair potion;
+	public static long potionTime;
 	public static int count = 0;
 	public static int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
@@ -48,6 +48,11 @@ public class MapHolder {
 	
 	public MapHolder()
 	{
+		carrot = new HashSet<Pair>();
+		trap = new HashSet<Pair>();
+		item = new HashMap<>();
+		potion = new Pair(-1,-1);
+		potionTime = 0;
 		count = 0;
 		mapData = FXCollections.<List<Block>>observableArrayList();
 	}
