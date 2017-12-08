@@ -86,7 +86,7 @@ public class NormalBlock extends Block{
 						for(Animal x : CharacterHolder.aniData) {
 							x.setInverse(true);
 							if(x instanceof Rabbit){
-								x.setSpeed(0.9);
+								x.setSpeed(0.5);
 							}
 							else {
 								x.setSpeed(1.5);
