@@ -73,7 +73,7 @@ public class ItemHolder {
 		}
 		else if(itemData instanceof Shit)
 		{
-			CharacterHolder.aniData.get(0).setSpeed(0.7);
+			CharacterHolder.aniData.get(0).setSpeed(0.6);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(4000),
 					ae -> {
 						CharacterHolder.aniData.get(0).setSpeed(1.4);

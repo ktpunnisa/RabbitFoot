@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import map.MapHolder;
 //import window.SceneManager;
 import scene.SceneManager;
+import utility.RandomGenerator;
 
 public class GameState extends Canvas{
 	
@@ -66,6 +67,7 @@ public class GameState extends Canvas{
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
 
+				RandomGenerator.setSeed(now);
 				updateState(now);
 			}
 
