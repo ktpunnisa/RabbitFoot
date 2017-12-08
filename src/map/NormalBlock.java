@@ -62,9 +62,9 @@ public class NormalBlock extends Block{
 			setHasCarrot(false);
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
-			GameState.score++;
  			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.speed),
  					ae -> {
+ 						GameState.score++;
  				 		loadImage();
  				 		GameSound.playSoundEat();
  					}));
@@ -86,7 +86,7 @@ public class NormalBlock extends Block{
 						for(Animal x : CharacterHolder.aniData) {
 							x.setInverse(true);
 							if(x instanceof Rabbit){
-								x.setSpeed(0.5);
+								x.setSpeed(0.9);
 							}
 							else {
 								x.setSpeed(1.5);
