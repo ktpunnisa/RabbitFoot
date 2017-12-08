@@ -29,12 +29,15 @@ public abstract class Animal {
 	public List<Image> imgInv2s = new ArrayList<>();
 	public boolean isRunning;
 	public boolean inverse;
+	public long angle;
+	public static int angles[]= {-30,30,90,150,210,270};
 	
 	public Animal(Pair index, double speed, int direction, int z,boolean inverse)
 	{
 		this.index = index;
 		this.speed = speed;
 		this.direction = direction;
+		this.angle = angles[direction];
 		this.z = z;
 		this.inverse = inverse;
 		this.body = new ImageView();
@@ -52,10 +55,12 @@ public abstract class Animal {
 	public void turnLeft()
 	{
 		this.direction = (this.direction - 1 + 6 ) % 6;
+		this.angle -= 60;
 	}
 	public void turnRight()
 	{
 		this.direction = (this.direction + 1 + 6 ) % 6;
+		this.angle += 60;
 	}
 	public Pair getIndex() {
 		return index;
@@ -88,6 +93,13 @@ public abstract class Animal {
 
 	public void setInverse(boolean inverse) {
 		this.inverse = inverse;
+	}
+
+	public void setAngle(int newDirection) {
+		int x = (newDirection - this.direction+6)%6;
+		if(x == 4)	x=-2;
+		else if(x == 5) x = -1;
+		this.angle += x*60;
 	}
 
 
