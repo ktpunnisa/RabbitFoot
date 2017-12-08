@@ -22,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
+import ui.UIBar;
 
 public class NormalBlock extends Block{
 
@@ -75,6 +76,7 @@ public class NormalBlock extends Block{
 		
 		if(animal instanceof Rabbit && hasPotion) {
 			System.out.println("inverse mode @ "+ GameLogic.seconds);
+			//UIBar.addTimeBar(15);
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),

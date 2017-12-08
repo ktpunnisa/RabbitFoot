@@ -44,6 +44,7 @@ public class GameMain {
 	public static void stopGame() {
 		logic.stopGame();
 		state.stopState();
+		gameOverUI.startGameOver();
 		Platform.runLater(()-> SceneManager.gotoScene(gameOverUI));
 	}
 	

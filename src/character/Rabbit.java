@@ -1,9 +1,13 @@
 package character;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import game.GameCamera;
 import game.GameLogic;
 import game.GameMain;
 import game.GameSound;
+import game.GameState;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -25,7 +29,7 @@ public class Rabbit extends Animal {
 	public static int RABBIT_SIZE = 40;
 	public Rabbit instance;
 	int id = 0;
-	
+	public List<Image> imgImmortal = new ArrayList<>();
 	public Rabbit(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
 		this.instance=this;
@@ -33,6 +37,7 @@ public class Rabbit extends Animal {
 			img.add(new Image("file:res/character/rabbit_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 			imgInv.add(new Image("file:res/character/rabbitInverse_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 			imgInv2s.add(new Image("file:res/character/rabbit2s_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgImmortal.add(new Image("file:res/character/rabbitIm_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
 		Platform.runLater(() -> body.setImage(img.get(0)));
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));
@@ -75,6 +80,9 @@ public class Rabbit extends Animal {
 					else {
 						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
 					}
+				}
+				else if(GameState.isImmortal) {
+					Platform.runLater(() -> body.setImage(imgImmortal.get(t%4)));
 				}
 				else {
 					Platform.runLater(() -> body.setImage(img.get(t%4)));

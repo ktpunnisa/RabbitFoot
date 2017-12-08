@@ -4,13 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import character.Animal;
+import character.Rabbit;
 import character.CharacterHolder;
 import character.Wolf;
+import game.GameMain;
 import game.GameSound;
 import game.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import scene.SceneManager;
 import ui.UIBar;
 import utility.Pair;
 
@@ -44,7 +49,6 @@ public class ItemHolder {
 		if(itemData==null) return;
 		if(itemData instanceof Antidote) 
 		{
-			//change rabbit image animation
 			GameState.isImmortal = true;
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
 					ae -> {
@@ -55,6 +59,10 @@ public class ItemHolder {
 		}
 		else if(itemData instanceof FartBomb)
 		{
+			ImageView b = new ImageView(new Image("file:res/item/bomb.png",120,120,false,false));
+			b.setTranslateX(340);
+			b.setTranslateY(240);
+			GameMain.gameUI.getChildren().add(1,b);
 			Pair r = CharacterHolder.aniData.get(0).index;
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(r.distance(a.index) <= 2) {
@@ -67,6 +75,10 @@ public class ItemHolder {
 							((Wolf)a).setStun(false);
 							
 						}
+					}));
+			timeline.getKeyFrames().add(new KeyFrame(Duration.millis(200),
+					ae -> {
+						GameMain.gameUI.getChildren().remove(1);
 					}));
 			timeline.setCycleCount(1);
 			timeline.play();

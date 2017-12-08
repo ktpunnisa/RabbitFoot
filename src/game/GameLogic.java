@@ -61,6 +61,7 @@ public class GameLogic {
 				lastLoopStartTime += LOOP_TIME;
 				seconds = (long)((double)(System.nanoTime() - startTime) / 1000000000.0);
 				//System.out.println((int)seconds);
+				Platform.runLater(()->UIBar.time.setText("Time: "+(seconds+1)));
 				updateGame();
 			}
 

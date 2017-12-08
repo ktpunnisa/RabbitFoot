@@ -28,7 +28,7 @@ public class UIGameOver extends Canvas {
 	public UIGameOver() {
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
 		this.addKeyEventHandler();
-		startGameOver();
+		//startGameOver();
 	}
 	
 	private void addKeyEventHandler() {
@@ -72,7 +72,7 @@ public class UIGameOver extends Canvas {
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-
+				
 				Platform.runLater(() -> updateAnimation(now));
 			}
 
