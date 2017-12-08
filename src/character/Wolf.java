@@ -253,38 +253,3 @@ public class Wolf extends Animal{
 		return bestBlock;
 	}
 }
-
-//Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
-/*sq.setCycleCount(1);
-sq.setOnFinished(new EventHandler<ActionEvent>(){
-    @Override
-    public void handle(ActionEvent event){
-          sq.getChildren().clear();
-          if(!GameLogic.isGameRunning) return;
-          Path path = new Path(); 
-	      MoveTo moveTo = new MoveTo(body.getTranslateX() + WOLF_SIZE/2, body.getTranslateY()+ WOLF_SIZE/2);
-	      Pair nextIndex = new Pair(nextBlock().getX(),nextBlock().getY());
-	      if(nextIndex.equals(getIndex())) return;
-	      Point2D nextPoint = MapHolder.mapData.get(nextBlock().getY()).get(nextBlock().getX()).position;
-	      LineTo lineTo = new LineTo(nextPoint.getX(), nextPoint.getY());
-	      path.getElements().add(moveTo); 
-	      path.getElements().add(lineTo);        
-	      PathTransition pathTransition = new PathTransition();
-	      pathTransition.setDuration(Duration.millis(1000*speed));
-	      pathTransition.setNode(body); 
-	      pathTransition.setPath(path);  
-	      pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT); 
-	      pathTransition.setCycleCount(1);
-	      pathTransition.setAutoReverse(false); 
-          sq.getChildren().add(pathTransition);
-          if(!sq.getChildren().isEmpty()) {
-        	  	  Platform.runLater(() -> {
-        	  		  sq.play();
-        	  		  runLoop(true);
-        	  	  });
-          }
-          setIndex(nextIndex);
-          MapHolder.mapData.get(nextIndex.getY()).get(nextIndex.getX()).checkEvent(instance);
-    }
-});
-Platform.runLater(() -> sq.play());*/
