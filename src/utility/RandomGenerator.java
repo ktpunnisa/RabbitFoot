@@ -15,11 +15,11 @@ public class RandomGenerator {
 		return from + RandomGenerator.rand.nextInt(to - from);
 	} 
 	public static Pair randomIndex() {
-		int x = RandomGenerator.random(0, 111000007)%13;
-		int y = RandomGenerator.random(0, 111000007)%13;
+		int x = RandomGenerator.random(0, 1100007)%13;
+		int y = RandomGenerator.random(0, 1100007)%13;
 		while(MapHolder.typeBlock[y][x] == 1 || MapHolder.typeBlock[y][x] == 2) {
-			x = RandomGenerator.random(0, 111000007)%13;
-			y = RandomGenerator.random(0, 111000007)%13;
+			x = RandomGenerator.random(0, 1100007)%13;
+			y = RandomGenerator.random(0, 1100007)%13;
 		}
 		return new Pair(x,y); 
 	}

@@ -23,6 +23,7 @@ import utility.Pair;
 public class Rabbit extends Animal {
 	
 	public static int RABBIT_SIZE = 40;
+	public static int angle[]= {-30,30,90,150,-150,-60-30};
 	public Rabbit instance;
 	int id = 0;
 	
@@ -100,7 +101,7 @@ public class Rabbit extends Animal {
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
+						new KeyValue (body.rotateProperty(), angle[direction], Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
@@ -140,7 +141,6 @@ public class Rabbit extends Animal {
 			if(Math.abs(this.direction - jumpDi)==3) {
 				return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 			}
-			setAngle(jumpDi);
 			this.direction = jumpDi;
 			return ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).jumpTo;
 		}
