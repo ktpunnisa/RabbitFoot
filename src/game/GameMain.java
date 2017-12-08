@@ -2,12 +2,17 @@ package game;
 
 import java.util.Optional;
 
+import item.ItemHolder;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import scene.SceneManager;
 import ui.UIGame;
 import javafx.scene.control.Alert.AlertType;
+import javafx.util.Duration;
+import map.MapHolder;
 
 public class GameMain {
 	
@@ -22,8 +27,15 @@ public class GameMain {
 		camera = new GameCamera(gameUI);
 		logic = new GameLogic(gameUI, state, camera);
 		SceneManager.gotoScene(gameUI);
-		logic.startGame();
-		state.startState();
+		//logic.startGame();
+		//state.startState();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300),
+				ae -> {
+					logic.startGame();
+					state.startState();
+				}));
+		timeline.setCycleCount(1);
+		timeline.play();
 	}
 	
 	public static void stopGame() {

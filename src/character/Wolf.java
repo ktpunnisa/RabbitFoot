@@ -121,7 +121,7 @@ public class Wolf extends Animal{
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.rotateProperty(), angle[i], Interpolator.EASE_BOTH)));
+						new KeyValue (body.rotateProperty(), angle[i%6], Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
