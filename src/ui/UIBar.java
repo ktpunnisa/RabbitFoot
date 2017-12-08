@@ -16,11 +16,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
+import javafx.scene.text.Font;
 
 public class UIBar extends Group{
 	public static Rectangle itemView;
-	public static Label score;
+	public static Text score;
+	public static Text time;
+	Font font = Font.loadFont("file:res/fonts/8bit.ttf", 30);
 	public UIBar()
 	{
 		itemView = new Rectangle(10,10,80,100);
@@ -30,12 +34,20 @@ public class UIBar extends Group{
 		this.getChildren().add(itemView);
 		ImageView status = new ImageView(new Image("file:res/bar.png"));
 		this.getChildren().add(status);
-		score=new Label("Score:");
-		score.setFont(new Font("Arial", 30));
-		score.setTextFill(Color.WHITE);
-		score.setTranslateX(600);
-		score.setTranslateY(10);
+		score=new Text("Score:");
+		score.setFont(font);
+		score.setFill(Color.WHITE);
+		score.setStroke(Color.ORANGE);
+		score.setTranslateX(400);
+		score.setTranslateY(30);
 		this.getChildren().add(score);
+		time=new Text("Time:");
+		time.setFont(font);
+		time.setFill(Color.WHITE);
+		time.setStroke(Color.ORANGE);
+		time.setTranslateX(600);
+		time.setTranslateY(30);
+		this.getChildren().add(time);
 	}
 	public static void changeItemView(Item i)
 	{
