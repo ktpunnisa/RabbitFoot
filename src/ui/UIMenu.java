@@ -36,6 +36,7 @@ public class UIMenu extends Canvas {
 	
 	public UIMenu() {
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
+		diffSelector = 0;
 		this.addKeyEventHandler();
 		startMenu();
 	}
@@ -100,7 +101,7 @@ public class UIMenu extends Canvas {
 		else
 			gc.fillRect(SceneManager.SCENE_WIDTH*4 / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 40, 170, 70);
 		gc.setFill(Color.WHITE);
-		gc.drawImage(new Image("file:res/menu/logo.png"), SceneManager.SCENE_WIDTH / 2 - 250, SceneManager.SCENE_HEIGHT / 4 - 150);
+		gc.drawImage(new Image("file:res/UI/logo.png"), SceneManager.SCENE_WIDTH / 2 - 250, SceneManager.SCENE_HEIGHT / 4 - 150);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(MENU_FONT);
 		gc.fillText("Easy", SceneManager.SCENE_WIDTH / 5, SceneManager.SCENE_HEIGHT * 3 / 4);

@@ -30,13 +30,14 @@ public class GameState extends Canvas{
 	private static final Font TEXTFONT = new Font("Monospace", 30);
 
 	public static int result;
-	public static int score = 0;
+	public static int score;
 	public static int diff;
 	public static int level;
 	public static boolean isImmortal;
 	
 	public GameState(int diff)
 	{
+		this.score = 0;
 		map = new MapHolder();
 		map.genMap(diff);
 		character = new CharacterHolder();

@@ -8,7 +8,7 @@ import map.NormalBlock;
 
 public class RandomGenerator {
 	
-	private static Random rand = new Random(999999L);
+	private static Random rand = new Random(1236265L);
 
 	public static int random(int from, int to)
 	{

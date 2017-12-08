@@ -6,7 +6,10 @@ import java.util.Set;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.util.Duration;
 import map.MapHolder;
 import ui.UIBar;
 import ui.UIGame;
@@ -52,7 +55,6 @@ public class GameLogic {
 	private void gameLoop() {
 		long lastLoopStartTime = System.nanoTime();
 		long startTime = System.nanoTime();
-		int i=0;
 		while (isGameRunning) {
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
@@ -89,8 +91,9 @@ public class GameLogic {
 					else {
 						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
 						GameSound.playSoundWolf();
-						//todo:move rab and wolf to same postition
 						GameMain.stopGame();
+						
+						
 					}
 				}
 			}
