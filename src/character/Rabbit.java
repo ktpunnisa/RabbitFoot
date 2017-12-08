@@ -3,6 +3,7 @@ package character;
 import game.GameCamera;
 import game.GameLogic;
 import game.GameMain;
+import game.GameSound;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -22,6 +23,7 @@ import utility.Pair;
 public class Rabbit extends Animal {
 	
 	public static int RABBIT_SIZE = 40;
+	public static int angle[]= {-30,30,90,150,-150,-60-30};
 	public Rabbit instance;
 	int id = 0;
 	
@@ -30,6 +32,8 @@ public class Rabbit extends Animal {
 		this.instance=this;
 		for (int i = 1; i <= 4; i++) {
 			img.add(new Image("file:res/character/rabbit_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgInv.add(new Image("file:res/character/rabbitInverse_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgInv2s.add(new Image("file:res/character/rabbit2s_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
 		Platform.runLater(() -> body.setImage(img.get(0)));
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));
@@ -70,7 +74,7 @@ public class Rabbit extends Animal {
 						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
 					}
 					else {
-						Platform.runLater(() -> body.setImage(imgInv.get(t%2)));
+						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
 					}
 				}
 				else {
@@ -96,13 +100,15 @@ public class Rabbit extends Animal {
 						new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
-
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
+						new KeyValue (body.rotateProperty(), angle[direction], Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
 						if(nextBlock() != null)
 							runPath.add(nextBlock());
 						else {
+							GameSound.playSoundDie();
 							GameMain.stopGame();
 						}
 						if(!runPath.isEmpty())

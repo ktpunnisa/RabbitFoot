@@ -12,13 +12,11 @@ public class VoidBlock extends Block {
 
 	@Override
 	public void loadImage() {
-		// TODO Auto-generated method stub
 		this.hexagon.setFill(Color.TRANSPARENT);
 	}
 
 	@Override
 	public void checkEvent(Animal animal) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -8,6 +8,7 @@ import character.Rabbit;
 import game.GameCamera;
 import game.GameMain;
 import game.GameState;
+import item.ItemHolder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -34,10 +35,12 @@ public class UIGame extends Group {
 		globalAni = drawAnimal();
 		globalRabbit = CharacterHolder.aniData.get(0).body;
 		this.getChildren().add(globalMap);
-		this.getChildren().add(globalAni);
-		globalMap.translateXProperty().bindBidirectional(globalAni.translateXProperty());
-		globalMap.translateYProperty().bindBidirectional(globalAni.translateYProperty());
 		this.getChildren().add(globalRabbit);
+		this.getChildren().add(globalAni);
+		globalAni.translateXProperty().bind(globalMap.translateXProperty());
+		globalAni.translateYProperty().bind(globalMap.translateYProperty());
+		UIBar bar = new UIBar();
+		this.getChildren().add(bar);
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
@@ -48,27 +51,11 @@ public class UIGame extends Group {
 				else if(event.getCode().equals(KeyCode.RIGHT)) {
 					CharacterHolder.aniData.get(0).turnRight();
 				}
+				else if(event.getCode().equals(KeyCode.SPACE)) {
+					ItemHolder.useItem();
+				}
 			}
-			
 		});
-		/*this.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				if(event.isPrimaryButtonDown())
-			    {
-					CharacterHolder.aniData.get(0).turnLeft();
-					GameMain.camera.rotateMap(-1);
-
-			    }
-			    else if(event.isSecondaryButtonDown())
-			    {
-			    		CharacterHolder.aniData.get(0).turnRight();
-			    		GameMain.camera.rotateMap(1);
-			    }
-			}
-			
-		});*/
 	}
 	
 	private Group drawMap()
@@ -87,3 +74,21 @@ public class UIGame extends Group {
 		return temp;
 	}
 }
+/*this.setOnMousePressed(new EventHandler<MouseEvent>() {
+
+@Override
+public void handle(MouseEvent event) {
+	if(event.isPrimaryButtonDown())
+    {
+		CharacterHolder.aniData.get(0).turnLeft();
+		GameMain.camera.rotateMap(-1);
+
+    }
+    else if(event.isSecondaryButtonDown())
+    {
+    		CharacterHolder.aniData.get(0).turnRight();
+    		GameMain.camera.rotateMap(1);
+    }
+}
+
+});*/

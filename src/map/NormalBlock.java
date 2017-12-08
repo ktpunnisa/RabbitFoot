@@ -6,6 +6,11 @@ import character.Rabbit;
 import game.GameLogic;
 import game.GameSound;
 import game.GameState;
+import item.Antidote;
+import item.FartBomb;
+import item.Item;
+import item.ItemHolder;
+import item.Shit;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -22,11 +27,12 @@ public class NormalBlock extends Block{
 
 	Boolean hasCarrot;
 	Boolean hasPotion;
-	
+	Boolean hasItem;
 	public NormalBlock(int x, int y, int c) {
 		super(x, y, c);
 		hasCarrot = false;
 		hasPotion = false;
+		hasItem = false;
 		loadImage();
 	}
 
@@ -38,6 +44,9 @@ public class NormalBlock extends Block{
 		}
 		else if(hasPotion){
 			img = new Image("file:res/block/potion.png");
+		}
+		else if(hasItem) {
+			img = MapHolder.item.get(index).getBlockImage();
 		}
 		else {
 			img = new Image("file:res/block/grass.png");
@@ -87,7 +96,21 @@ public class NormalBlock extends Block{
 			timeline.setCycleCount(1);
 			timeline.play();
 				
-		}		
+		}
+		
+		if(animal instanceof Rabbit && hasItem)
+		{
+			if(ItemHolder.itemData!=null) return;
+			Item i = MapHolder.item.get(index);
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
+					ae -> {
+						MapHolder.deleteItem(index);
+						GameSound.playSoundEat();
+						ItemHolder.setItemData(i);
+					}));
+			timeline.setCycleCount(1);
+			timeline.play();
+		}
 	}
 
 	public Boolean getHasPotion() {
