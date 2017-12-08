@@ -74,10 +74,9 @@ public class GameLogic {
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
 		RandomGenerator.setSeed(System.nanoTime());
-		/*if(CharacterHolder.aniData.size()==1) {
-			GameState.level+=GameState.diff;
+		if(CharacterHolder.aniData.size()==1) {
 			CharacterHolder.genAnimal(GameState.level);
-		}*/
+		}
 		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
