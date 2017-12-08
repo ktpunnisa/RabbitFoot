@@ -44,7 +44,7 @@ public class GameState extends Canvas{
 		isImmortal = false;
 		CharacterHolder.genAnimal(diff);
 		this.isStateRunning = false;
-		startState();
+		//startState();
 	}
 	
 	public void startState() {

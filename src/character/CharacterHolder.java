@@ -40,7 +40,7 @@ public class CharacterHolder {
 				tmp = RandomGenerator.randomIndex();
 			}
 			System.out.println("wolf#"+(i+1)+" : "+tmp);
-			Wolf w = new Wolf(tmp, 1.1, 1, 0,inverse);
+			Wolf w = new Wolf(new Pair(1,1), 1.1, 1, 0,inverse);
 			aniData.add(w);
 		}
 	}

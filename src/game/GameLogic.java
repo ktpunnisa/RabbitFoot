@@ -6,7 +6,9 @@ import java.util.Set;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
+import javafx.application.Platform;
 import map.MapHolder;
+import ui.UIBar;
 import ui.UIGame;
 import utility.Pair;
 import utility.RandomGenerator;
@@ -28,7 +30,7 @@ public class GameLogic {
 		this.state = state;
 		this.camera = camera;
 		this.camera.startTrack();
-		this.state.startState();
+		//this.state.startState();
 		isGameRunning = false;
 	}
 	public void startGame() {
@@ -70,6 +72,7 @@ public class GameLogic {
 	
 	private void updateGame()
 	{
+		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
 		RandomGenerator.setSeed(System.nanoTime());
 		/*if(CharacterHolder.aniData.size()==1) {
 			GameState.level+=GameState.diff;
@@ -95,7 +98,7 @@ public class GameLogic {
 			}
 			for(Animal a : kill) {
 				//System.out.println("kill"+a.index);
-				UIGame.globalAni.getChildren().remove(a.body);
+				Platform.runLater(() -> UIGame.globalAni.getChildren().remove(a.body));
 				CharacterHolder.aniData.remove(a);
 			}
 		}
