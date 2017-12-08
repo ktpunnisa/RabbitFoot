@@ -3,6 +3,9 @@ package item;
 import java.util.HashMap;
 import java.util.Map;
 
+import character.Animal;
+import character.CharacterHolder;
+import character.Wolf;
 import game.GameSound;
 import game.GameState;
 import javafx.animation.KeyFrame;
@@ -52,11 +55,29 @@ public class ItemHolder {
 		}
 		else if(itemData instanceof FartBomb)
 		{
-			
+			Pair r = CharacterHolder.aniData.get(0).index;
+			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
+				if(r.distance(a.index) <= 3) {
+					((Wolf)a).setStun(true);
+				}
+			}
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
+					ae -> {
+						for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
+							((Wolf)a).setStun(false);
+							
+						}
+					}));
+			timeline.setCycleCount(1);
+			timeline.play();
 		}
 		else if(itemData instanceof Shit)
 		{
-			
+			CharacterHolder.aniData.get(0).setSpeed(0.7);
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(4000),
+					ae -> {
+						CharacterHolder.aniData.get(0).setSpeed(1.4);
+					}));
 		}
 		itemData=null;
 		updateItem();

@@ -12,6 +12,7 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameMain;
+import game.GameState;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -36,16 +37,20 @@ import scene.SceneManager;
 import ui.UIGame;
 import utility.MyNode;
 import utility.Pair;
+import utility.RandomGenerator;
 
 public class Wolf extends Animal{
 	
 	public static int WOLF_SIZE = 60;
-	public static int angle[]= {-30,30,90,150,-150,-60-30};
 	public Wolf instance;
+	private boolean isStun;
+	private Pair gotoThis;
 	
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
 		this.instance = this;
+		this.isStun = false;
+		gotoThis = RandomGenerator.randomIndex();
 	    for (int i = 1; i <= 4; i++) {
 		    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
 		    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
@@ -114,6 +119,9 @@ public class Wolf extends Animal{
 						if(MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i].equals(MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).index))
 							break;
 				}
+				if(i==6)	i=this.direction;	
+				setAngle(i);
+				this.direction = i;
 				timeline.setCycleCount(1);
 				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
@@ -121,7 +129,7 @@ public class Wolf extends Animal{
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.rotateProperty(), angle[i%6], Interpolator.EASE_BOTH)));
+						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
@@ -155,10 +163,17 @@ public class Wolf extends Animal{
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
 		Boolean seeTrap = true;
-		/*if(index.distance(r)>=5){
-			seeTrap = true;
-		}*/
-		//if(!seeTrap)	System.out.println("not see trap");
+		if(GameState.isImmortal) {
+			r = gotoThis;
+			while(r.distance(index)==0){
+				gotoThis = RandomGenerator.randomIndex();
+				r = gotoThis;
+			}
+			System.out.println("go to"+r);
+		}
+		if(isStun) {
+			return index;
+		}
 		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock ||
 				MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof TrapBlock ) {
 			return bestBlock = lowNextBlock();
@@ -251,5 +266,13 @@ public class Wolf extends Animal{
 			}
 		}
 		return bestBlock;
+	}
+
+	public boolean isStun() {
+		return isStun;
+	}
+
+	public void setStun(boolean isStun) {
+		this.isStun = isStun;
 	}
 }

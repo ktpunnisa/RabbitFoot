@@ -78,24 +78,24 @@ public class GameState extends Canvas{
 	}
 
 	private void updateState(long now) {
-		FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
-		// TODO fill code
-		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.setFill(Color.ANTIQUEWHITE);
-		gc.fillRect(0,0,SceneManager.SCENE_WIDTH,80);		
-		gc.setFont(TEXTFONT);
-		gc.setFill(Color.BLACK);
-		gc.fillText("Score: " + score,10,10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
-		if(CharacterHolder.inverse) {
-			gc.fillText("Inverse mode", 
-						SceneManager.SCENE_WIDTH-10-fontLoader.computeStringWidth("Inverse mode", TEXTFONT),
-						10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
-		}
-		else {
-			gc.fillText("Normal mode", 
-					SceneManager.SCENE_WIDTH-10-fontLoader.computeStringWidth("Normal mode", TEXTFONT),
-					10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
-		}
+//		FontLoader fontLoader = Toolkit.getToolkit().getFontLoader();
+//		// TODO fill code
+//		GraphicsContext gc = this.getGraphicsContext2D();
+//		gc.setFill(Color.ANTIQUEWHITE);
+//		gc.fillRect(0,0,SceneManager.SCENE_WIDTH,80);		
+//		gc.setFont(TEXTFONT);
+//		gc.setFill(Color.BLACK);
+//		gc.fillText("Score: " + score,10,10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
+//		if(CharacterHolder.inverse) {
+//			gc.fillText("Inverse mode", 
+//						SceneManager.SCENE_WIDTH-10-fontLoader.computeStringWidth("Inverse mode", TEXTFONT),
+//						10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
+//		}
+//		else {
+//			gc.fillText("Normal mode", 
+//					SceneManager.SCENE_WIDTH-10-fontLoader.computeStringWidth("Normal mode", TEXTFONT),
+//					10+fontLoader.getFontMetrics(TEXTFONT).getLineHeight());
+//		}
 	}
 	
 	

@@ -74,10 +74,9 @@ public class GameLogic {
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
 		RandomGenerator.setSeed(System.nanoTime());
-		/*if(CharacterHolder.aniData.size()==1) {
-			GameState.level+=GameState.diff;
+		if(CharacterHolder.aniData.size()==1) {
 			CharacterHolder.genAnimal(GameState.level);
-		}*/
+		}
 		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
@@ -126,10 +125,10 @@ public class GameLogic {
 			for(Animal x : CharacterHolder.aniData) {
 				x.setInverse(false);
 				if(x instanceof Rabbit){
-					x.setSpeed(1);
+					x.setSpeed(1.4);
 				}
 				else {
-					x.setSpeed(0.8);
+					x.setSpeed(1.1);
 				}
 			}
 		}
