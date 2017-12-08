@@ -73,7 +73,6 @@ public class GameLogic {
 	private void updateGame()
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
-		RandomGenerator.setSeed(System.nanoTime());
 		if(CharacterHolder.aniData.size()==1) {
 			CharacterHolder.genAnimal(GameState.level);
 		}

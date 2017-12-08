@@ -169,7 +169,6 @@ public class Wolf extends Animal{
 				gotoThis = RandomGenerator.randomIndex();
 				r = gotoThis;
 			}
-			System.out.println("go to"+r);
 		}
 		if(isStun) {
 			return index;
