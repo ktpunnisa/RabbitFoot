@@ -8,8 +8,8 @@ import map.NormalBlock;
 
 public class RandomGenerator {
 	
-	private static Random rand = new Random(1236265L);
-
+	//private static Random rand = new Random(1236265L);
+	private static Random rand = new Random(System.currentTimeMillis());
 	public static int random(int from, int to)
 	{
 		return from + RandomGenerator.rand.nextInt(to - from);
@@ -25,6 +25,7 @@ public class RandomGenerator {
 	}
 	
 	public static void setSeed(long seed) {
-		rand = new Random(seed);
+		//rand = new Random(seed);
+		rand = new Random(System.currentTimeMillis());
 	}
 }
