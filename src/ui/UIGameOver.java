@@ -20,9 +20,9 @@ public class UIGameOver extends Canvas {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	int selector = 0;
-	private static final Font SCORE_FONT = Font.loadFont("file:res/fonts/8bit.ttf", 150);
-	private static final Font TITLE_FONT =  Font.loadFont("file:res/fonts/8bit.ttf", 30);
-	private static final Font GAMEOVER_FONT = Font.loadFont("file:res/fonts/8bit.ttf", 50);
+	private static final Font SCORE_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 150);
+	private static final Font TITLE_FONT =  Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 30);
+	private static final Font GAMEOVER_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 50);
 	private Thread gameOverAnimation;
 	private boolean isGameOverRunning;
 	
@@ -112,7 +112,7 @@ public class UIGameOver extends Canvas {
 		gc.setFill(Color.ORANGERED);
 		gc.fillOval(SceneManager.SCENE_WIDTH / 2 - 100, SceneManager.SCENE_HEIGHT / 2 +70, 70, 70);
 		gc.fillOval(SceneManager.SCENE_WIDTH / 2 + 20, SceneManager.SCENE_HEIGHT / 2 +70, 70, 70);
-		gc.drawImage(new Image("file:res/ui/restart.png"), SceneManager.SCENE_WIDTH / 2 - 90,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
-		gc.drawImage(new Image("file:res/ui/menu.png"), SceneManager.SCENE_WIDTH / 2 +30,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
+		gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("ui/restart.png")), SceneManager.SCENE_WIDTH / 2 - 90,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
+		gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("ui/menu.png")), SceneManager.SCENE_WIDTH / 2 +30,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
 	}
 }

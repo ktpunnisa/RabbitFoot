@@ -13,15 +13,15 @@ public class GameSound {
 	private static AudioClip soundExplosion;
 	
 	static {
-		soundBG = new AudioClip("file:res/sound/happy.mp3");
-		soundDie = new AudioClip("file:res/sound/fall.mp3");
-		soundJump = new AudioClip("file:res/sound/CARTPOP.mp3");
-		soundEat = new AudioClip("file:res/sound/pop.mp3");
-		soundBG = new AudioClip("file:res/sound/happy.mp3");
-		soundWolf = new AudioClip("file:res/sound/wolf6.mp3");
-		soundWolfDie = new AudioClip("file:res/sound/wolf1.mp3");
-		soundFart = new AudioClip("file:res/sound/fart.mp3");
-		soundExplosion = new AudioClip("file:res/sound/explosion.mp3");
+		soundBG = new AudioClip(ClassLoader.getSystemResource("sound/happy.mp3").toString());
+		soundDie = new AudioClip(ClassLoader.getSystemResource("sound/fall.mp3").toString());
+		soundJump = new AudioClip(ClassLoader.getSystemResource("sound/CARTPOP.mp3").toString());
+		soundEat = new AudioClip(ClassLoader.getSystemResource("sound/pop.mp3").toString());
+		soundBG = new AudioClip(ClassLoader.getSystemResource("sound/happy.mp3").toString());
+		soundWolf = new AudioClip(ClassLoader.getSystemResource("sound/wolf6.mp3").toString());
+		soundWolfDie = new AudioClip(ClassLoader.getSystemResource("sound/wolf1.mp3").toString());
+		soundFart = new AudioClip(ClassLoader.getSystemResource("sound/fart.mp3").toString());
+		soundExplosion = new AudioClip(ClassLoader.getSystemResource("sound/explosion.mp3").toString());
 	}
 	
 	public static void playSoundDie() {

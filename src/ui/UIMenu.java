@@ -100,7 +100,7 @@ public class UIMenu extends Canvas {
 		else
 			gc.fillRect(SceneManager.SCENE_WIDTH*4 / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
 		gc.setFill(Color.WHITE);
-		gc.drawImage(new Image("file:res/ui/logo.png"), SceneManager.SCENE_WIDTH / 2 - 300, SceneManager.SCENE_HEIGHT / 4 - 100);
+		gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("ui/logo.png")), SceneManager.SCENE_WIDTH / 2 - 300, SceneManager.SCENE_HEIGHT / 4 - 100);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(MENU_FONT);
 		gc.fillText("Easy", SceneManager.SCENE_WIDTH / 5, SceneManager.SCENE_HEIGHT * 3 / 4);

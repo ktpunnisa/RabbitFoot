@@ -33,10 +33,10 @@ public class Rabbit extends Animal {
 		super(index, speed, direction, z,inverse);
 		this.instance=this;
 		for (int i = 1; i <= 4; i++) {
-			img.add(new Image("file:res/character/rabbit_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgInv.add(new Image("file:res/character/rabbitInverse_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgInv2s.add(new Image("file:res/character/rabbit2s_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgImmortal.add(new Image("file:res/character/rabbitIm_"+i+".png",RABBIT_SIZE,RABBIT_SIZE,false,false));
+			img.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitInverse_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit2s_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
+			imgImmortal.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitIm_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
 		Platform.runLater(() -> body.setImage(img.get(0)));
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));

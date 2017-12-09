@@ -60,7 +60,7 @@ public class ItemHolder {
 		}
 		else if(itemData instanceof FartBomb)
 		{
-			ImageView b = new ImageView(new Image("file:res/item/bomb.png",120,120,false,false));
+			ImageView b = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("item/bomb.png"),120,120,false,false));
 			Platform.runLater(() -> b.setTranslateX(340));
 			Platform.runLater(() -> b.setTranslateY(240));
 			Platform.runLater(() -> GameMain.gameUI.getChildren().add(1,b));

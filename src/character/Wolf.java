@@ -52,9 +52,9 @@ public class Wolf extends Animal{
 		this.isStun = false;
 		gotoThis = RandomGenerator.randomIndex();
 	    for (int i = 1; i <= 4; i++) {
-		    	img.add(new Image("file:res/character/wolf_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-		    	imgInv.add(new Image("file:res/character/wolfInverse_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
-		    	imgInv2s.add(new Image("file:res/character/wolf2s_"+i+".png",WOLF_SIZE,WOLF_SIZE,false,false));
+		    	img.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfInverse_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
+		    	imgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf2s_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	  	runPath.add(nextBlock());
 	}

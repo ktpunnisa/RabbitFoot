@@ -42,16 +42,16 @@ public class NormalBlock extends Block{
 	public void loadImage() {
 		Image img;
 		if(hasCarrot) {
-			img = new Image("file:res/block/carrot.png");
+			img = new Image(ClassLoader.getSystemResourceAsStream("block/carrot.png"));
 		}
 		else if(hasPotion){
-			img = new Image("file:res/block/potion.png");
+			img = new Image(ClassLoader.getSystemResourceAsStream("block/potion.png"));
 		}
 		else if(hasItem) {
 			img = MapHolder.item.get(index).getBlockImage();
 		}
 		else {
-			img = new Image("file:res/block/grass.png");
+			img = new Image(ClassLoader.getSystemResourceAsStream("block/grass.png"));
 		}
 		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));

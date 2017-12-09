@@ -29,7 +29,7 @@ public class TrapBlock extends Block{
 	@Override
 	public void loadImage() {
 		// TODO Auto-generated method stub
-		Image img = new Image("file:res/block/trap.png");
+		Image img = new Image(ClassLoader.getSystemResourceAsStream("block/trap.png"));
 		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));

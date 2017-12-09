@@ -13,13 +13,13 @@ public class Antidote extends Item {
 	@Override
 	public Image getBlockImage() {
 		// TODO Auto-generated method stub
-		return new Image("file:res/block/Antidote.png");
+		return new Image(ClassLoader.getSystemResourceAsStream("block/Antidote.png"));
 	}
 
 	@Override
 	public Image getItemImage() {
 		// TODO Auto-generated method stub
-		return new Image("file:res/item/Antidote.png");
+		return new Image(ClassLoader.getSystemResourceAsStream("item/Antidote.png"));
 	}
 
 }

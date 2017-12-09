@@ -28,10 +28,10 @@ public class UIBar extends Group{
 	public static Rectangle itemView;
 	public static Text score;
 	public static Text time;
-	Font font = Font.loadFont("file:res/fonts/8bit.ttf", 35);
+	Font font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 35);
 	public UIBar()
 	{
-		ImageView itemBorad = new ImageView(new Image("file:res/ui/itemBoard.png"));
+		ImageView itemBorad = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/itemBoard.png")));
 		itemBorad.setTranslateX(5);
 		itemBorad.setTranslateY(0);
 		this.getChildren().add(itemBorad);
@@ -40,7 +40,7 @@ public class UIBar extends Group{
 		this.getChildren().add(itemView);
 		
 		
-		ImageView board = new ImageView(new Image("file:res/ui/board.png"));
+		ImageView board = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/board.png")));
 		board.setTranslateX(500);
 		board.setTranslateY(0);
 		this.getChildren().add(board);
