@@ -37,6 +37,7 @@ public class UIMenu extends Canvas {
 			else if(e.getCode() == KeyCode.ESCAPE) {
 				stopMenu();
 				Platform.exit();
+				System.exit(0);
 			}
 			else if(e.getCode() == KeyCode.LEFT) {
 				diffSelector=(diffSelector-1+3)%3;

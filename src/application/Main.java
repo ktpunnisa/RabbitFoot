@@ -4,6 +4,7 @@ import game.GameMain;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import scene.SceneManager;
 
 public class Main extends Application {
@@ -13,7 +14,9 @@ public class Main extends Application {
 		try {
 			SceneManager.initialize(primaryStage);
 			SceneManager.gotoMenu();
-			primaryStage.setTitle("Catch me if you can!");
+			primaryStage.resizableProperty().setValue(Boolean.FALSE);
+			primaryStage.initStyle(StageStyle.UTILITY);
+			primaryStage.setTitle("Rabbit's Foot");
 			primaryStage.centerOnScreen();
 		} catch (Exception e) {
 			e.printStackTrace(); 
