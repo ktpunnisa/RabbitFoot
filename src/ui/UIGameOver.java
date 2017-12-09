@@ -20,8 +20,9 @@ public class UIGameOver extends Canvas {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	int selector = 0;
-	private static final Font SCORE_FONT = new Font("Monospace", 80);
-	private static final Font TITLE_FONT = new Font("Monospace", 40);
+	private static final Font SCORE_FONT = Font.loadFont("file:res/fonts/8bit.ttf", 150);
+	private static final Font TITLE_FONT =  Font.loadFont("file:res/fonts/8bit.ttf", 30);
+	private static final Font GAMEOVER_FONT = Font.loadFont("file:res/fonts/8bit.ttf", 50);
 	private Thread gameOverAnimation;
 	private boolean isGameOverRunning;
 	
@@ -86,29 +87,32 @@ public class UIGameOver extends Canvas {
 
 	private void updateAnimation(long now) {
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.setFill(Color.ANTIQUEWHITE);
+
+		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
-		gc.setFill(Color.DARKGOLDENROD);
+		gc.setFill(Color.ORANGERED);
 		gc.fillRoundRect(SceneManager.SCENE_WIDTH/2-150, SceneManager.SCENE_HEIGHT/4-100, 300, 500, 100, 100);
-		gc.setFill(Color.BURLYWOOD);
+		gc.setFill(Color.ORANGE);
 		gc.fillRoundRect(SceneManager.SCENE_WIDTH/2-140, SceneManager.SCENE_HEIGHT/4-90, 280, 480, 80, 80);
-		gc.drawImage(new Image("file:res/UI/logo.png"), SceneManager.SCENE_WIDTH/2-125, SceneManager.SCENE_HEIGHT/4-50,250,100);
-		gc.setFill(Color.DARKBLUE);
+		gc.setFont(GAMEOVER_FONT);
+		gc.setFill(Color.BLACK);
+		gc.setTextAlign(TextAlignment.CENTER);
+		gc.fillText("GAME OVER",SceneManager.SCENE_WIDTH / 2,SceneManager.SCENE_HEIGHT/2-150);
 		gc.setFont(TITLE_FONT);
 		gc.setTextAlign(TextAlignment.CENTER);
-		gc.fillText("Score", SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2-50);
+		gc.fillText("Score", SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2-80);
 		gc.setFont(SCORE_FONT);
-		gc.fillText(""+GameState.score, SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2+25);
+		gc.fillText(""+GameState.score, SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2+30);
 		
-		gc.setFill(Color.CRIMSON);
+		gc.setFill(Color.RED);
 		if(selector==0)
-			gc.fillOval(SceneManager.SCENE_WIDTH / 2 - 105, SceneManager.SCENE_HEIGHT / 2 +55, 80, 80);
+			gc.fillOval(SceneManager.SCENE_WIDTH / 2 - 105, SceneManager.SCENE_HEIGHT / 2 +65, 80, 80);
 		else if(selector==1)
-			gc.fillOval(SceneManager.SCENE_WIDTH / 2 + 15, SceneManager.SCENE_HEIGHT / 2 +55, 80, 80);		
-		gc.setFill(Color.CORAL);
-		gc.fillOval(SceneManager.SCENE_WIDTH / 2 - 100, SceneManager.SCENE_HEIGHT / 2 +60, 70, 70);
-		gc.fillOval(SceneManager.SCENE_WIDTH / 2 + 20, SceneManager.SCENE_HEIGHT / 2 +60, 70, 70);
-		gc.drawImage(new Image("file:res/UI/restart.png"), SceneManager.SCENE_WIDTH / 2 - 90,SceneManager.SCENE_HEIGHT / 2 +70,50,50);
-		gc.drawImage(new Image("file:res/UI/menu.png"), SceneManager.SCENE_WIDTH / 2 +30,SceneManager.SCENE_HEIGHT / 2 +70,50,50);
+			gc.fillOval(SceneManager.SCENE_WIDTH / 2 + 15, SceneManager.SCENE_HEIGHT / 2 +65, 80, 80);		
+		gc.setFill(Color.ORANGERED);
+		gc.fillOval(SceneManager.SCENE_WIDTH / 2 - 100, SceneManager.SCENE_HEIGHT / 2 +70, 70, 70);
+		gc.fillOval(SceneManager.SCENE_WIDTH / 2 + 20, SceneManager.SCENE_HEIGHT / 2 +70, 70, 70);
+		gc.drawImage(new Image("file:res/ui/restart.png"), SceneManager.SCENE_WIDTH / 2 - 90,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
+		gc.drawImage(new Image("file:res/ui/menu.png"), SceneManager.SCENE_WIDTH / 2 +30,SceneManager.SCENE_HEIGHT / 2 +80,50,50);
 	}
 }

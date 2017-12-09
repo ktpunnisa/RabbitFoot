@@ -30,34 +30,37 @@ public class UIBar extends Group{
 	Font font = Font.loadFont("file:res/fonts/8bit.ttf", 35);
 	public UIBar()
 	{
-		itemView = new Rectangle(10,10,80,100);
-		itemView.setFill(Color.WHITESMOKE);
-		itemView.setStroke(Color.valueOf("504200"));
-		itemView.setStrokeWidth(5);
+		ImageView itemBorad = new ImageView(new Image("file:res/ui/itemBoard.png"));
+		itemBorad.setTranslateX(5);
+		itemBorad.setTranslateY(0);
+		this.getChildren().add(itemBorad);
+		itemView = new Rectangle(15,15,80,100);
+		itemView.setFill(Color.TRANSPARENT);
 		this.getChildren().add(itemView);
 		
+		
 		ImageView board = new ImageView(new Image("file:res/ui/board.png"));
-		board.setTranslateX(570);
-		board.setTranslateY(-10);
+		board.setTranslateX(500);
+		board.setTranslateY(0);
 		this.getChildren().add(board);
 		score=new Text("Score:");
 		score.setFont(font);
 		score.setFill(Color.WHITE);
 		score.setTranslateX(580);
-		score.setTranslateY(70);
+		score.setTranslateY(50);
 		this.getChildren().add(score);
-		time=new Text("Time:");
-		time.setFont(font);
-		time.setFill(Color.WHITE);
-		time.setTranslateX(580);
-		time.setTranslateY(120);
-		this.getChildren().add(time);
+//		time=new Text("Time:");
+//		time.setFont(font);
+//		time.setFill(Color.WHITE);
+//		time.setTranslateX(580);
+//		time.setTranslateY(120);
+//		this.getChildren().add(time);
 	}
 	public static void changeItemView(Item i)
 	{
 		if(i == null)
 		{
-			itemView.setFill(Color.WHITESMOKE);
+			itemView.setFill(Color.TRANSPARENT);
 		}
 		else
 		{

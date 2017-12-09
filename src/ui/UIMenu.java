@@ -94,13 +94,13 @@ public class UIMenu extends Canvas {
 		gc.fillRect(0, 0, SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
 		gc.setFill(Color.RED);
 		if(diffSelector==0)
-			gc.fillRect(SceneManager.SCENE_WIDTH / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 40, 170, 70);
+			gc.fillRect(SceneManager.SCENE_WIDTH / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
 		else if(diffSelector==1)
-			gc.fillRect(SceneManager.SCENE_WIDTH / 2-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 40, 170, 70);
+			gc.fillRect(SceneManager.SCENE_WIDTH / 2-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
 		else
-			gc.fillRect(SceneManager.SCENE_WIDTH*4 / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 40, 170, 70);
+			gc.fillRect(SceneManager.SCENE_WIDTH*4 / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
 		gc.setFill(Color.WHITE);
-		gc.drawImage(new Image("file:res/UI/logo.png"), SceneManager.SCENE_WIDTH / 2 - 250, SceneManager.SCENE_HEIGHT / 4 - 150);
+		gc.drawImage(new Image("file:res/ui/logo.png"), SceneManager.SCENE_WIDTH / 2 - 300, SceneManager.SCENE_HEIGHT / 4 - 100);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(MENU_FONT);
 		gc.fillText("Easy", SceneManager.SCENE_WIDTH / 5, SceneManager.SCENE_HEIGHT * 3 / 4);
