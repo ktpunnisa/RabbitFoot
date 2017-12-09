@@ -67,7 +67,6 @@ public class GameState extends Canvas{
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-
 				RandomGenerator.setSeed(now);
 				updateState(now);
 			}

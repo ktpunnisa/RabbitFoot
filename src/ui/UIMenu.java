@@ -38,7 +38,6 @@ public class UIMenu extends Canvas {
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
 		diffSelector = 0;
 		this.addKeyEventHandler();
-		startMenu();
 	}
 	
 	private void addKeyEventHandler() {

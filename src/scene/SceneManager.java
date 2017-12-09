@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -26,9 +27,9 @@ import ui.UIMenu;
 public class SceneManager {
 	
 	private static Stage primaryStage;
-	private static Canvas mainMenu;
+	private static UIMenu mainMenu;
 	private static Scene mainScene;
-	private static Pane mainFrame;
+	public static Pane mainFrame;
 	public static final int SCENE_WIDTH = 800;
 	public static final int SCENE_HEIGHT = 600;
 
@@ -44,6 +45,7 @@ public class SceneManager {
 	
 	public static void gotoMenu() {
 		mainFrame.getChildren().clear();
+		mainMenu.startMenu();
 		mainFrame.getChildren().add(mainMenu);
 		mainMenu.requestFocus();
 	}
