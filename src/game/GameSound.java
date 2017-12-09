@@ -10,6 +10,7 @@ public class GameSound {
 	private static AudioClip soundWolf;
 	private static AudioClip soundWolfDie;
 	private static AudioClip soundFart;
+	private static AudioClip soundExplosion;
 	
 	static {
 		soundBG = new AudioClip("file:res/sound/happy.mp3");
@@ -20,6 +21,7 @@ public class GameSound {
 		soundWolf = new AudioClip("file:res/sound/wolf6.mp3");
 		soundWolfDie = new AudioClip("file:res/sound/wolf1.mp3");
 		soundFart = new AudioClip("file:res/sound/fart.mp3");
+		soundExplosion = new AudioClip("file:res/sound/explosion.mp3");
 	}
 	
 	public static void playSoundDie() {
@@ -42,15 +44,21 @@ public class GameSound {
   	  	soundWolf.play(0.8);
 	}
 	
-	public static void playSoundWolfDie() {
-		soundWolfDie.setCycleCount(1);
-  	  	soundWolfDie.play(0.8);
+	public static void playSoundExplosion() {
+		soundExplosion.setCycleCount(1);
+  	  	soundExplosion.play(0.8);
 	}
 	
 	public static void playSoundFart() {
 		soundFart.setCycleCount(1);
   	  	soundFart.play(0.5);
 	}
+	
+	public static void playSoundWolfDie() {
+		soundWolfDie.setCycleCount(1);
+  	  	soundWolfDie.play(0.8);
+	}
+	
 	
 	public static void playSoundBG() {
 		soundBG.setCycleCount(AudioClip.INDEFINITE);

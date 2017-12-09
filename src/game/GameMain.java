@@ -33,6 +33,8 @@ public class GameMain {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300),
 				ae -> {
 					logic.startGame();
+					GameSound.playSoundBG();
+					
 				}));
 		timeline.setCycleCount(1);
 		Platform.runLater(() -> timeline.play());
@@ -41,6 +43,7 @@ public class GameMain {
 	public static void stopGame() {
 		logic.stopGame();
 		gameOverUI.startGameOver();
+		GameSound.stopSoundBG();
 		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
 	
