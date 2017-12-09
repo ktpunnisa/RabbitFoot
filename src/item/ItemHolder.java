@@ -64,6 +64,7 @@ public class ItemHolder {
 			Platform.runLater(() -> b.setTranslateX(340));
 			Platform.runLater(() -> b.setTranslateY(240));
 			Platform.runLater(() -> GameMain.gameUI.getChildren().add(1,b));
+			GameSound.playSoundExplosion();
 			Pair r = CharacterHolder.aniData.get(0).index;
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(r.distance(a.index) <= 2) {
