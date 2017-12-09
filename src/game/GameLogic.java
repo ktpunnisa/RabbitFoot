@@ -72,13 +72,11 @@ public class GameLogic {
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index) && !((Wolf)a).isStun()) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
-						System.out.println("Rabbit eat wolf!! @ "+ a.index);
 						GameSound.playSoundWolfDie();
 						kill.add(a);
 						GameState.score+=10;
 					}
 					else {
-						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
 						GameSound.playSoundWolf();
 						GameMain.stopGame();
 					}
