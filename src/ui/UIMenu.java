@@ -29,8 +29,7 @@ public class UIMenu extends Canvas {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	int diffSelector = 0;
-	private static final Font TITLE_FONT = new Font("Monospace", 80);
-	private static final Font MENU_FONT = new Font("Monospace", 40);
+	private static final Font MENU_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 60);
 	private Thread menuAnimation;
 	private boolean isMenuRunning;
 	
@@ -90,21 +89,27 @@ public class UIMenu extends Canvas {
 
 	private void updateAnimation(long now) {
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.setFill(Color.ORANGE);
+		gc.setFill(Color.valueOf("dbfff9"));
 		gc.fillRect(0, 0, SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
+		
+		gc.setFill(Color.valueOf("003b64"));
+		gc.setStroke(Color.valueOf("007cd2"));
+		gc.setLineWidth(20);
+		gc.fillRoundRect(25, 50, 750, 500, 60, 60);
+		gc.strokeRoundRect(25, 50, 750, 500, 60, 60);
 		gc.setFill(Color.RED);
 		if(diffSelector==0)
-			gc.fillRect(SceneManager.SCENE_WIDTH / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
+			gc.fillRoundRect(SceneManager.SCENE_WIDTH *3 / 16-105, SceneManager.SCENE_HEIGHT * 3 / 4-35, 200, 70, 40,40);
 		else if(diffSelector==1)
-			gc.fillRect(SceneManager.SCENE_WIDTH / 2-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
+			gc.fillRoundRect(SceneManager.SCENE_WIDTH / 2-105, SceneManager.SCENE_HEIGHT * 3 / 4-35, 200, 70, 40,40);
 		else
-			gc.fillRect(SceneManager.SCENE_WIDTH*4 / 5-85, SceneManager.SCENE_HEIGHT * 3 / 4 - 45, 170, 70);
+			gc.fillRoundRect(SceneManager.SCENE_WIDTH*13 / 16-105, SceneManager.SCENE_HEIGHT * 3 / 4-35, 200, 70, 40,40);
 		gc.setFill(Color.WHITE);
 		gc.drawImage(new Image(ClassLoader.getSystemResourceAsStream("ui/logo.png")), SceneManager.SCENE_WIDTH / 2 - 300, SceneManager.SCENE_HEIGHT / 4 - 100);
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.setFont(MENU_FONT);
-		gc.fillText("Easy", SceneManager.SCENE_WIDTH / 5, SceneManager.SCENE_HEIGHT * 3 / 4);
-		gc.fillText("Normal", SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT * 3 / 4);
-		gc.fillText("Hard", SceneManager.SCENE_WIDTH * 4 / 5, SceneManager.SCENE_HEIGHT * 3 / 4);
+		gc.fillText("Easy", SceneManager.SCENE_WIDTH * 3 / 16, SceneManager.SCENE_HEIGHT * 3 / 4+18);
+		gc.fillText("Normal", SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT * 3 / 4+18);
+		gc.fillText("Hard", SceneManager.SCENE_WIDTH * 13 / 16, SceneManager.SCENE_HEIGHT * 3 / 4+18);
 	}
 }

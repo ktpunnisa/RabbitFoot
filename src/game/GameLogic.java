@@ -6,6 +6,7 @@ import java.util.Set;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
+import character.Wolf;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -76,7 +77,7 @@ public class GameLogic {
 		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
-				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
+				if(a.index.equals(CharacterHolder.aniData.get(0).index) && !((Wolf)a).isStun()) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
 						System.out.println("Rabbit eat wolf!! @ "+ a.index);
 						GameSound.playSoundWolfDie();
@@ -87,14 +88,13 @@ public class GameLogic {
 						System.out.println("Wolf eat Rabbit!! @ "+ a.index);
 						GameSound.playSoundWolf();
 						GameMain.stopGame();
-						
-						
 					}
 				}
 			}
 			for(Animal a : kill) {
 				//System.out.println("kill"+a.index);
 				Platform.runLater(() -> UIGame.globalAni.getChildren().remove(a.body));
+				((Wolf)a).stopRunning();
 				CharacterHolder.aniData.remove(a);
 			}
 		}
@@ -129,7 +129,7 @@ public class GameLogic {
 				}
 			}
 		}
-		if(MapHolder.item.size() <=3) {
+		if(MapHolder.item.size() <=2) {
 			MapHolder.createItem(RandomGenerator.random(0, 3));
 		}
 	}

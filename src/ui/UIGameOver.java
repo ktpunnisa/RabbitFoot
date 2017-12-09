@@ -25,9 +25,11 @@ public class UIGameOver extends Canvas {
 	private static final Font GAMEOVER_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 50);
 	private Thread gameOverAnimation;
 	private boolean isGameOverRunning;
+	private int finalScore;
 	
 	public UIGameOver() {
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
+		this.finalScore = 0;
 		this.addKeyEventHandler();
 		//startGameOver();
 	}
@@ -61,6 +63,7 @@ public class UIGameOver extends Canvas {
 		gameOverAnimation = new Thread(this::animationLoop, "GameOver Animation Thread");
 		isGameOverRunning = true;
 		gameOverAnimation.start();
+		this.finalScore = GameState.score;
 	}
 
 	public void stopGameOver() {
@@ -102,7 +105,7 @@ public class UIGameOver extends Canvas {
 		gc.setTextAlign(TextAlignment.CENTER);
 		gc.fillText("Score", SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2-80);
 		gc.setFont(SCORE_FONT);
-		gc.fillText(""+GameState.score, SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2+30);
+		gc.fillText(""+finalScore, SceneManager.SCENE_WIDTH / 2, SceneManager.SCENE_HEIGHT/2+30);
 		
 		gc.setFill(Color.RED);
 		if(selector==0)

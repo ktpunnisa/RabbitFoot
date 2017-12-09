@@ -117,7 +117,7 @@ public class Rabbit extends Animal {
 							GameSound.playSoundDie();
 							GameMain.stopGame();
 						}
-						if(!runPath.isEmpty())
+						if(!runPath.isEmpty() && GameLogic.isGameRunning)
 							MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(instance);
 					}
 				});
