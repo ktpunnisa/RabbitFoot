@@ -1,6 +1,7 @@
 package map;
 
 import character.Animal;
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 public class VoidBlock extends Block {
@@ -12,7 +13,7 @@ public class VoidBlock extends Block {
 
 	@Override
 	public void loadImage() {
-		this.hexagon.setFill(Color.TRANSPARENT);
+		Platform.runLater(() -> this.hexagon.setFill(Color.TRANSPARENT));
 	}
 
 	@Override

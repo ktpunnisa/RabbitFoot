@@ -5,6 +5,7 @@ import character.Rabbit;
 import game.GameSound;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -46,9 +47,9 @@ public class JumpBlock extends Block {
 	@Override
 	public void loadImage() {
 		Image img = new Image("file:res/block/jump.png");
-		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		this.hexagon.setStrokeWidth(3);
-		this.hexagon.setStroke(Color.BLACK);
+		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
+		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
+		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
 
 	@Override

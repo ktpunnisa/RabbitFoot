@@ -62,9 +62,9 @@ public class Wolf extends Animal{
 	@Override
 	public void startRunning() {
 	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    body.setImage(img.get(0));
-		body.setTranslateX(a.getX()-WOLF_SIZE/2);
-	    body.setTranslateY(a.getY()-WOLF_SIZE/2);
+	    Platform.runLater(() -> body.setImage(img.get(0)));
+	    Platform.runLater(() -> body.setTranslateX(a.getX()-WOLF_SIZE/2));
+	    Platform.runLater(() -> body.setTranslateY(a.getY()-WOLF_SIZE/2));
 		isRunning = true;
 	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");

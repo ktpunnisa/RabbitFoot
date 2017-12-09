@@ -15,6 +15,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -52,9 +53,9 @@ public class NormalBlock extends Block{
 		else {
 			img = new Image("file:res/block/grass.png");
 		}
-		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		this.hexagon.setStrokeWidth(3);
-		this.hexagon.setStroke(Color.BLACK);
+		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
+		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
+		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class NormalBlock extends Block{
  				 		GameSound.playSoundEat();
  					}));
 			timeline.setCycleCount(1);
-			timeline.play();
+			Platform.runLater(() -> timeline.play());
 			
 		}
 		
@@ -96,7 +97,7 @@ public class NormalBlock extends Block{
 						}		
 					}));
 			timeline.setCycleCount(1);
-			timeline.play();
+			Platform.runLater(() -> timeline.play());
 				
 		}
 		
@@ -111,7 +112,7 @@ public class NormalBlock extends Block{
 						ItemHolder.setItemData(i);
 					}));
 			timeline.setCycleCount(1);
-			timeline.play();
+			Platform.runLater(() -> timeline.play());
 		}
 	}
 

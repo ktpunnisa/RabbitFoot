@@ -44,17 +44,16 @@ public class SceneManager {
 	}
 	
 	public static void gotoMenu() {
-		mainFrame.getChildren().clear();
+		Platform.runLater(() -> mainFrame.getChildren().clear());
+		Platform.runLater(() -> mainFrame.getChildren().add(mainMenu));
 		mainMenu.startMenu();
-		mainFrame.getChildren().add(mainMenu);
-		mainMenu.requestFocus();
+		Platform.runLater(() -> mainMenu.requestFocus());
 	}
 
 	public static void gotoScene(Group group) {
-		
 		Rectangle cutR = new Rectangle(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
-		cutR.setOpacity(0);
-		mainFrame.getChildren().add(cutR);
+		Platform.runLater(() -> cutR.setOpacity(0));
+		Platform.runLater(() -> mainFrame.getChildren().add(cutR));
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, 
 				new KeyValue (cutR.opacityProperty(), 0, Interpolator.EASE_BOTH)));
@@ -62,20 +61,24 @@ public class SceneManager {
 				new KeyValue (cutR.opacityProperty(), 1, Interpolator.EASE_BOTH)));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300),
 					ae -> {
-						mainFrame.getChildren().remove(0);
-						mainFrame.getChildren().add(0,group);
-						group.requestFocus();
+						Platform.runLater(() -> mainFrame.getChildren().remove(0));
+						Platform.runLater(() -> mainFrame.getChildren().add(0,group));
+						Platform.runLater(() -> group.requestFocus());
 					}));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), 
 				new KeyValue (cutR.opacityProperty(), 0, Interpolator.EASE_BOTH)));
+		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), 
+				ae -> {
+					Platform.runLater(() -> mainFrame.getChildren().remove(cutR));
+				}));
 		timeline.setCycleCount(1);
-		timeline.play();
+		Platform.runLater(() -> timeline.play());
 	}
 	
 	public static void gotoScene(Canvas gameFrame) {
 		Rectangle cutR = new Rectangle(0, 0, SCENE_WIDTH, SCENE_HEIGHT);
-		cutR.setOpacity(0);
-		mainFrame.getChildren().add(cutR);
+		Platform.runLater(() -> cutR.setOpacity(0));
+		Platform.runLater(() -> mainFrame.getChildren().add(cutR));
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, 
 				new KeyValue (cutR.opacityProperty(), 0, Interpolator.EASE_BOTH)));
@@ -83,13 +86,17 @@ public class SceneManager {
 				new KeyValue (cutR.opacityProperty(), 1, Interpolator.EASE_BOTH)));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(300),
 					ae -> {
-						mainFrame.getChildren().remove(0);
-						mainFrame.getChildren().add(0,gameFrame);
-						gameFrame.requestFocus();
+						Platform.runLater(() -> mainFrame.getChildren().remove(0));
+						Platform.runLater(() -> mainFrame.getChildren().add(0,gameFrame));
+						Platform.runLater(() -> gameFrame.requestFocus());
 					}));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), 
 				new KeyValue (cutR.opacityProperty(), 0, Interpolator.EASE_BOTH)));
+		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(1000), 
+				ae -> {
+					Platform.runLater(() -> mainFrame.getChildren().remove(cutR));
+				}));
 		timeline.setCycleCount(1);
-		timeline.play();
+		Platform.runLater(() -> timeline.play());
 	}
 }

@@ -11,6 +11,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -29,9 +30,9 @@ public class TrapBlock extends Block{
 	public void loadImage() {
 		// TODO Auto-generated method stub
 		Image img = new Image("file:res/block/trap.png");
-		this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true));
-		this.hexagon.setStrokeWidth(3);
-		this.hexagon.setStroke(Color.BLACK);
+		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
+		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
+		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public class TrapBlock extends Block{
 						GameMain.stopGame();
 					}));
 			timeline.setCycleCount(1);
-			timeline.play();
+			Platform.runLater(() -> timeline.play());
 		}
 		
 	}
