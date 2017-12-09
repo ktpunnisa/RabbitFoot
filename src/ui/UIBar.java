@@ -1,6 +1,5 @@
 package ui;
 
-import game.GameState;
 import item.Antidote;
 import item.FartBomb;
 import item.Item;
@@ -11,8 +10,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -22,7 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import scene.SceneManager;
-import javafx.scene.text.Font;
 
 public class UIBar extends Group{
 	public static Rectangle itemView;
@@ -39,7 +35,6 @@ public class UIBar extends Group{
 		itemView.setFill(Color.TRANSPARENT);
 		this.getChildren().add(itemView);
 		
-		
 		ImageView board = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/board.png")));
 		board.setTranslateX(500);
 		board.setTranslateY(0);
@@ -50,12 +45,6 @@ public class UIBar extends Group{
 		score.setTranslateX(580);
 		score.setTranslateY(50);
 		this.getChildren().add(score);
-//		time=new Text("Time:");
-//		time.setFont(font);
-//		time.setFill(Color.WHITE);
-//		time.setTranslateX(580);
-//		time.setTranslateY(120);
-//		this.getChildren().add(time);
 	}
 	public static void changeItemView(Item i)
 	{

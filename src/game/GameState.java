@@ -1,18 +1,10 @@
 package game;
 
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-
 import character.CharacterHolder;
+import item.ItemHolder;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import map.MapHolder;
-//import window.SceneManager;
-import scene.SceneManager;
-import utility.RandomGenerator;
 
 public class GameState extends Canvas{
 	
@@ -38,6 +30,7 @@ public class GameState extends Canvas{
 		GameState.level = diff;
 		isImmortal = false;
 		CharacterHolder.genAnimal(diff);
+		ItemHolder.itemData = null;
 	}
 	
 

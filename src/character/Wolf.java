@@ -1,40 +1,29 @@
 package character;
 
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
-
 import java.util.PriorityQueue;
 import java.util.Set;
 
 import game.GameLogic;
-import game.GameMain;
 import game.GameState;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
-import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.util.Duration;
 import map.JumpBlock;
 import map.MapHolder;
 import map.NormalBlock;
 import map.TrapBlock;
-import scene.SceneManager;
-import ui.UIGame;
 import utility.MyNode;
 import utility.Pair;
 import utility.RandomGenerator;
@@ -45,6 +34,7 @@ public class Wolf extends Animal{
 	public Wolf instance;
 	private boolean isStun;
 	private Pair gotoThis;
+	public List<Image> imgStun = new ArrayList<>();
 	
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
@@ -55,6 +45,8 @@ public class Wolf extends Animal{
 		    	img.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 		    	imgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfInverse_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 		    	imgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf2s_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
+		    	if(i<=2)
+		    		imgStun.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfstun_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 	  	runPath.add(nextBlock());
 	}
@@ -95,6 +87,9 @@ public class Wolf extends Animal{
 					else {
 						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
 					}
+				}
+				else if(isStun) {
+					Platform.runLater(() -> body.setImage(imgStun.get(t%2)));
 				}
 				else {
 					Platform.runLater(() -> body.setImage(img.get(t%4)));
@@ -152,14 +147,11 @@ public class Wolf extends Animal{
 	
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Pair nextBlock() {
-		// TODO Auto-generated method stub
-		//System.out.println("fox : "+Integer.toString(index.getX())+","+Integer.toString(index.getY()));
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
 		Boolean seeTrap = true;
@@ -184,7 +176,6 @@ public class Wolf extends Animal{
 		ans.put(index, new MyNode(index,0));
 		while(!q.isEmpty()) {
 			MyNode w = q.poll();
-			//System.out.println(w.index);
 			if(mark.contains(w.index)) {
 				continue;
 			}
@@ -201,28 +192,22 @@ public class Wolf extends Animal{
 						if(ans.containsKey(nextW) && (ans.get(w.index).dis+1 < ans.get(nextW).dis)){
 							ans.replace(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
 							q.add(new MyNode(nextW,dis));
-							//System.out.println(nextW+"(1):"+ans.get(nextW));
 						}
 						if(!ans.containsKey(nextW)){
 							ans.put(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
 							q.add(new MyNode(nextW,dis));
-							//System.out.println(nextW+"(2):"+ans.get(nextW));
 						}
 					}
 				}
 			}
 		}
 		try {
-			//System.out.println("Find!");
 			Pair tmp = r;
 			while(ans.get(tmp).index!=index) {
-				//System.out.println(ans.get(tmp).index);
 				tmp = ans.get(tmp).index;
 			}
-			//System.out.println("best : "+tmp);
 			bestBlock = tmp;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			lowNextBlock();
 		}

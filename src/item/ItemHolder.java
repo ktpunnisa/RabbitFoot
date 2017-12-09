@@ -1,10 +1,6 @@
 package item;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import character.Animal;
-import character.Rabbit;
 import character.CharacterHolder;
 import character.Wolf;
 import game.GameMain;
@@ -16,7 +12,6 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import scene.SceneManager;
 import ui.UIBar;
 import utility.Pair;
 

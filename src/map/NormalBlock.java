@@ -6,24 +6,15 @@ import character.Rabbit;
 import game.GameLogic;
 import game.GameSound;
 import game.GameState;
-import item.Antidote;
-import item.FartBomb;
 import item.Item;
 import item.ItemHolder;
-import item.Shit;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
-import ui.UIBar;
 
 public class NormalBlock extends Block{
 
@@ -76,8 +67,6 @@ public class NormalBlock extends Block{
 		}
 		
 		if(animal instanceof Rabbit && hasPotion) {
-			System.out.println("inverse mode @ "+ GameLogic.seconds);
-			//UIBar.addTimeBar(15);
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),

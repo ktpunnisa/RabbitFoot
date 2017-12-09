@@ -3,7 +3,6 @@ package utility;
 import java.util.Random;
 
 import map.MapHolder;
-import map.NormalBlock;
 
 
 public class RandomGenerator {

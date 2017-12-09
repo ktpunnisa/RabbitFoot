@@ -1,8 +1,5 @@
 package ui;
 
-import com.sun.javafx.tk.FontLoader;
-import com.sun.javafx.tk.Toolkit;
-
 import game.GameMain;
 import game.GameState;
 import javafx.application.Platform;
@@ -31,11 +28,9 @@ public class UIGameOver extends Canvas {
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
 		this.finalScore = 0;
 		this.addKeyEventHandler();
-		//startGameOver();
 	}
 	
 	private void addKeyEventHandler() {
-		//TODO Fill Code
 		this.setOnKeyPressed((KeyEvent e) -> {
 			if(e.getCode() == KeyCode.ENTER) {
 				if(selector==0){
@@ -76,7 +71,6 @@ public class UIGameOver extends Canvas {
 			long now = System.nanoTime();
 			if (now - lastLoopStartTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-				
 				Platform.runLater(() -> updateAnimation(now));
 			}
 
@@ -90,7 +84,6 @@ public class UIGameOver extends Canvas {
 
 	private void updateAnimation(long now) {
 		GraphicsContext gc = this.getGraphicsContext2D();
-
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
 		gc.setFill(Color.ORANGERED);

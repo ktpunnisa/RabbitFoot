@@ -2,7 +2,6 @@ package map;
 
 import character.Animal;
 import javafx.geometry.Point2D;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import utility.Pair;
 

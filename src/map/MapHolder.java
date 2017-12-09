@@ -1,7 +1,6 @@
 package map;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,9 +13,6 @@ import item.Item;
 import item.Shit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.shape.Polygon;
 import utility.Pair;
 import utility.RandomGenerator;
 
@@ -89,7 +85,6 @@ public class MapHolder {
 		while(carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
 			tmp = RandomGenerator.randomIndex();
 		}
-		//System.out.println(Integer.toString(carrot.size())+":"+tmp);
 		carrot.add(tmp);
 		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasCarrot = true;
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
@@ -102,8 +97,6 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		trap.add(tmp);
-		System.out.println("Trap"+Integer.toString(trap.size())+":"+tmp);
-		//do something to change normal to trap
 		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
 		tb.position = mapData.get(tmp.getY()).get(tmp.getX()).position;
 		tb.hexagon = mapData.get(tmp.getY()).get(tmp.getX()).hexagon;
@@ -116,7 +109,6 @@ public class MapHolder {
 	{
 		trap.remove(index);
 		System.out.println("delete Trap"+Integer.toString(trap.size())+":"+index);
-		//do something to change normal to trap
 		NormalBlock nb = new NormalBlock(index.getX(), index.getY(), mapData.get(index.getY()).get(index.getX()).id);
 		nb.position = mapData.get(index.getY()).get(index.getX()).position;
 		nb.hexagon = mapData.get(index.getY()).get(index.getX()).hexagon;
@@ -132,7 +124,6 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		potion = tmp;
-		System.out.println("potion:" + tmp);
 		((NormalBlock)mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}

@@ -3,11 +3,8 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.animation.Animation;
-import javafx.animation.SequentialTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import utility.Pair;
@@ -15,7 +12,6 @@ import utility.Pair;
 public abstract class Animal {
 	
 	public Pair index;
-	// speed rabbit when jump , speed wolf when walk
 	public double speed;  
 	public int direction;
 	public int z;
@@ -44,7 +40,6 @@ public abstract class Animal {
 		this.runPath = new LinkedBlockingQueue<Pair>();
 	}
 	
-	//animation
 	public abstract void startRunning();
 	public abstract void stopRunning();
 	public abstract void animateLoop();

@@ -4,8 +4,6 @@ import java.util.List;
 
 import character.Animal;
 import character.CharacterHolder;
-import character.Rabbit;
-import game.GameMain;
 import game.GameState;
 import item.ItemHolder;
 import javafx.event.EventHandler;
@@ -13,7 +11,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import map.Block;
 import map.MapHolder;
 
@@ -65,6 +62,7 @@ public class UIGame extends Group {
 				temp.getChildren().add(b.hexagon);
 		return temp;
 	}
+	
 	private Group drawAnimal()
 	{
 		Group temp = new Group();
@@ -73,21 +71,3 @@ public class UIGame extends Group {
 		return temp;
 	}
 }
-/*this.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-@Override
-public void handle(MouseEvent event) {
-	if(event.isPrimaryButtonDown())
-    {
-		CharacterHolder.aniData.get(0).turnLeft();
-		GameMain.camera.rotateMap(-1);
-
-    }
-    else if(event.isSecondaryButtonDown())
-    {
-    		CharacterHolder.aniData.get(0).turnRight();
-    		GameMain.camera.rotateMap(1);
-    }
-}
-
-});*/

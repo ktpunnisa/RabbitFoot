@@ -1,8 +1,5 @@
 package game;
 
-import java.util.Optional;
-
-import item.ItemHolder;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -13,7 +10,6 @@ import ui.UIGame;
 import ui.UIGameOver;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Duration;
-import map.MapHolder;
 
 public class GameMain {
 	
@@ -28,8 +24,6 @@ public class GameMain {
 		gameOverUI = new UIGameOver();
 		logic = new GameLogic(gameUI, state);
 		SceneManager.gotoScene(gameUI);
-		//logic.startGame();
-		//state.startState();
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300),
 				ae -> {
 					logic.startGame();
@@ -46,11 +40,4 @@ public class GameMain {
 		GameSound.stopSoundBG();
 		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
-	
-	public static void gameOver() {
-		// TODO fill code
-		Alert alert = new Alert(AlertType.NONE, "Game Over!", ButtonType.OK);
-		alert.showAndWait();
-	}
-
 }

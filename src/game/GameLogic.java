@@ -7,14 +7,10 @@ import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
 import character.Wolf;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.util.Duration;
 import map.MapHolder;
 import ui.UIBar;
 import ui.UIGame;
-import utility.Pair;
 import utility.RandomGenerator;
 
 public class GameLogic {
@@ -35,7 +31,6 @@ public class GameLogic {
 	}
 	public void startGame() {
 		isGameRunning = true;
-		//canvas.setWordString(model.getCurrentWordString());
 		new Thread(this::gameLoop, "Game Loop Thread").start();
 		for(Animal a : CharacterHolder.aniData)
 			a.startRunning();
@@ -54,9 +49,7 @@ public class GameLogic {
 			long elapsedTime = System.nanoTime() - lastLoopStartTime;
 			if (elapsedTime >= LOOP_TIME) {
 				lastLoopStartTime += LOOP_TIME;
-				seconds = (long)((double)(System.nanoTime() - startTime) / 1000000000.0);
-				//System.out.println((int)seconds);
-				//Platform.runLater(()->UIBar.time.setText("Time: "+(seconds+1)));
+				seconds = (long)((System.nanoTime() - startTime) / 1000000000.0);
 				updateGame();
 			}
 
@@ -71,8 +64,8 @@ public class GameLogic {
 	private void updateGame()
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
-		if(CharacterHolder.aniData.size()==1) {
-			CharacterHolder.genAnimal(GameState.level);
+		if(CharacterHolder.aniData.size()<=GameState.diff+1) {
+			CharacterHolder.genAnimal(GameState.diff+1-CharacterHolder.aniData.size());
 		}
 		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
@@ -92,7 +85,6 @@ public class GameLogic {
 				}
 			}
 			for(Animal a : kill) {
-				//System.out.println("kill"+a.index);
 				Platform.runLater(() -> UIGame.globalAni.getChildren().remove(a.body));
 				((Wolf)a).stopRunning();
 				CharacterHolder.aniData.remove(a);
@@ -105,18 +97,14 @@ public class GameLogic {
 			MapHolder.createTrap();
 		}
 		if(seconds%10==0 && MapHolder.potionTime!=seconds && !CharacterHolder.inverse) {
-			System.out.println(seconds+" seconds");
 			if(MapHolder.potionTime!=0) {
-				System.out.println("delete potion");
 				MapHolder.deletePotion(true);
 				
 			}
-			System.out.println("create potion");
 			MapHolder.potionTime = seconds;
 			MapHolder.createPotion();
 		}
 		if(CharacterHolder.timeInverse+15==seconds && CharacterHolder.inverse) {
-			System.out.println("normal mode : "+ seconds);
 			CharacterHolder.inverse = false;
 			CharacterHolder.timeInverse = 0;
 			for(Animal x : CharacterHolder.aniData) {
