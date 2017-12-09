@@ -12,6 +12,7 @@ import game.GameSound;
 import game.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
@@ -60,9 +61,9 @@ public class ItemHolder {
 		else if(itemData instanceof FartBomb)
 		{
 			ImageView b = new ImageView(new Image("file:res/item/bomb.png",120,120,false,false));
-			b.setTranslateX(340);
-			b.setTranslateY(240);
-			GameMain.gameUI.getChildren().add(1,b);
+			Platform.runLater(() -> b.setTranslateX(340));
+			Platform.runLater(() -> b.setTranslateY(240));
+			Platform.runLater(() -> GameMain.gameUI.getChildren().add(1,b));
 			Pair r = CharacterHolder.aniData.get(0).index;
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(r.distance(a.index) <= 2) {
@@ -78,10 +79,10 @@ public class ItemHolder {
 					}));
 			timeline.getKeyFrames().add(new KeyFrame(Duration.millis(200),
 					ae -> {
-						GameMain.gameUI.getChildren().remove(1);
+						Platform.runLater(() -> GameMain.gameUI.getChildren().remove(1));
 					}));
 			timeline.setCycleCount(1);
-			timeline.play();
+			Platform.runLater(() -> timeline.play());
 		}
 		else if(itemData instanceof Shit)
 		{
@@ -90,6 +91,7 @@ public class ItemHolder {
 					ae -> {
 						CharacterHolder.aniData.get(0).setSpeed(1.4);
 					}));
+			timeline.play();
 		}
 		itemData=null;
 		updateItem();

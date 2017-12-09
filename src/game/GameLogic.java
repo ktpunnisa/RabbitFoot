@@ -23,17 +23,13 @@ public class GameLogic {
 	
 	private UIGame gameUI;
 	private GameState state;
-	private GameCamera camera;
 	public static boolean isGameRunning;
 	public static long seconds;
 	
-	public GameLogic(UIGame gameUI, GameState state, GameCamera camera)
+	public GameLogic(UIGame gameUI, GameState state)
 	{
 		this.gameUI = gameUI;
 		this.state = state;
-		this.camera = camera;
-		this.camera.startTrack();
-		//this.state.startState();
 		isGameRunning = false;
 	}
 	public void startGame() {
@@ -45,8 +41,6 @@ public class GameLogic {
 	}
 
 	public void stopGame() {
-		camera.stopTrack();
-		state.stopState();
 		isGameRunning = false;
 		for(Animal a:CharacterHolder.aniData)
 			a.stopRunning();

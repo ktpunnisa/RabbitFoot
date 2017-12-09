@@ -5,7 +5,6 @@ import java.util.List;
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
-import game.GameCamera;
 import game.GameMain;
 import game.GameState;
 import item.ItemHolder;

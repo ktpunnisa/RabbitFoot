@@ -5,7 +5,6 @@ import java.awt.DisplayMode;
 import org.omg.PortableInterceptor.DISCARDING;
 
 import character.CharacterHolder;
-import game.GameCamera;
 import game.GameMain;
 import game.GameState;
 import javafx.application.Application;

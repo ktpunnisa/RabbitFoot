@@ -19,33 +19,29 @@ public class GameMain {
 	
 	private static GameState state;
 	private static GameLogic logic;
-	public static GameCamera camera;
 	public static UIGame gameUI;
 	public static UIGameOver gameOverUI;
 	
 	public static void newGame(int diff) {
 		state = new GameState(diff);
 		gameUI = new UIGame(state);
-		camera = new GameCamera(gameUI);
 		gameOverUI = new UIGameOver();
-		logic = new GameLogic(gameUI, state, camera);
+		logic = new GameLogic(gameUI, state);
 		SceneManager.gotoScene(gameUI);
 		//logic.startGame();
 		//state.startState();
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300),
 				ae -> {
 					logic.startGame();
-					state.startState();
 				}));
 		timeline.setCycleCount(1);
-		timeline.play();
+		Platform.runLater(() -> timeline.play());
 	}
 	
 	public static void stopGame() {
 		logic.stopGame();
-		state.stopState();
 		gameOverUI.startGameOver();
-		Platform.runLater(()-> SceneManager.gotoScene(gameOverUI));
+		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
 	
 	public static void gameOver() {

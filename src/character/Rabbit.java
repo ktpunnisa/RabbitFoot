@@ -3,7 +3,6 @@ package character;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.GameCamera;
 import game.GameLogic;
 import game.GameMain;
 import game.GameSound;
@@ -49,8 +48,8 @@ public class Rabbit extends Animal {
 	public void startRunning() {
 		Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
 		Point2D nodeInScene = GameMain.gameUI.localToScene(t);
-		UIGame.globalMap.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX());
-		UIGame.globalMap.setTranslateY(SceneManager.SCENE_HEIGHT/2 - nodeInScene.getY());
+		Platform.runLater(() -> UIGame.globalMap.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX()));
+		Platform.runLater(() -> UIGame.globalMap.setTranslateY(SceneManager.SCENE_HEIGHT/2 - nodeInScene.getY()));
 		isRunning = true;
 		animationThread = new Thread(this::animateLoop, "Rabbit animating Thread");
 		runThread = new Thread(this::runLoop, "Rabbit running Thread");

@@ -9,6 +9,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -57,21 +58,21 @@ public class UIBar extends Group{
 	{
 		if(i == null)
 		{
-			itemView.setFill(Color.WHITESMOKE);
+			Platform.runLater(() -> itemView.setFill(Color.WHITESMOKE));
 		}
 		else
 		{
 			if(i instanceof Antidote) 
 			{
-				itemView.setFill(new ImagePattern(((Antidote)i).getItemImage(),0,0,1,1,true));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((Antidote)i).getItemImage(),0,0,1,1,true)));
 			}
 			else if(i instanceof FartBomb)
 			{
-				itemView.setFill(new ImagePattern(((FartBomb)i).getItemImage(),0,0,1,1,true));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((FartBomb)i).getItemImage(),0,0,1,1,true)));
 			}
 			else if(i instanceof Shit)
 			{
-				itemView.setFill(new ImagePattern(((Shit)i).getItemImage(),0,0,1,1,true));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((Shit)i).getItemImage(),0,0,1,1,true)));
 			}
 		}
 	}
