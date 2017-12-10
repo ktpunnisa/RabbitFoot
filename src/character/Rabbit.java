@@ -7,6 +7,7 @@ import game.GameLogic;
 import game.GameMain;
 import game.GameSound;
 import game.GameState;
+import image.ImageLoader;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,23 +25,14 @@ import ui.UIGame;
 import utility.Pair;
 
 public class Rabbit extends Animal {
-	
-	public static int RABBIT_SIZE = 40;
 	public Rabbit instance;
 	int id = 0;
-	public List<Image> imgImmortal = new ArrayList<>();
 	public Rabbit(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
 		this.instance=this;
-		for (int i = 1; i <= 4; i++) {
-			img.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitInverse_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit2s_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
-			imgImmortal.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitIm_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
-	    }
-		Platform.runLater(() -> body.setImage(img.get(0)));
-		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-RABBIT_SIZE/2));
-		Platform.runLater(() -> body.setTranslateY(SceneManager.SCENE_HEIGHT/2-RABBIT_SIZE/2));
+		Platform.runLater(() -> body.setImage(ImageLoader.Rimg.get(0)));
+		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-ImageLoader.RABBIT_SIZE/2));
+		Platform.runLater(() -> body.setTranslateY(SceneManager.SCENE_HEIGHT/2-ImageLoader.RABBIT_SIZE/2));
 		runPath.add(nextBlock());
 	}
 
@@ -74,17 +66,17 @@ public class Rabbit extends Animal {
 				int t=i++;
 				if(inverse) {
 					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
-						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
+						Platform.runLater(() -> body.setImage(ImageLoader.RimgInv2s.get(t%4)));
 					}
 					else {
-						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
+						Platform.runLater(() -> body.setImage(ImageLoader.RimgInv.get(t%4)));
 					}
 				}
 				else if(GameState.isImmortal) {
-					Platform.runLater(() -> body.setImage(imgImmortal.get(t%4)));
+					Platform.runLater(() -> body.setImage(ImageLoader.RimgInvis.get(t%4)));
 				}
 				else {
-					Platform.runLater(() -> body.setImage(img.get(t%4)));
+					Platform.runLater(() -> body.setImage(ImageLoader.Rimg.get(t%4)));
 				}
 			}
 			try {

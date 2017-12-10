@@ -6,6 +6,7 @@ import character.Rabbit;
 import game.GameLogic;
 import game.GameSound;
 import game.GameState;
+import image.ImageLoader;
 import item.Item;
 import item.ItemHolder;
 import javafx.animation.KeyFrame;
@@ -31,20 +32,18 @@ public class NormalBlock extends Block{
 
 	@Override
 	public void loadImage() {
-		Image img;
 		if(hasCarrot) {
-			img = new Image(ClassLoader.getSystemResourceAsStream("block/carrot.png"));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockCarrot));
 		}
 		else if(hasPotion){
-			img = new Image(ClassLoader.getSystemResourceAsStream("block/potion.png"));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockPotion));
 		}
 		else if(hasItem) {
-			img = MapHolder.item.get(index).getBlockImage();
+			Platform.runLater(() -> this.hexagon.setFill(MapHolder.item.get(index).getBlockImage()));
 		}
 		else {
-			img = new Image(ClassLoader.getSystemResourceAsStream("block/grass.png"));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlock));
 		}
-		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}

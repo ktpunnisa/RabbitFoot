@@ -1,6 +1,8 @@
 package item;
 
+import image.ImageLoader;
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import utility.Pair;
 
 public class Antidote extends Item {
@@ -10,13 +12,13 @@ public class Antidote extends Item {
 	}
 	
 	@Override
-	public Image getBlockImage() {
-		return new Image(ClassLoader.getSystemResourceAsStream("block/Antidote.png"));
+	public ImagePattern getBlockImage() {
+		return ImageLoader.AntidoteBlock;
 	}
 
 	@Override
 	public Image getItemImage() {
-		return new Image(ClassLoader.getSystemResourceAsStream("item/Antidote.png"));
+		return ImageLoader.AntidoteImage;
 	}
 
 }

@@ -1,6 +1,7 @@
 package application;
 
 import game.GameMain;
+import image.ImageLoader;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			ImageLoader.initailize();
 			SceneManager.initialize(primaryStage);
 			SceneManager.gotoMenu();
 			primaryStage.resizableProperty().setValue(Boolean.FALSE);

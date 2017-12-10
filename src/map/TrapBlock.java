@@ -4,6 +4,7 @@ import character.Animal;
 import character.Rabbit;
 import game.GameMain;
 import game.GameSound;
+import image.ImageLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -21,8 +22,7 @@ public class TrapBlock extends Block{
 
 	@Override
 	public void loadImage() {
-		Image img = new Image(ClassLoader.getSystemResourceAsStream("block/trap.png"));
-		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
+		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.trapBlock));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
@@ -30,7 +30,6 @@ public class TrapBlock extends Block{
 	@Override
 	public void checkEvent(Animal animal) {
 		if(animal instanceof Rabbit) {
-			System.out.println("Rabbit die !!");
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed), 
 					ae -> {
 						GameSound.playSoundDie();

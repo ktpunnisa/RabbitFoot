@@ -1,6 +1,8 @@
 package item;
 
+import image.ImageLoader;
 import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import utility.Pair;
 
 public class Shit extends Item {
@@ -10,13 +12,13 @@ public class Shit extends Item {
 	}
 
 	@Override
-	public Image getBlockImage() {
-		return new Image(ClassLoader.getSystemResourceAsStream("block/Shit.png"));
+	public ImagePattern getBlockImage() {
+		return ImageLoader.SpeedBlock;
 	}
 
 	@Override
 	public Image getItemImage() {
-		return new Image(ClassLoader.getSystemResourceAsStream("item/Shit.png"));
+		return ImageLoader.SpeedImage;
 	}
 	
 }

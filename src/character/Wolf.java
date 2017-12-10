@@ -10,6 +10,7 @@ import java.util.Set;
 
 import game.GameLogic;
 import game.GameState;
+import image.ImageLoader;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -30,33 +31,24 @@ import utility.RandomGenerator;
 
 public class Wolf extends Animal{
 	
-	public static int WOLF_SIZE = 60;
 	public Wolf instance;
 	private boolean isStun;
 	private Pair gotoThis;
-	public List<Image> imgStun = new ArrayList<>();
 	
 	public Wolf(Pair index, double speed, int direction, int z,boolean inverse) {
 		super(index, speed, direction, z,inverse);
 		this.instance = this;
 		this.isStun = false;
 		gotoThis = RandomGenerator.randomIndex();
-	    for (int i = 1; i <= 4; i++) {
-		    	img.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
-		    	imgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfInverse_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
-		    	imgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf2s_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
-		    	if(i<=2)
-		    		imgStun.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfstun_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
-	    }
 	  	runPath.add(nextBlock());
 	}
 
 	@Override
 	public void startRunning() {
 	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    Platform.runLater(() -> body.setImage(img.get(0)));
-	    Platform.runLater(() -> body.setTranslateX(a.getX()-WOLF_SIZE/2));
-	    Platform.runLater(() -> body.setTranslateY(a.getY()-WOLF_SIZE/2));
+	    Platform.runLater(() -> body.setImage(ImageLoader.Wimg.get(0)));
+	    Platform.runLater(() -> body.setTranslateX(a.getX()-ImageLoader.WOLF_SIZE/2));
+	    Platform.runLater(() -> body.setTranslateY(a.getY()-ImageLoader.WOLF_SIZE/2));
 		isRunning = true;
 	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");
@@ -82,17 +74,17 @@ public class Wolf extends Animal{
 				int t=i++;
 				if(inverse) {
 					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
-						Platform.runLater(() -> body.setImage(imgInv2s.get(t%4)));
+						Platform.runLater(() -> body.setImage(ImageLoader.WimgInv2s.get(t%4)));
 					}
 					else {
-						Platform.runLater(() -> body.setImage(imgInv.get(t%4)));
+						Platform.runLater(() -> body.setImage(ImageLoader.WimgInv.get(t%4)));
 					}
 				}
 				else if(isStun) {
-					Platform.runLater(() -> body.setImage(imgStun.get(t%2)));
+					Platform.runLater(() -> body.setImage(ImageLoader.WimgStun.get(t%2)));
 				}
 				else {
-					Platform.runLater(() -> body.setImage(img.get(t%4)));
+					Platform.runLater(() -> body.setImage(ImageLoader.Wimg.get(t%4)));
 				}
 			}
 			try {
@@ -120,9 +112,9 @@ public class Wolf extends Animal{
 				timeline.setCycleCount(1);
 				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), a.getX()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateXProperty(), a.getX()-ImageLoader.WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), a.getY()-WOLF_SIZE/2, Interpolator.EASE_BOTH)));
+						new KeyValue (body.translateYProperty(), a.getY()-ImageLoader.WOLF_SIZE/2, Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
