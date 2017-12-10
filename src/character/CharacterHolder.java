@@ -26,7 +26,7 @@ public class CharacterHolder {
 		aniData = new ArrayList<Animal>();
 		Pair tmp = RandomGenerator.randomIndex();
 		int direct = RandomGenerator.random(0, 5);
-		while(MapHolder.trap.contains(tmp) || MapHolder.mapData.get(tmp.getY()).get(tmp.getX()).nextBlock[RandomGenerator.random(0, 5)] == null) 
+		while(MapHolder.trap.contains(tmp) || MapHolder.mapData.get(tmp.getY()).get(tmp.getX()).nextBlock[direct] == null) 
 		{
 			tmp = RandomGenerator.randomIndex();
 		}
