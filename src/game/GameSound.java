@@ -1,31 +1,32 @@
 package game;
 
 import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class GameSound 
 {
 	private static AudioClip soundJump;
 	private static AudioClip soundDie;
-	private static AudioClip soundBG;
+	private static MediaPlayer soundBG;
 	private static AudioClip soundEat;
 	private static AudioClip soundWolf;
 	private static AudioClip soundWolfDie;
 	private static AudioClip soundFart;
 	private static AudioClip soundExplosion;
-	private static AudioClip soundMenu;
+	private static MediaPlayer soundMenu;
 	
 	static 
 	{
-		soundBG = new AudioClip(ClassLoader.getSystemResource("sound/happy.mp3").toString());
+		soundBG = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/happy.mp3").toString()));
 		soundDie = new AudioClip(ClassLoader.getSystemResource("sound/fall.mp3").toString());
 		soundJump = new AudioClip(ClassLoader.getSystemResource("sound/CARTPOP.mp3").toString());
 		soundEat = new AudioClip(ClassLoader.getSystemResource("sound/pop.mp3").toString());
-		soundBG = new AudioClip(ClassLoader.getSystemResource("sound/happy.mp3").toString());
 		soundWolf = new AudioClip(ClassLoader.getSystemResource("sound/wolf6.mp3").toString());
 		soundWolfDie = new AudioClip(ClassLoader.getSystemResource("sound/wolf1.mp3").toString());
 		soundFart = new AudioClip(ClassLoader.getSystemResource("sound/fart.mp3").toString());
 		soundExplosion = new AudioClip(ClassLoader.getSystemResource("sound/explosion.mp3").toString());
-		soundMenu = new AudioClip(ClassLoader.getSystemResource("sound/menu.mp3").toString());
+		soundMenu = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/menu.mp3").toString()));
 	}
 	
 	public static void playSoundDie() 
@@ -74,7 +75,7 @@ public class GameSound
 	public static void playSoundBG() 
 	{
 		soundBG.setCycleCount(AudioClip.INDEFINITE);
-		soundBG.play(0.3);
+		soundBG.play();
 	}
 	
 	public static void stopSoundBG() 
@@ -84,8 +85,8 @@ public class GameSound
 	
 	public static void playSoundMenu() 
 	{
-		soundMenu.setCycleCount(AudioClip.INDEFINITE);
-		soundMenu.play(0.3);
+		soundMenu.setCycleCount(MediaPlayer.INDEFINITE);
+		soundMenu.play();
 	}
 	
 	public static void stopSoundMenu() 
