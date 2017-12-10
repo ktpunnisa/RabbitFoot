@@ -1,8 +1,5 @@
 package game;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import character.Animal;
 import character.CharacterHolder;
 import character.Rabbit;
@@ -10,7 +7,6 @@ import character.Wolf;
 import javafx.application.Platform;
 import map.MapHolder;
 import ui.UIBar;
-import ui.UIGame;
 import utility.RandomGenerator;
 
 public class GameLogic 

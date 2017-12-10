@@ -1,16 +1,11 @@
 package ui;
 
-import java.util.List;
-
 import character.CharacterHolder;
-import game.GameState;
 import item.ItemHolder;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import map.Block;
 import map.MapHolder;
 
 public class UIGame extends Group 

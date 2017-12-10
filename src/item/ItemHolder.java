@@ -5,7 +5,6 @@ import character.CharacterHolder;
 import character.Wolf;
 import game.GameMain;
 import game.GameSound;
-import game.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;

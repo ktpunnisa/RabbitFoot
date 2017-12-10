@@ -1,7 +1,6 @@
 package character;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -30,7 +29,7 @@ public class CharacterHolder {
 		{
 			tmp = RandomGenerator.randomIndex();
 		}
-		Rabbit r = new Rabbit(tmp, 1.4, 1,inverse);
+		Rabbit r = new Rabbit(tmp, 1.4, RandomGenerator.random(0, 5),inverse);
 		aniData.add(r);
 		for(int i=0;i<diff;++i) 
 		{

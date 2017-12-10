@@ -3,7 +3,6 @@ package character;
 import game.GameLogic;
 import game.GameMain;
 import game.GameSound;
-import game.GameState;
 import image.ImageLoader;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -17,7 +16,6 @@ import javafx.util.Duration;
 import map.JumpBlock;
 import map.MapHolder;
 import scene.SceneManager;
-import ui.UIGame;
 import utility.Pair;
 
 public class Rabbit extends Animal 
