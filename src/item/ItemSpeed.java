@@ -5,20 +5,20 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import utility.Pair;
 
-public class Antidote extends Item {
+public class ItemSpeed extends Item {
 
-	public Antidote(Pair p) {
+	public ItemSpeed(Pair p) {
 		super(p);
 	}
-	
+
 	@Override
 	public ImagePattern getBlockImage() {
-		return ImageLoader.AntidoteBlock;
+		return ImageLoader.SpeedBlock;
 	}
 
 	@Override
 	public Image getItemImage() {
-		return ImageLoader.AntidoteImage;
+		return ImageLoader.SpeedImage;
 	}
-
+	
 }

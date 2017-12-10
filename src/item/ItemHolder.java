@@ -43,7 +43,7 @@ public class ItemHolder {
 	public static void useItem()
 	{
 		if(itemData==null) return;
-		if(itemData instanceof Antidote) 
+		if(itemData instanceof ItemInvis) 
 		{
 			CharacterHolder.invis = true;
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
@@ -53,7 +53,7 @@ public class ItemHolder {
 			timeline.setCycleCount(1);
 			timeline.play();
 		}
-		else if(itemData instanceof FartBomb)
+		else if(itemData instanceof ItemBomb)
 		{
 			ImageView b = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("item/bomb.png"),120,120,false,false));
 			Platform.runLater(() -> b.setTranslateX(340));
@@ -80,7 +80,7 @@ public class ItemHolder {
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());
 		}
-		else if(itemData instanceof Shit)
+		else if(itemData instanceof ItemSpeed)
 		{
 			CharacterHolder.aniData.get(0).setSpeed(0.6);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(4000),

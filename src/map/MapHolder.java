@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import item.Antidote;
-import item.FartBomb;
+import item.ItemInvis;
+import item.ItemBomb;
 import item.Item;
-import item.Shit;
+import item.ItemSpeed;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
@@ -151,11 +151,11 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		if(type==0)
-			item.put(tmp, new Antidote(tmp));
+			item.put(tmp, new ItemInvis(tmp));
 		if(type==1)
-			item.put(tmp, new FartBomb(tmp));
+			item.put(tmp, new ItemBomb(tmp));
 		if(type==2)
-			item.put(tmp, new Shit(tmp));
+			item.put(tmp, new ItemSpeed(tmp));
 		((NormalBlock)mapData.get(tmp.getY()).get(tmp.getX())).hasItem = true;
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}

@@ -71,11 +71,7 @@ public class GameLogic {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
 						GameSound.playSoundWolfDie();
-						
-						Platform.runLater(() -> CharacterHolder.aniGroup.getChildren().remove(a.body));
-						((Wolf)a).stopRunning();
 						state.character.remove(a);
-						
 						GameState.score+=10;
 					}
 					else if(!((Wolf)a).isStun() && !CharacterHolder.invis) {

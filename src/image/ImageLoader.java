@@ -19,8 +19,8 @@ public class ImageLoader {
 	public static List<Image> RimgInv2s;
 	public static List<Image> RimgInvis;
 	
-	public static ImagePattern AntidoteBlock;
-	public static Image AntidoteImage;
+	public static ImagePattern InvisBlock;
+	public static Image InvisImage;
 	
 	public static ImagePattern BombBlock;
 	public static Image BombImage;
@@ -60,14 +60,14 @@ public class ImageLoader {
 			RimgInvis.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitIm_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
 	    }
 		
-		AntidoteBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/Antidote.png")),0,0,1,1,true);
-		AntidoteImage = new Image(ClassLoader.getSystemResourceAsStream("item/Antidote.png"));
+		InvisBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/Invis.png")),0,0,1,1,true);
+		InvisImage = new Image(ClassLoader.getSystemResourceAsStream("item/Invis.png"));
 		
-		BombBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/FartBomb.png")),0,0,1,1,true);
-		BombImage = new Image(ClassLoader.getSystemResourceAsStream("item/FartBomb.png"));
+		BombBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/IBomb.png")),0,0,1,1,true);
+		BombImage = new Image(ClassLoader.getSystemResourceAsStream("item/IBomb.png"));
 		
-		SpeedBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/Shit.png")),0,0,1,1,true);
-		SpeedImage = new Image(ClassLoader.getSystemResourceAsStream("item/Shit.png"));
+		SpeedBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/Speed.png")),0,0,1,1,true);
+		SpeedImage = new Image(ClassLoader.getSystemResourceAsStream("item/Speed.png"));
 		
 		jumpBlock = new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/jump.png")),0,0,1,1,true);
 		normalBlock=new ImagePattern(new Image(ClassLoader.getSystemResourceAsStream("block/grass.png")),0,0,1,1,true);

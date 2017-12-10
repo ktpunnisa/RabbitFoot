@@ -1,9 +1,9 @@
 package ui;
 
-import item.Antidote;
-import item.FartBomb;
+import item.ItemInvis;
+import item.ItemBomb;
 import item.Item;
-import item.Shit;
+import item.ItemSpeed;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -54,17 +54,17 @@ public class UIBar extends Group{
 		}
 		else
 		{
-			if(i instanceof Antidote) 
+			if(i instanceof ItemInvis) 
 			{
-				Platform.runLater(() -> itemView.setFill(new ImagePattern(((Antidote)i).getItemImage(),0,0,1,1,true)));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((ItemInvis)i).getItemImage(),0,0,1,1,true)));
 			}
-			else if(i instanceof FartBomb)
+			else if(i instanceof ItemBomb)
 			{
-				Platform.runLater(() -> itemView.setFill(new ImagePattern(((FartBomb)i).getItemImage(),0,0,1,1,true)));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((ItemBomb)i).getItemImage(),0,0,1,1,true)));
 			}
-			else if(i instanceof Shit)
+			else if(i instanceof ItemSpeed)
 			{
-				Platform.runLater(() -> itemView.setFill(new ImagePattern(((Shit)i).getItemImage(),0,0,1,1,true)));
+				Platform.runLater(() -> itemView.setFill(new ImagePattern(((ItemSpeed)i).getItemImage(),0,0,1,1,true)));
 			}
 		}
 	}

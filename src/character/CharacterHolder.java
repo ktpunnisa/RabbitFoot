@@ -57,6 +57,7 @@ public class CharacterHolder {
 	}
 	public void remove(Animal animal)
 	{
+		((Wolf)animal).stopRunning();
 		aniData.remove(animal);
 		Platform.runLater(()->aniGroup.getChildren().remove(animal.body));
 	}
