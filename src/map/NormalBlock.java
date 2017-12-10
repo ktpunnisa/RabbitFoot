@@ -15,12 +15,14 @@ import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-public class NormalBlock extends Block{
+public class NormalBlock extends Block
+{
 
 	Boolean hasCarrot;
 	Boolean hasPotion;
 	Boolean hasItem;
-	public NormalBlock(int x, int y, int c) {
+	public NormalBlock(int x, int y, int c) 
+	{
 		super(x, y, c);
 		hasCarrot = false;
 		hasPotion = false;
@@ -29,7 +31,8 @@ public class NormalBlock extends Block{
 	}
 
 	@Override
-	public void loadImage() {
+	public void loadImage() 
+	{
 		if(hasCarrot) {
 			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockCarrot));
 		}
@@ -47,8 +50,10 @@ public class NormalBlock extends Block{
 	}
 
 	@Override
-	public void checkEvent(Animal animal) {
-		if(animal instanceof Rabbit && hasCarrot) {
+	public void checkEvent(Animal animal) 
+	{
+		if(animal instanceof Rabbit && hasCarrot) 
+		{
 			setHasCarrot(false);
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
@@ -63,7 +68,8 @@ public class NormalBlock extends Block{
 			
 		}
 		
-		if(animal instanceof Rabbit && hasPotion) {
+		if(animal instanceof Rabbit && hasPotion) 
+		{
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
@@ -102,21 +108,23 @@ public class NormalBlock extends Block{
 		}
 	}
 
-	public Boolean getHasPotion() {
+	public Boolean getHasPotion() 
+	{
 		return hasPotion;
 	}
 
-	public void setHasPotion(Boolean hasPotion) {
+	public void setHasPotion(Boolean hasPotion) 
+	{
 		this.hasPotion = hasPotion;
 	}
 
-	public Boolean getHasCarrot() {
+	public Boolean getHasCarrot() 
+	{
 		return hasCarrot;
 	}
 
-	public void setHasCarrot(Boolean hasCarrot) {
+	public void setHasCarrot(Boolean hasCarrot) 
+	{
 		this.hasCarrot = hasCarrot;
 	}
-	
-
 }

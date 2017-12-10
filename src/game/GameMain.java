@@ -15,7 +15,8 @@ public class GameMain {
 	public static UIGame gameUI;
 	public static UIGameOver gameOverUI;
 	
-	public static void newGame(int diff) {
+	public static void newGame(int diff) 
+	{
 		state = new GameState(diff);
 		gameUI = new UIGame();
 		logic = new GameLogic(state);
@@ -30,7 +31,8 @@ public class GameMain {
 		Platform.runLater(() -> timeline.play());
 	}
 	
-	public static void stopGame() {
+	public static void stopGame() 
+	{
 		logic.stopGame();
 		gameOverUI = new UIGameOver();
 		gameOverUI.startGameOver();

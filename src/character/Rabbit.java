@@ -20,11 +20,14 @@ import scene.SceneManager;
 import ui.UIGame;
 import utility.Pair;
 
-public class Rabbit extends Animal {
-	public Rabbit instance;
-	int id = 0;
-	public Rabbit(Pair index, double speed, int direction, int z,boolean inverse) {
-		super(index, speed, direction, z,inverse);
+public class Rabbit extends Animal 
+{
+	
+	private Rabbit instance;
+	
+	public Rabbit(Pair index, double speed, int direction,boolean inverse) 
+	{
+		super(index, speed, direction,inverse);
 		this.instance=this;
 		Platform.runLater(() -> body.setImage(ImageLoader.Rimg.get(0)));
 		Platform.runLater(() -> body.setTranslateX(SceneManager.SCENE_WIDTH/2-ImageLoader.RABBIT_SIZE/2));
@@ -33,7 +36,8 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void startRunning() {
+	public void startRunning() 
+	{
 		Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
 		Point2D nodeInScene = GameMain.gameUI.localToScene(t);
 		Platform.runLater(() -> MapHolder.mapGroup.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX()));
@@ -46,47 +50,61 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void stopRunning() {
+	public void stopRunning() 
+	{
 		isRunning = false;
 	}
 
 	@Override
-	public void animateLoop() {
+	public void animateLoop() 
+	{
 		long lastAnimateTime = System.currentTimeMillis();
 		long animateTime = (long) (100 * speed);
 		int i = 0;
 		while (isRunning) {
 			long now = System.currentTimeMillis();
-			if (now - lastAnimateTime >= animateTime) {
+			if (now - lastAnimateTime >= animateTime) 
+			{
 				lastAnimateTime += animateTime;
 				int t=i++;
-				if(inverse) {
-					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) {
+				if(inverse) 
+				{
+					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) 
+					{
 						Platform.runLater(() -> body.setImage(ImageLoader.RimgInv2s.get(t%4)));
 					}
-					else {
+					else 
+					{
 						Platform.runLater(() -> body.setImage(ImageLoader.RimgInv.get(t%4)));
 					}
 				}
-				else if(CharacterHolder.invis) {
+				else if(CharacterHolder.invis) 
+				{
 					Platform.runLater(() -> body.setImage(ImageLoader.RimgInvis.get(t%4)));
 				}
-				else {
+				else 
+				{
 					Platform.runLater(() -> body.setImage(ImageLoader.Rimg.get(t%4)));
 				}
 			}
-			try {
+			try 
+			{
 				Thread.sleep(1);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 	
 	@Override
-	public void runLoop() {
-		while (isRunning) {
-			if(!runPath.isEmpty()) {
+	public void runLoop() 
+	{
+		while (isRunning) 
+		{
+			if(!runPath.isEmpty()) 
+			{
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
 				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
@@ -96,25 +114,35 @@ public class Rabbit extends Animal {
 						new KeyValue (MapHolder.mapGroup.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
-				timeline.setOnFinished(new EventHandler<ActionEvent>() {
+				timeline.setOnFinished(new EventHandler<ActionEvent>() 
+				{
 					@Override
-					public void handle(ActionEvent event) {
-						if(nextBlock() != null)
+					public void handle(ActionEvent event) 
+					{
+						if(nextBlock() != null) 
+						{
 							runPath.add(nextBlock());
-						else {
+						}
+						else 
+						{
 							GameSound.playSoundDie();
 							GameMain.stopGame();
 						}
 						if(!runPath.isEmpty() && GameLogic.isGameRunning)
+						{
 							MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(instance);
+						}
 					}
 				});
 				Platform.runLater(() -> timeline.play());
 				index = runPath.poll();
 			}
-			try {
+			try 
+			{
 				Thread.sleep(1);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				e.printStackTrace();
 			}
 		}
@@ -122,9 +150,11 @@ public class Rabbit extends Animal {
 
 	@Override
 	public Pair nextBlock() {
-		if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock) {
+		if(MapHolder.mapData.get(index.getY()).get(index.getX()) instanceof JumpBlock) 
+		{
 			int jumpDi = ((JumpBlock)MapHolder.mapData.get(index.getY()).get(index.getX())).direction;
-			if(Math.abs(this.direction - jumpDi)==3) {
+			if(Math.abs(this.direction - jumpDi)==3) 
+			{
 				return MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[direction];
 			}
 			setAngle(jumpDi);

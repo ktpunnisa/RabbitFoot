@@ -13,7 +13,8 @@ import javafx.scene.input.KeyEvent;
 import map.Block;
 import map.MapHolder;
 
-public class UIGame extends Group {
+public class UIGame extends Group 
+{
 		
 	public UIGame()
 	{
@@ -24,10 +25,11 @@ public class UIGame extends Group {
 		CharacterHolder.aniGroup.translateYProperty().bind(MapHolder.mapGroup.translateYProperty());
 		UIBar bar = new UIBar();
 		this.getChildren().add(bar);
-		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
+		this.setOnKeyPressed(new EventHandler<KeyEvent>() 
+		{
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(KeyEvent event) 
+			{
 				if(event.getCode().equals(KeyCode.LEFT)) {
 					CharacterHolder.aniData.get(0).turnLeft();
 				}

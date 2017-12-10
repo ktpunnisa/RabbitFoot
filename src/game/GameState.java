@@ -6,7 +6,8 @@ import item.ItemHolder;
 import javafx.scene.canvas.Canvas;
 import map.MapHolder;
 
-public class GameState extends Canvas{
+public class GameState extends Canvas
+{
 	
 	public CharacterHolder character;
 	public MapHolder map;
@@ -23,6 +24,4 @@ public class GameState extends Canvas{
 		character = new CharacterHolder(diff);
 		ItemHolder.itemData = null;
 	}
-	
-
 }

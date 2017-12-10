@@ -15,34 +15,47 @@ import javafx.util.Duration;
 import ui.UIBar;
 import utility.Pair;
 
-public class ItemHolder {
+public class ItemHolder 
+{
 	public static Item itemData;
+	
 	public ItemHolder()
 	{
 		itemData = null;
 	}
-	public static Item getItemData() {
+	
+	public static Item getItemData() 
+	{
 		return itemData;
 	}
-	public static void setItemData(Item itemData) {
+	
+	public static void setItemData(Item itemData) 
+	{
 		ItemHolder.itemData = itemData;
 		updateItem();
 	}
+	
 	private static void updateItem()
 	{
 		UIBar.changeItemView(itemData);
 	}
+	
 	public void add(Item item)
 	{
 		itemData = item;
 	}
+	
 	public void remove()
 	{
 		itemData = null;
 	}
+	
 	public static void useItem()
 	{
-		if(itemData==null) return;
+		if(itemData == null) 
+		{
+			return;
+		}
 		if(itemData instanceof ItemInvis) 
 		{
 			CharacterHolder.invis = true;
@@ -61,14 +74,17 @@ public class ItemHolder {
 			Platform.runLater(() -> GameMain.gameUI.getChildren().add(1,b));
 			GameSound.playSoundExplosion();
 			Pair r = CharacterHolder.aniData.get(0).index;
-			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
-				if(r.distance(a.index) <= 2) {
+			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) 
+			{
+				if(r.distance(a.index) <= 2) 
+				{
 					((Wolf)a).setStun(true);
 				}
 			}
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
 					ae -> {
-						for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
+						for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) 
+						{
 							((Wolf)a).setStun(false);
 							
 						}
@@ -89,7 +105,7 @@ public class ItemHolder {
 					}));
 			timeline.play();
 		}
-		itemData=null;
+		itemData = null;
 		updateItem();
 	}
 }

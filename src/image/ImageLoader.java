@@ -6,7 +6,8 @@ import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 
-public class ImageLoader {
+public class ImageLoader 
+{
 	public static int WOLF_SIZE = 60;
 	public static int RABBIT_SIZE = 40;
 	public static List<Image> Wimg;
@@ -34,7 +35,8 @@ public class ImageLoader {
 	public static ImagePattern normalBlockPotion;
 	public static ImagePattern trapBlock;
 	
-	public static void initailize() {
+	public static void initailize() 
+	{
 		Wimg = new ArrayList<>();
 		WimgInv = new ArrayList<>();
 		WimgInv2s = new ArrayList<>();
@@ -45,7 +47,8 @@ public class ImageLoader {
 		RimgInv2s = new ArrayList<>();
 		RimgInvis = new ArrayList<>();
 		
-		for (int i = 1; i <= 4; i++) {
+		for (int i = 1; i <= 4; i++) 
+		{
 		    	Wimg.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 		    	WimgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfInverse_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 		    	WimgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolf2s_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
@@ -53,7 +56,8 @@ public class ImageLoader {
 		    		WimgStun.add(new Image(ClassLoader.getSystemResourceAsStream("character/wolfstun_"+i+".png"),WOLF_SIZE,WOLF_SIZE,false,false));
 	    }
 		
-		for (int i = 1; i <= 4; i++) {
+		for (int i = 1; i <= 4; i++) 
+		{
 			Rimg.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
 			RimgInv.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbitInverse_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));
 			RimgInv2s.add(new Image(ClassLoader.getSystemResourceAsStream("character/rabbit2s_"+i+".png"),RABBIT_SIZE,RABBIT_SIZE,false,false));

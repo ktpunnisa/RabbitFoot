@@ -26,35 +26,41 @@ public class CharacterHolder {
 		timeInverse = 0;
 		aniData = new ArrayList<Animal>();
 		Pair tmp = RandomGenerator.randomIndex();
-		while(MapHolder.trap.contains(tmp)) {
+		while(MapHolder.trap.contains(tmp)) 
+		{
 			tmp = RandomGenerator.randomIndex();
 		}
-		Rabbit r = new Rabbit(tmp, 1.4, 1, 0,inverse);
+		Rabbit r = new Rabbit(tmp, 1.4, 1,inverse);
 		aniData.add(r);
-		for(int i=0;i<diff;++i) {
+		for(int i=0;i<diff;++i) 
+		{
 			tmp = RandomGenerator.randomIndex();
-			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) {
+			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) 
+			{
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 1.1, 1, 0,inverse);
+			Wolf w = new Wolf(tmp, 1.1, 1,inverse);
 			aniData.add(w);
 			Platform.runLater(()->aniGroup.getChildren().add(w.body));
 		}
 	}
+	
 	public void add(int n)
 	{
 		Pair tmp = RandomGenerator.randomIndex();
 		for(int i=0;i<n;++i) {
 			tmp = RandomGenerator.randomIndex();
-			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) {
+			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) 
+			{
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 1.1, 1, 0,inverse);
+			Wolf w = new Wolf(tmp, 1.1, 1,inverse);
 			aniData.add(w);
 			w.startRunning();
 			Platform.runLater(()->aniGroup.getChildren().add(w.body));
 		}
 	}
+	
 	public void remove(Animal animal)
 	{
 		((Wolf)animal).stopRunning();

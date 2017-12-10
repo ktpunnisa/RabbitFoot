@@ -13,70 +13,89 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import scene.SceneManager;
 
-public class UIGameOver extends Canvas {
+public class UIGameOver extends Canvas 
+{
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	int selector = 0;
-	private static final Font SCORE_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 150);
-	private static final Font TITLE_FONT =  Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 30);
-	private static final Font GAMEOVER_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 50);
+	private Font SCORE_FONT;
+	private Font TITLE_FONT;
+	private Font GAMEOVER_FONT;
 	private Thread gameOverAnimation;
 	private boolean isGameOverRunning;
 	private int finalScore;
 	
-	public UIGameOver() {
+	public UIGameOver() 
+	{
 		super(SceneManager.SCENE_WIDTH, SceneManager.SCENE_HEIGHT);
+		SCORE_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 150);
+		TITLE_FONT =  Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 30);
+		GAMEOVER_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 50);
 		this.finalScore = 0;
 		this.addKeyEventHandler();
 	}
 	
-	private void addKeyEventHandler() {
+	private void addKeyEventHandler() 
+	{
 		this.setOnKeyPressed((KeyEvent e) -> {
-			if(e.getCode() == KeyCode.ENTER) {
-				if(selector==0){
+			if(e.getCode() == KeyCode.ENTER) 
+			{
+				if(selector==0)
+				{
 					GameMain.newGame(GameState.diff);
 				}
-				else {
+				else 
+				{
 					SceneManager.gotoMenu();
 				}
 				stopGameOver();
 			}
-			else if(e.getCode() == KeyCode.ESCAPE) {
+			else if(e.getCode() == KeyCode.ESCAPE) 
+			{
 				stopGameOver();
 				Platform.exit();
 			}
-			else if(e.getCode() == KeyCode.LEFT) {
+			else if(e.getCode() == KeyCode.LEFT) 
+			{
 				selector=(selector-1+2)%2;
 			}
-			else if(e.getCode() == KeyCode.RIGHT) {
+			else if(e.getCode() == KeyCode.RIGHT) 
+			{
 				selector=(selector+1)%2;
 			}
 		});
 	}
 	
-	public void startGameOver() {
+	public void startGameOver() 
+	{
 		gameOverAnimation = new Thread(this::animationLoop, "GameOver Animation Thread");
 		isGameOverRunning = true;
 		gameOverAnimation.start();
 		this.finalScore = GameState.score;
 	}
 
-	public void stopGameOver() {
+	public void stopGameOver() 
+	{
 		isGameOverRunning = false;
 	}
 	
-	private void animationLoop() {
+	private void animationLoop() 
+	{
 		long lastLoopStartTime = System.nanoTime();
 		while (isGameOverRunning) {
 			long now = System.nanoTime();
-			if (now - lastLoopStartTime >= LOOP_TIME) {
+			if (now - lastLoopStartTime >= LOOP_TIME) 
+			{
 				lastLoopStartTime += LOOP_TIME;
 				Platform.runLater(() -> updateAnimation(now));
 			}
 
-			try {
+			try 
+			{
 				Thread.sleep(1);
-			} catch (InterruptedException e) {
+			} 
+			catch (InterruptedException e) 
+			{
 				e.printStackTrace();
 			}
 		}

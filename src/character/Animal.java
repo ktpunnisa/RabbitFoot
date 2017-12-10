@@ -22,13 +22,12 @@ public abstract class Animal {
 	public int angle;
 	public static int angles[]= {-30,30,90,150,210,270};
 	
-	public Animal(Pair index, double speed, int direction, int z,boolean inverse)
+	public Animal(Pair index, double speed, int direction,boolean inverse)
 	{
 		this.index = index;
 		this.speed = speed;
 		this.direction = direction;
 		this.angle = angles[direction];
-		this.z = z;
 		this.inverse = inverse;
 		this.body = new ImageView();
 		this.runPath = new LinkedBlockingQueue<Pair>();
@@ -45,45 +44,65 @@ public abstract class Animal {
 		this.direction = (this.direction - 1 + 6 ) % 6;
 		this.angle -= 60;
 	}
+	
 	public void turnRight()
 	{
 		this.direction = (this.direction + 1 + 6 ) % 6;
 		this.angle += 60;
 	}
-	public Pair getIndex() {
+	
+	public Pair getIndex() 
+	{
 		return index;
 	}
-	public void setIndex(Pair index) {
+	
+	public void setIndex(Pair index) 
+	{
 		this.index = index;
 	}
-	public double getSpeed() {
+	
+	public double getSpeed() 
+	{
 		return speed;
 	}
-	public void setSpeed(double d) {
+	
+	public void setSpeed(double d) 
+	{
 		this.speed = d;
 	}
-	public int getDirection() {
+	
+	public int getDirection() 
+	{
 		return direction;
 	}
-	public void setDirection(int direction) {
+	
+	public void setDirection(int direction) 
+	{
 		this.direction = direction;
 	}
-	public int getZ() {
+	
+	public int getZ() 
+	{
 		return z;
 	}
-	public void setZ(int z) {
+	
+	public void setZ(int z) 
+	{
 		this.z = z;
 	}
 
-	public boolean isInverse() {
+	public boolean isInverse() 
+	{
 		return inverse;
 	}
 
-	public void setInverse(boolean inverse) {
+	public void setInverse(boolean inverse) 
+	{
 		this.inverse = inverse;
 	}
 
-	public void setAngle(int newDirection) {
+	public void setAngle(int newDirection) 
+	{
 		int x = (newDirection - this.direction+6)%6;
 		if(x == 4)	x = -2;
 		else if(x == 5) x = -1;

@@ -20,13 +20,16 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import scene.SceneManager;
 
-public class UIBar extends Group{
+public class UIBar extends Group
+{
 	public static Rectangle itemView;
 	public static Text score;
 	public static Text time;
-	Font font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 35);
+	private Font font;
+	
 	public UIBar()
 	{
+		this.font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 35);
 		ImageView itemBorad = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/itemBoard.png")));
 		itemBorad.setTranslateX(5);
 		itemBorad.setTranslateY(0);
