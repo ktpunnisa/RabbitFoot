@@ -1,5 +1,6 @@
 package scene;
 
+import game.GameSound;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -37,6 +38,7 @@ public class SceneManager
 	
 	public static void gotoMenu() 
 	{
+		GameSound.playSoundMenu();
 		Platform.runLater(() -> mainFrame.getChildren().clear());
 		Platform.runLater(() -> mainFrame.getChildren().add(mainMenu));
 		mainMenu.startMenu();

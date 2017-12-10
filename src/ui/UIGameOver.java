@@ -1,6 +1,7 @@
 package ui;
 
 import game.GameMain;
+import game.GameSound;
 import game.GameState;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
@@ -57,10 +58,12 @@ public class UIGameOver extends Canvas
 			}
 			else if(e.getCode() == KeyCode.LEFT) 
 			{
+				GameSound.playSoundEat();
 				selector=(selector-1+2)%2;
 			}
 			else if(e.getCode() == KeyCode.RIGHT) 
 			{
+				GameSound.playSoundEat();
 				selector=(selector+1)%2;
 			}
 		});

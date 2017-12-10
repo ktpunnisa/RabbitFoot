@@ -1,6 +1,7 @@
 package ui;
 
 import game.GameMain;
+import game.GameSound;
 import javafx.application.Platform;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -33,25 +34,28 @@ public class UIMenu extends Canvas
 	
 	private void addKeyEventHandler() 
 	{
-		//TODO Fill Code
 		this.setOnKeyPressed((KeyEvent e) -> {
 			if(e.getCode() == KeyCode.ENTER) 
 			{
+				GameSound.stopSoundMenu();
 				GameMain.newGame(diffSelector%3+1);
 				stopMenu();
 			}
 			else if(e.getCode() == KeyCode.ESCAPE) 
 			{
+				GameSound.stopSoundMenu();
 				stopMenu();
 				Platform.exit();
 				System.exit(0);
 			}
 			else if(e.getCode() == KeyCode.LEFT) 
 			{
+				GameSound.playSoundEat();
 				diffSelector=(diffSelector-1+3)%3;
 			}
 			else if(e.getCode() == KeyCode.RIGHT) 
 			{
+				GameSound.playSoundEat();
 				diffSelector=(diffSelector+1)%3;
 			}
 		});

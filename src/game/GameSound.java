@@ -12,6 +12,7 @@ public class GameSound
 	private static AudioClip soundWolfDie;
 	private static AudioClip soundFart;
 	private static AudioClip soundExplosion;
+	private static AudioClip soundMenu;
 	
 	static 
 	{
@@ -24,6 +25,7 @@ public class GameSound
 		soundWolfDie = new AudioClip(ClassLoader.getSystemResource("sound/wolf1.mp3").toString());
 		soundFart = new AudioClip(ClassLoader.getSystemResource("sound/fart.mp3").toString());
 		soundExplosion = new AudioClip(ClassLoader.getSystemResource("sound/explosion.mp3").toString());
+		soundMenu = new AudioClip(ClassLoader.getSystemResource("sound/menu.mp3").toString());
 	}
 	
 	public static void playSoundDie() 
@@ -78,5 +80,16 @@ public class GameSound
 	public static void stopSoundBG() 
 	{
 		soundBG.stop();
+	}
+	
+	public static void playSoundMenu() 
+	{
+		soundMenu.setCycleCount(AudioClip.INDEFINITE);
+		soundMenu.play(0.3);
+	}
+	
+	public static void stopSoundMenu() 
+	{
+		soundMenu.stop();
 	}
 }
