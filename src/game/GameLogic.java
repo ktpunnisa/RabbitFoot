@@ -8,9 +8,11 @@ import character.CharacterHolder;
 import character.Rabbit;
 import character.Wolf;
 import javafx.application.Platform;
+import javafx.scene.shape.Rectangle;
 import map.MapHolder;
 import ui.UIBar;
 import ui.UIGame;
+import utility.Pair;
 import utility.RandomGenerator;
 
 public class GameLogic {
@@ -64,28 +66,28 @@ public class GameLogic {
 	private void updateGame()
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
-		if(CharacterHolder.aniData.size()<=GameState.diff+1) {
-			CharacterHolder.genAnimal(GameState.diff+1-CharacterHolder.aniData.size());
+		if(CharacterHolder.aniData.size()<GameState.diff+1) {
+			state.character.add();
 		}
 		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
 			Set<Animal> kill = new HashSet<>();
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
-				if(a.index.equals(CharacterHolder.aniData.get(0).index) && !((Wolf)a).isStun()) {
+				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
 						GameSound.playSoundWolfDie();
 						kill.add(a);
 						GameState.score+=10;
 					}
-					else {
+					else if(!((Wolf)a).isStun()) {
 						GameSound.playSoundWolf();
 						GameMain.stopGame();
 					}
 				}
 			}
 			for(Animal a : kill) {
-				Platform.runLater(() -> UIGame.globalAni.getChildren().remove(a.body));
+				Platform.runLater(() -> CharacterHolder.aniGroup.getChildren().remove(a.body));
 				((Wolf)a).stopRunning();
-				CharacterHolder.aniData.remove(a);
+				state.character.remove(a);
 			}
 		}
 		while(MapHolder.carrot.size() < 10-GameState.diff) {

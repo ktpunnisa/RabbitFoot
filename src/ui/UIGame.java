@@ -11,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Rectangle;
 import map.Block;
 import map.MapHolder;
 
@@ -20,7 +21,7 @@ public class UIGame extends Group {
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	
 	public static Group globalMap;
-	public static Group globalAni;
+	//public static Group globalAni;
 	public static Node globalRabbit;
 	private GameState state;
 	
@@ -28,13 +29,13 @@ public class UIGame extends Group {
 	{
 		this.state = state;
 		globalMap = drawMap();
-		globalAni = drawAnimal();
+		//globalAni = drawAnimal();
 		globalRabbit = CharacterHolder.aniData.get(0).body;
 		this.getChildren().add(globalMap);
 		this.getChildren().add(globalRabbit);
-		this.getChildren().add(globalAni);
-		globalAni.translateXProperty().bind(globalMap.translateXProperty());
-		globalAni.translateYProperty().bind(globalMap.translateYProperty());
+		this.getChildren().add(CharacterHolder.aniGroup);
+		CharacterHolder.aniGroup.translateXProperty().bind(globalMap.translateXProperty());
+		CharacterHolder.aniGroup.translateYProperty().bind(globalMap.translateYProperty());
 		UIBar bar = new UIBar();
 		this.getChildren().add(bar);
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -66,8 +67,8 @@ public class UIGame extends Group {
 	private Group drawAnimal()
 	{
 		Group temp = new Group();
-		for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) 
-			temp.getChildren().add(a.body);
+		//for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) 
+		//	temp.getChildren().add(a.body);
 		return temp;
 	}
 }

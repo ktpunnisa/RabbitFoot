@@ -29,7 +29,7 @@ public class GameState extends Canvas{
 		GameState.diff = diff;
 		GameState.level = diff;
 		isImmortal = false;
-		CharacterHolder.genAnimal(diff);
+		character.genAnimal(diff);
 		ItemHolder.itemData = null;
 	}
 	
