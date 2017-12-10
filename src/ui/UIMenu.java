@@ -19,7 +19,7 @@ public class UIMenu extends Canvas
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	
-	int diffSelector = 0;
+	private int diffSelector = 0;
 	private Font MENU_FONT;
 	private Thread menuAnimation;
 	private boolean isMenuRunning;

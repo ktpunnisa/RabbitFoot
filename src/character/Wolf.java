@@ -271,7 +271,7 @@ public class Wolf extends Animal
 		return bestBlock;
 	}
 	
-	Pair lowNextBlock() 
+	public Pair lowNextBlock() 
 	{
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;

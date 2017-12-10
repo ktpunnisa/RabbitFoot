@@ -24,7 +24,6 @@ public class UIBar extends Group
 {
 	public static Rectangle itemView;
 	public static Text score;
-	public static Text time;
 	private Font font;
 	
 	public UIBar()

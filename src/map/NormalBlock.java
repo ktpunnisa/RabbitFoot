@@ -18,9 +18,9 @@ import javafx.util.Duration;
 public class NormalBlock extends Block
 {
 
-	Boolean hasCarrot;
-	Boolean hasPotion;
-	Boolean hasItem;
+	public boolean hasCarrot;
+	public boolean hasPotion;
+	public boolean hasItem;
 	public NormalBlock(int x, int y, int c) 
 	{
 		super(x, y, c);

@@ -18,7 +18,7 @@ public class UIGameOver extends Canvas
 {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
-	int selector = 0;
+	private int selector = 0;
 	private Font SCORE_FONT;
 	private Font TITLE_FONT;
 	private Font GAMEOVER_FONT;
