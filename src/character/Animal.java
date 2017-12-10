@@ -11,7 +11,6 @@ public abstract class Animal {
 	public Pair index;
 	public double speed;  
 	public int direction;
-	public int z;
 	public Queue<Pair> runPath;
 	
 	public Thread animationThread;
@@ -81,16 +80,6 @@ public abstract class Animal {
 		this.direction = direction;
 	}
 	
-	public int getZ() 
-	{
-		return z;
-	}
-	
-	public void setZ(int z) 
-	{
-		this.z = z;
-	}
-
 	public boolean isInverse() 
 	{
 		return inverse;
