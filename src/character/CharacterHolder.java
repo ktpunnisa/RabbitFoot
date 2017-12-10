@@ -25,11 +25,12 @@ public class CharacterHolder {
 		timeInverse = 0;
 		aniData = new ArrayList<Animal>();
 		Pair tmp = RandomGenerator.randomIndex();
-		while(MapHolder.trap.contains(tmp)) 
+		int direct = RandomGenerator.random(0, 5);
+		while(MapHolder.trap.contains(tmp) || MapHolder.mapData.get(tmp.getY()).get(tmp.getX()).nextBlock[RandomGenerator.random(0, 5)] == null) 
 		{
 			tmp = RandomGenerator.randomIndex();
 		}
-		Rabbit r = new Rabbit(tmp, 1.4, RandomGenerator.random(0, 5),inverse);
+		Rabbit r = new Rabbit(tmp, 1.4, direct,inverse);
 		aniData.add(r);
 		for(int i=0;i<diff;++i) 
 		{

@@ -81,7 +81,7 @@ public class GameLogic
 				{
 					if(CharacterHolder.aniData.get(0).isInverse()) 
 					{
-						GameSound.playSoundWolfDie();
+						GameSound.playSoundWolf();
 						state.character.remove(a);
 						GameState.score+=10;
 					}
