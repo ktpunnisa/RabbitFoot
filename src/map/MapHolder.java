@@ -13,6 +13,7 @@ import item.Item;
 import item.Shit;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.Group;
 import utility.Pair;
 import utility.RandomGenerator;
 
@@ -20,6 +21,7 @@ public class MapHolder {
 	
 	public static final double BLOCK_SIZE = 60.0;
 	public static ObservableList<List<Block>> mapData;
+	public static Group mapGroup;
 	public static Set<Pair> carrot;
 	public static Set<Pair> trap;
 	public static Map<Pair,Item> item;
@@ -46,14 +48,19 @@ public class MapHolder {
 	{
 		carrot = new HashSet<Pair>();
 		trap = new HashSet<Pair>();
-		item = new HashMap<>();
+		item = new HashMap<Pair, Item>();
 		potion = new Pair(-1,-1);
 		potionTime = 0;
 		count = 0;
 		mapData = FXCollections.<List<Block>>observableArrayList();
+		mapGroup = new Group();
+		genMap();
+		for(List<Block> row : MapHolder.mapData)
+			for(Block b : row)
+				mapGroup.getChildren().add(b.hexagon);
 	}
 	
-	public void genMap(int diff)
+	public void genMap()
 	{
 		for(int i=-6;i<=6;++i)
 		{

@@ -8,11 +8,9 @@ import character.CharacterHolder;
 import character.Rabbit;
 import character.Wolf;
 import javafx.application.Platform;
-import javafx.scene.shape.Rectangle;
 import map.MapHolder;
 import ui.UIBar;
 import ui.UIGame;
-import utility.Pair;
 import utility.RandomGenerator;
 
 public class GameLogic {
@@ -20,14 +18,12 @@ public class GameLogic {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
 	
-	private UIGame gameUI;
 	private GameState state;
 	public static boolean isGameRunning;
 	public static long seconds;
 	
-	public GameLogic(UIGame gameUI, GameState state)
+	public GameLogic(GameState state)
 	{
-		this.gameUI = gameUI;
 		this.state = state;
 		isGameRunning = false;
 	}
@@ -66,40 +62,38 @@ public class GameLogic {
 	private void updateGame()
 	{
 		Platform.runLater(()->UIBar.score.setText("Score: "+GameState.score));
+		
 		if(CharacterHolder.aniData.size()<GameState.diff+1) {
-			state.character.add();
+			state.character.add(GameState.diff+1-CharacterHolder.aniData.size());
 		}
-		if(CharacterHolder.aniData.size()>1 && !GameState.isImmortal) {
-			Set<Animal> kill = new HashSet<>();
+		if(CharacterHolder.aniData.size()>1) {
 			for(Animal a : CharacterHolder.aniData.subList(1, CharacterHolder.aniData.size())) {
 				if(a.index.equals(CharacterHolder.aniData.get(0).index)) {
 					if(CharacterHolder.aniData.get(0).isInverse()) {
 						GameSound.playSoundWolfDie();
-						kill.add(a);
+						
+						Platform.runLater(() -> CharacterHolder.aniGroup.getChildren().remove(a.body));
+						((Wolf)a).stopRunning();
+						state.character.remove(a);
+						
 						GameState.score+=10;
 					}
-					else if(!((Wolf)a).isStun()) {
+					else if(!((Wolf)a).isStun() && !CharacterHolder.invis) {
 						GameSound.playSoundWolf();
 						GameMain.stopGame();
 					}
 				}
 			}
-			for(Animal a : kill) {
-				Platform.runLater(() -> CharacterHolder.aniGroup.getChildren().remove(a.body));
-				((Wolf)a).stopRunning();
-				state.character.remove(a);
-			}
 		}
 		while(MapHolder.carrot.size() < 10-GameState.diff) {
 			MapHolder.createCarrot();
 		}
-		while(MapHolder.trap.size() < GameState.level) {
+		while(MapHolder.trap.size() < GameState.diff) {
 			MapHolder.createTrap();
 		}
 		if(seconds%10==0 && MapHolder.potionTime!=seconds && !CharacterHolder.inverse) {
 			if(MapHolder.potionTime!=0) {
 				MapHolder.deletePotion(true);
-				
 			}
 			MapHolder.potionTime = seconds;
 			MapHolder.createPotion();

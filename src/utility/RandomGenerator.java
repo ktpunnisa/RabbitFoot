@@ -8,7 +8,7 @@ import map.MapHolder;
 public class RandomGenerator {
 	
 	//private static Random rand = new Random(1236265L);
-	private static Random rand = new Random(System.currentTimeMillis());
+	private static Random rand = new Random(System.nanoTime());
 	public static int random(int from, int to)
 	{
 		return from + RandomGenerator.rand.nextInt(to - from);
@@ -25,6 +25,6 @@ public class RandomGenerator {
 	
 	public static void setSeed(long seed) {
 		//rand = new Random(seed);
-		rand = new Random(System.currentTimeMillis());
+		rand = new Random(System.nanoTime());
 	}
 }

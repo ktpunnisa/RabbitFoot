@@ -1,9 +1,7 @@
 package character;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
@@ -19,7 +17,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 import map.JumpBlock;
 import map.MapHolder;
@@ -136,18 +133,13 @@ public class Wolf extends Animal{
 			}
 		}
 	}	
-	
-	@Override
-	public boolean isVisible() {
-		return false;
-	}
 
 	@Override
 	public Pair nextBlock() {
 		Pair r = CharacterHolder.aniData.get(0).getIndex();
 		Pair bestBlock = null;
 		Boolean seeTrap = true;
-		if(GameState.isImmortal) {
+		if(CharacterHolder.invis) {
 			r = gotoThis;
 			while(r.distance(index)==0){
 				gotoThis = RandomGenerator.randomIndex();

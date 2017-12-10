@@ -1,8 +1,5 @@
 package character;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import game.GameLogic;
 import game.GameMain;
 import game.GameSound;
@@ -16,7 +13,6 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import javafx.util.Duration;
 import map.JumpBlock;
 import map.MapHolder;
@@ -40,8 +36,8 @@ public class Rabbit extends Animal {
 	public void startRunning() {
 		Point2D t = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
 		Point2D nodeInScene = GameMain.gameUI.localToScene(t);
-		Platform.runLater(() -> UIGame.globalMap.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX()));
-		Platform.runLater(() -> UIGame.globalMap.setTranslateY(SceneManager.SCENE_HEIGHT/2 - nodeInScene.getY()));
+		Platform.runLater(() -> MapHolder.mapGroup.setTranslateX(SceneManager.SCENE_WIDTH/2 - nodeInScene.getX()));
+		Platform.runLater(() -> MapHolder.mapGroup.setTranslateY(SceneManager.SCENE_HEIGHT/2 - nodeInScene.getY()));
 		isRunning = true;
 		animationThread = new Thread(this::animateLoop, "Rabbit animating Thread");
 		runThread = new Thread(this::runLoop, "Rabbit running Thread");
@@ -72,7 +68,7 @@ public class Rabbit extends Animal {
 						Platform.runLater(() -> body.setImage(ImageLoader.RimgInv.get(t%4)));
 					}
 				}
-				else if(GameState.isImmortal) {
+				else if(CharacterHolder.invis) {
 					Platform.runLater(() -> body.setImage(ImageLoader.RimgInvis.get(t%4)));
 				}
 				else {
@@ -95,9 +91,9 @@ public class Rabbit extends Animal {
 				timeline.setCycleCount(1);
 				Point2D t = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (UIGame.globalMap.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
+						new KeyValue (MapHolder.mapGroup.translateXProperty(), SceneManager.SCENE_WIDTH/2 - t.getX(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (UIGame.globalMap.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
+						new KeyValue (MapHolder.mapGroup.translateYProperty(), SceneManager.SCENE_HEIGHT/2 - t.getY(), Interpolator.EASE_BOTH)));
 				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
 						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
 				timeline.setOnFinished(new EventHandler<ActionEvent>() {
@@ -122,11 +118,6 @@ public class Rabbit extends Animal {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	@Override
-	public boolean isVisible() {
-		return false;
 	}
 
 	@Override

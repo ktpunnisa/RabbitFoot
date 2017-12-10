@@ -45,10 +45,10 @@ public class ItemHolder {
 		if(itemData==null) return;
 		if(itemData instanceof Antidote) 
 		{
-			GameState.isImmortal = true;
+			CharacterHolder.invis = true;
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000),
 					ae -> {
-						GameState.isImmortal = false;	
+						CharacterHolder.invis = false;	
 					}));
 			timeline.setCycleCount(1);
 			timeline.play();
