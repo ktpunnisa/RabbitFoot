@@ -97,11 +97,11 @@ public class NormalBlock extends Block
 		{
 			if(ItemHolder.itemData!=null) return;
 			Item i = MapHolder.item.get(index);
+			ItemHolder.setItemData(i);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
 					ae -> {
 						MapHolder.deleteItem(index);
 						GameSound.playSoundEat();
-						ItemHolder.setItemData(i);
 					}));
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());

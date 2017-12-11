@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import map.MapHolder;
 import ui.UIBar;
 import utility.Pair;
 
@@ -31,7 +32,12 @@ public class ItemHolder
 	public static void setItemData(Item itemData) 
 	{
 		ItemHolder.itemData = itemData;
-		updateItem();
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*CharacterHolder.aniData.get(0).speed),
+				ae -> {
+					updateItem();
+				}));
+		timeline.setCycleCount(1);
+		Platform.runLater(() -> timeline.play());
 	}
 	
 	private static void updateItem()
