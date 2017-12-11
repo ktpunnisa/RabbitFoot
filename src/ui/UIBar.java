@@ -2,6 +2,7 @@ package ui;
 
 import item.ItemInvis;
 import item.ItemBomb;
+
 import item.Item;
 import item.ItemSpeed;
 import javafx.animation.Interpolator;
@@ -32,27 +33,33 @@ public class UIBar extends Group
 		ImageView itemBorad = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/itemBoard.png")));
 		itemBorad.setTranslateX(5);
 		itemBorad.setTranslateY(0);
-		this.getChildren().add(itemBorad);
+		Platform.runLater(() -> this.getChildren().add(itemBorad));
 		itemView = new Rectangle(15,15,80,100);
 		itemView.setFill(Color.TRANSPARENT);
-		this.getChildren().add(itemView);
+		Platform.runLater(() -> this.getChildren().add(itemView));
 		
 		ImageView board = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/board.png")));
 		board.setTranslateX(500);
 		board.setTranslateY(0);
-		this.getChildren().add(board);
-		score=new Text("Score:");
+		Platform.runLater(() -> this.getChildren().add(board));
+		score = new Text();
 		score.setFont(font);
 		score.setFill(Color.WHITE);
-		score.setTranslateX(580);
 		score.setTranslateY(50);
-		this.getChildren().add(score);
+		Platform.runLater(() -> this.getChildren().add(score));
 	}
+	
+	public static void setScore(String s)
+	{
+		Platform.runLater(() -> score.setText(s));
+		Platform.runLater(() -> score.setTranslateX(284/2+500-score.getLayoutBounds().getWidth()/2));
+	}
+	
 	public static void changeItemView(Item i)
 	{
 		if(i == null)
 		{
-			itemView.setFill(Color.TRANSPARENT);
+			Platform.runLater(() -> itemView.setFill(Color.TRANSPARENT));
 		}
 		else
 		{
@@ -70,6 +77,7 @@ public class UIBar extends Group
 			}
 		}
 	}
+	
 	public static void addTimeBar(int sec)
 	{
 		Rectangle tb = new Rectangle(300,30);
@@ -79,7 +87,7 @@ public class UIBar extends Group
 		tb.setStroke(Color.GREEN);
 		tb.setStrokeWidth(3);
 		tb.setTranslateX(140);
-		SceneManager.mainFrame.getChildren().add(tb);
+		Platform.runLater(() -> SceneManager.mainFrame.getChildren().add(tb));
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, 
 				new KeyValue (tb.widthProperty(), 300, Interpolator.LINEAR)));
@@ -93,9 +101,9 @@ public class UIBar extends Group
 		
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(sec),
 					ae -> {
-						SceneManager.mainFrame.getChildren().remove(tb);
+						Platform.runLater(() -> SceneManager.mainFrame.getChildren().remove(tb));
 					}));
 		timeline.setCycleCount(1);
-		timeline.play();
+		Platform.runLater(() -> timeline.play());
 	}
 }

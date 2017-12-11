@@ -67,7 +67,7 @@ public class GameLogic
 	
 	private void updateGame()
 	{
-		Platform.runLater(()->UIBar.score.setText("Score: " + GameState.score));
+		Platform.runLater(()->UIBar.setScore("Score: " + GameState.score));
 		
 		if(CharacterHolder.aniData.size() < GameState.diff+1) 
 		{
