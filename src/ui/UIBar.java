@@ -26,7 +26,7 @@ public class UIBar extends Group
 	public static Rectangle itemView;
 	public static Text score;
 	private Font font;
-	
+	public static Rectangle tb;
 	public UIBar()
 	{
 		this.font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 35);
@@ -80,7 +80,7 @@ public class UIBar extends Group
 	
 	public static void addTimeBar(int sec)
 	{
-		Rectangle tb = new Rectangle(300,30);
+		tb = new Rectangle(300,30);
 		tb.setArcHeight(15);
 		tb.setArcWidth(15);
 		tb.setFill(Color.CHARTREUSE);

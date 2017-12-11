@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import scene.SceneManager;
+import ui.UIBar;
 import ui.UIGame;
 import ui.UIGameOver;
 import javafx.util.Duration;
@@ -36,6 +37,7 @@ public class GameMain {
 		logic.stopGame();
 		gameOverUI = new UIGameOver();
 		gameOverUI.startGameOver();
+		SceneManager.mainFrame.getChildren().remove(UIBar.tb);
 		GameSound.stopSoundBG();
 		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
