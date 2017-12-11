@@ -6,31 +6,24 @@ import character.Rabbit;
 import game.GameLogic;
 import game.GameSound;
 import game.GameState;
-import item.Antidote;
-import item.FartBomb;
+import image.ImageLoader;
 import item.Item;
 import item.ItemHolder;
-import item.Shit;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 import ui.UIBar;
 
-public class NormalBlock extends Block{
+public class NormalBlock extends Block
+{
 
-	Boolean hasCarrot;
-	Boolean hasPotion;
-	Boolean hasItem;
-	public NormalBlock(int x, int y, int c) {
+	public boolean hasCarrot;
+	public boolean hasPotion;
+	public boolean hasItem;
+	public NormalBlock(int x, int y, int c) 
+	{
 		super(x, y, c);
 		hasCarrot = false;
 		hasPotion = false;
@@ -39,28 +32,29 @@ public class NormalBlock extends Block{
 	}
 
 	@Override
-	public void loadImage() {
-		Image img;
+	public void loadImage() 
+	{
 		if(hasCarrot) {
-			img = new Image("file:res/block/carrot.png");
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockCarrot));
 		}
 		else if(hasPotion){
-			img = new Image("file:res/block/potion.png");
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockPotion));
 		}
 		else if(hasItem) {
-			img = MapHolder.item.get(index).getBlockImage();
+			Platform.runLater(() -> this.hexagon.setFill(MapHolder.item.get(index).getBlockImage()));
 		}
 		else {
-			img = new Image("file:res/block/grass.png");
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlock));
 		}
-		Platform.runLater(() -> this.hexagon.setFill(new ImagePattern(img,0,0,1,1,true)));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
 
 	@Override
-	public void checkEvent(Animal animal) {
-		if(animal instanceof Rabbit && hasCarrot) {
+	public void checkEvent(Animal animal) 
+	{
+		if(animal instanceof Rabbit && hasCarrot) 
+		{
 			setHasCarrot(false);
 			MapHolder.carrot.remove(index);
 			MapHolder.createCarrot(); 
@@ -75,9 +69,8 @@ public class NormalBlock extends Block{
 			
 		}
 		
-		if(animal instanceof Rabbit && hasPotion) {
-			System.out.println("inverse mode @ "+ GameLogic.seconds);
-			//UIBar.addTimeBar(15);
+		if(animal instanceof Rabbit && hasPotion) 
+		{
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
@@ -86,7 +79,8 @@ public class NormalBlock extends Block{
 						GameSound.playSoundEat();
 						CharacterHolder.inverse = true;
 						CharacterHolder.timeInverse = GameLogic.seconds;
-						for(Animal x : CharacterHolder.aniData) {
+						for(Animal x : CharacterHolder.aniData) 
+						{
 							x.setInverse(true);
 							if(x instanceof Rabbit){
 								x.setSpeed(0.9);
@@ -94,7 +88,8 @@ public class NormalBlock extends Block{
 							else {
 								x.setSpeed(1.5);
 							}
-						}		
+						}
+						UIBar.addTimeBar(15);
 					}));
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());
@@ -105,32 +100,34 @@ public class NormalBlock extends Block{
 		{
 			if(ItemHolder.itemData!=null) return;
 			Item i = MapHolder.item.get(index);
+			ItemHolder.setItemData(i);
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
 					ae -> {
 						MapHolder.deleteItem(index);
 						GameSound.playSoundEat();
-						ItemHolder.setItemData(i);
 					}));
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());
 		}
 	}
 
-	public Boolean getHasPotion() {
+	public Boolean getHasPotion() 
+	{
 		return hasPotion;
 	}
 
-	public void setHasPotion(Boolean hasPotion) {
+	public void setHasPotion(Boolean hasPotion) 
+	{
 		this.hasPotion = hasPotion;
 	}
 
-	public Boolean getHasCarrot() {
+	public Boolean getHasCarrot() 
+	{
 		return hasCarrot;
 	}
 
-	public void setHasCarrot(Boolean hasCarrot) {
+	public void setHasCarrot(Boolean hasCarrot) 
+	{
 		this.hasCarrot = hasCarrot;
 	}
-	
-
 }

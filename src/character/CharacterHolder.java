@@ -1,57 +1,70 @@
 package character;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import map.Block;
+import javafx.application.Platform;
+import javafx.scene.Group;
 import map.MapHolder;
 import utility.Pair;
 import utility.RandomGenerator;
 
 public class CharacterHolder {
-	public static ObservableList<Animal> aniData;
-	private Comparator<Animal> comparator;
+	
+	public static List<Animal> aniData;
+	public static Group aniGroup;
 	public static boolean inverse;
 	public static long timeInverse;
+	public static boolean invis;
 	
-	public CharacterHolder()
+	public CharacterHolder(int diff)
 	{
+		aniGroup = new Group();
 		inverse = false;
+		invis = false;
 		timeInverse = 0;
-		aniData = FXCollections.<Animal>observableArrayList();
-		Rabbit r = new Rabbit(new Pair(5,12), 1.4, 1, 0,inverse);
+		aniData = new ArrayList<Animal>();
+		Pair tmp = RandomGenerator.randomIndex();
+		int direct = RandomGenerator.random(0, 5);
+		while(MapHolder.trap.contains(tmp) || MapHolder.mapData.get(tmp.getY()).get(tmp.getX()).nextBlock[direct] == null) 
+		{
+			tmp = RandomGenerator.randomIndex();
+		}
+		Rabbit r = new Rabbit(tmp, 1.4, direct,inverse);
 		aniData.add(r);
-		comparator = (Animal o1, Animal o2) -> {
-			if(o1.getZ() > o2.getZ())
-				return 1;
-			return -1;
-		};
-	}
-	public static void genAnimal(int diff)
-	{
-		//temp
-		for(int i=0;i<diff;++i) {
-			Pair tmp = RandomGenerator.randomIndex();
-			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) {
+		for(int i=0;i<diff;++i) 
+		{
+			tmp = RandomGenerator.randomIndex();
+			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) 
+			{
 				tmp = RandomGenerator.randomIndex();
 			}
-			System.out.println("wolf#"+(i+1)+" : "+tmp);
-			Wolf w = new Wolf(tmp, 1.1, 1, 0,inverse);
+			Wolf w = new Wolf(tmp, 1.1, 1,inverse);
 			aniData.add(w);
+			Platform.runLater(()->aniGroup.getChildren().add(w.body));
 		}
 	}
-	public void add(Animal animal)
+	
+	public void add(int n)
 	{
-		
+		Pair tmp = RandomGenerator.randomIndex();
+		for(int i=0;i<n;++i) {
+			tmp = RandomGenerator.randomIndex();
+			while(tmp.distance(aniData.get(0).index)<=5 || MapHolder.trap.contains(tmp)) 
+			{
+				tmp = RandomGenerator.randomIndex();
+			}
+			Wolf w = new Wolf(tmp, 1.1, 1,inverse);
+			aniData.add(w);
+			w.startRunning();
+			Platform.runLater(()->aniGroup.getChildren().add(w.body));
+		}
 	}
+	
 	public void remove(Animal animal)
 	{
-		
+		((Wolf)animal).stopRunning();
+		aniData.remove(animal);
+		Platform.runLater(()->aniGroup.getChildren().remove(animal.body));
 	}
-	
-	
 }
