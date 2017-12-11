@@ -63,9 +63,9 @@ public class JumpBlock extends Block
 	@Override
 	public void checkEvent(Animal animal) 
 	{
-			if(animal instanceof Rabbit) 
-			{
-				new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> GameSound.playSoundJump())).play();
-			}
+		if(animal instanceof Rabbit) 
+		{
+			new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> GameSound.playSoundJump())).play();
+		}
 	}
 }

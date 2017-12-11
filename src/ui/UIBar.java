@@ -72,19 +72,24 @@ public class UIBar extends Group
 	}
 	public static void addTimeBar(int sec)
 	{
-		Rectangle tb = new Rectangle(500,30);
-		tb.setTranslateX(150);
+		Rectangle tb = new Rectangle(300,30);
+		tb.setArcHeight(15);
+		tb.setArcWidth(15);
+		tb.setFill(Color.CHARTREUSE);
+		tb.setStroke(Color.GREEN);
+		tb.setStrokeWidth(3);
+		tb.setTranslateX(140);
 		SceneManager.mainFrame.getChildren().add(tb);
 		Timeline timeline = new Timeline();
 		timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, 
-				new KeyValue (tb.widthProperty(), 500, Interpolator.LINEAR)));
+				new KeyValue (tb.widthProperty(), 300, Interpolator.LINEAR)));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(sec), 
 				new KeyValue (tb.widthProperty(), 0, Interpolator.LINEAR)));
 		
 		timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, 
-				new KeyValue (tb.translateYProperty(), -20, Interpolator.EASE_BOTH)));
+				new KeyValue (tb.translateYProperty(), -30, Interpolator.EASE_BOTH)));
 		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(200), 
-				new KeyValue (tb.translateYProperty(), 40, Interpolator.EASE_BOTH)));
+				new KeyValue (tb.translateYProperty(), 20, Interpolator.EASE_BOTH)));
 		
 		timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(sec),
 					ae -> {

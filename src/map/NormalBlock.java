@@ -14,6 +14,7 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import ui.UIBar;
 
 public class NormalBlock extends Block
 {
@@ -78,7 +79,8 @@ public class NormalBlock extends Block
 						GameSound.playSoundEat();
 						CharacterHolder.inverse = true;
 						CharacterHolder.timeInverse = GameLogic.seconds;
-						for(Animal x : CharacterHolder.aniData) {
+						for(Animal x : CharacterHolder.aniData) 
+						{
 							x.setInverse(true);
 							if(x instanceof Rabbit){
 								x.setSpeed(0.9);
@@ -86,7 +88,8 @@ public class NormalBlock extends Block
 							else {
 								x.setSpeed(1.5);
 							}
-						}		
+						}
+						UIBar.addTimeBar(15);
 					}));
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());

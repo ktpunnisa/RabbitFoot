@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.0" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="application.Main" project="RabbitFoot" 
+    file="/RabbitFoot/src/application/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="124" x="170" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="game.GameLogic" project="RabbitFoot" file="/RabbitFoot/src/game/GameLogic.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="162" x="334" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="item.ItemInvis" project="RabbitFoot" file="/RabbitFoot/src/item/ItemInvis.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="189" x="3399" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="map.TrapBlock" project="RabbitFoot" file="/RabbitFoot/src/map/TrapBlock.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="159" x="4086" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="utility.MyNode" project="RabbitFoot" file="/RabbitFoot/src/utility/MyNode.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="155" x="536" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="game.GameState" project="RabbitFoot" file="/RabbitFoot/src/game/GameState.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="171" x="731" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="utility.RandomGenerator" project="RabbitFoot" 
+    file="/RabbitFoot/src/utility/RandomGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="147" x="942" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="character.CharacterHolder" project="RabbitFoot" 
+    file="/RabbitFoot/src/character/CharacterHolder.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="144" x="1129" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="image.ImageLoader" project="RabbitFoot" 
+    file="/RabbitFoot/src/image/ImageLoader.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="479" width="205" x="1313" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="character.Animal" project="RabbitFoot" 
+    file="/RabbitFoot/src/character/Animal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="569" width="193" x="2167" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="game.GameSound" project="RabbitFoot" file="/RabbitFoot/src/game/GameSound.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="443" width="169" x="1558" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="game.GameMain" project="RabbitFoot" file="/RabbitFoot/src/game/GameMain.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="172" x="1767" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="item.ItemBomb" project="RabbitFoot" file="/RabbitFoot/src/item/ItemBomb.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="189" x="3628" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="item.ItemHolder" project="RabbitFoot" file="/RabbitFoot/src/item/ItemHolder.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="148" x="1979" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="ui.UIGameOver" project="RabbitFoot" file="/RabbitFoot/src/ui/UIGameOver.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="335" width="188" x="2400" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="item.ItemSpeed" project="RabbitFoot" file="/RabbitFoot/src/item/ItemSpeed.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="189" x="3857" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="character.Wolf" project="RabbitFoot" file="/RabbitFoot/src/character/Wolf.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="180" x="2057" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="item.Item" project="RabbitFoot" file="/RabbitFoot/src/item/Item.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="189" x="3857" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="ui.UIGame" project="RabbitFoot" file="/RabbitFoot/src/ui/UIGame.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="97" x="2628" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="utility.Pair" project="RabbitFoot" file="/RabbitFoot/src/utility/Pair.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="151" x="2765" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="map.VoidBlock" project="RabbitFoot" file="/RabbitFoot/src/map/VoidBlock.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="119" width="159" x="4285" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="character.Rabbit" project="RabbitFoot" 
+    file="/RabbitFoot/src/character/Rabbit.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="191" x="2277" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="ui.UIBar" project="RabbitFoot" file="/RabbitFoot/src/ui/UIBar.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="172" x="2956" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="map.JumpBlock" project="RabbitFoot" file="/RabbitFoot/src/map/JumpBlock.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="159" x="4484" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="map.NormalBlock" project="RabbitFoot" file="/RabbitFoot/src/map/NormalBlock.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="175" x="4683" y="634"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="map.Block" project="RabbitFoot" file="/RabbitFoot/src/map/Block.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="263" width="183" x="4384" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="ui.UIMenu" project="RabbitFoot" file="/RabbitFoot/src/ui/UIMenu.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="173" x="3168" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="scene.SceneManager" project="RabbitFoot" 
+    file="/RabbitFoot/src/scene/SceneManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="263" width="158" x="3381" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="map.MapHolder" project="RabbitFoot" file="/RabbitFoot/src/map/MapHolder.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="407" width="238" x="3579" y="25"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <generalization id="34">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="18"/>  
+  </generalization>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
