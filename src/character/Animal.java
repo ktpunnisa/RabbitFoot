@@ -3,6 +3,7 @@ package character;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import exception.NoItemException;
 import javafx.scene.image.ImageView;
 import utility.Pair;
 
@@ -39,7 +40,7 @@ public abstract class Animal {
 
 	public abstract void runLoop();
 
-	public abstract Pair nextBlock();
+	public abstract Pair nextBlock() throws NoItemException;
 
 	public void turnLeft() {
 		this.direction = (this.direction - 1 + 6) % 6;

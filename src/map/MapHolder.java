@@ -80,7 +80,7 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		carrot.add(tmp);
-		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).hasCarrot = true;
+		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).setHasCarrot(true);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
 
@@ -113,13 +113,13 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		potion = tmp;
-		((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).hasPotion = true;
+		((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).setHasPotion(true);
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
 	}
 
 	public static void deletePotion(boolean loadMap) {
 		if (loadMap) {
-			((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).hasPotion = false;
+			((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).setHasPotion(false);
 			mapData.get(potion.getY()).get(potion.getX()).loadImage();
 		}
 		potion = new Pair(-1, -1);
@@ -132,18 +132,18 @@ public class MapHolder {
 			tmp = RandomGenerator.randomIndex();
 		}
 		if (type == 0)
-			item.put(tmp, new ItemInvis(tmp));
+			item.put(tmp, new ItemInvis());
 		if (type == 1)
-			item.put(tmp, new ItemBomb(tmp));
+			item.put(tmp, new ItemBomb());
 		if (type == 2)
-			item.put(tmp, new ItemSpeed(tmp));
-		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).hasItem = true;
+			item.put(tmp, new ItemSpeed());
+		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).setHasItem(true);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
 
 	public static void deleteItem(Pair index) {
 		item.remove(index);
-		((NormalBlock) mapData.get(index.getY()).get(index.getX())).hasItem = false;
+		((NormalBlock) mapData.get(index.getY()).get(index.getX())).setHasItem(false);
 		mapData.get(index.getY()).get(index.getX()).loadImage();
 	}
 

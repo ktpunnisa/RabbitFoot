@@ -18,9 +18,9 @@ import ui.UIBar;
 
 public class NormalBlock extends Block {
 
-	public boolean hasCarrot;
-	public boolean hasPotion;
-	public boolean hasItem;
+	private boolean hasCarrot;
+	private boolean hasPotion;
+	private boolean hasItem;
 
 	public NormalBlock(int x, int y, int c) {
 		super(x, y, c);
@@ -77,7 +77,8 @@ public class NormalBlock extends Block {
 						x.setSpeed(1.5);
 					}
 				}
-				UIBar.addTimeBar(15);
+				UIBar.removeTimeBar();
+				UIBar.addTimeBar();
 			}));
 			timeline.setCycleCount(1);
 			Platform.runLater(() -> timeline.play());
@@ -112,5 +113,21 @@ public class NormalBlock extends Block {
 
 	public void setHasCarrot(Boolean hasCarrot) {
 		this.hasCarrot = hasCarrot;
+	}
+
+	public boolean isHasItem() {
+		return hasItem;
+	}
+
+	public void setHasItem(boolean hasItem) {
+		this.hasItem = hasItem;
+	}
+
+	public void setHasCarrot(boolean hasCarrot) {
+		this.hasCarrot = hasCarrot;
+	}
+
+	public void setHasPotion(boolean hasPotion) {
+		this.hasPotion = hasPotion;
 	}
 }

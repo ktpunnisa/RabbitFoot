@@ -3,6 +3,7 @@ package item;
 import character.Animal;
 import character.CharacterHolder;
 import character.Wolf;
+import exception.NoItemException;
 import game.GameMain;
 import game.GameSound;
 import game.GameState;
@@ -12,7 +13,6 @@ import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
-import map.MapHolder;
 import ui.UIBar;
 import utility.Pair;
 
@@ -49,9 +49,9 @@ public class ItemHolder {
 		itemData = null;
 	}
 
-	public static void useItem() {
+	public static void useItem() throws NoItemException {
 		if (itemData == null) {
-			return;
+			throw new NoItemException();
 		}
 		if (itemData instanceof ItemInvis) {
 			GameState.setInvis(true);
@@ -76,7 +76,6 @@ public class ItemHolder {
 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), ae -> {
 				for (Animal a : CharacterHolder.getAniData().subList(1, CharacterHolder.getAniData().size())) {
 					((Wolf) a).setStun(false);
-
 				}
 			}));
 			timeline.getKeyFrames().add(new KeyFrame(Duration.millis(200), ae -> {

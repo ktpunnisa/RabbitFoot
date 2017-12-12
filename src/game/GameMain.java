@@ -34,7 +34,7 @@ public class GameMain {
 		logic.stopGame();
 		gameOverUI = new UIGameOver();
 		gameOverUI.startGameOver();
-		Platform.runLater(() -> SceneManager.mainFrame.getChildren().remove(UIBar.tb));
+		UIBar.removeTimeBar();
 		GameSound.stopSoundBG();
 		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
