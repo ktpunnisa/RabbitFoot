@@ -28,5 +28,22 @@ public class MyNode implements Comparable<MyNode>
 	{
 		return index+"("+Integer.toString(dis)+")";
 	}
+
+	public Pair getIndex() {
+		return index;
+	}
+
+	public void setIndex(Pair index) {
+		this.index = index;
+	}
+
+	public int getDis() {
+		return dis;
+	}
+
+	public void setDis(int dis) {
+		this.dis = dis;
+	}
+	
 	
 }

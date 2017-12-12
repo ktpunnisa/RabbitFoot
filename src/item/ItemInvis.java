@@ -15,13 +15,13 @@ public class ItemInvis extends Item
 	@Override
 	public ImagePattern getBlockImage() 
 	{
-		return ImageLoader.InvisBlock;
+		return ImageLoader.getInvisBlock();
 	}
 
 	@Override
 	public Image getItemImage() 
 	{
-		return ImageLoader.InvisImage;
+		return ImageLoader.getInvisImage();
 	}
 
 }

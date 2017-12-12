@@ -13,8 +13,8 @@ public class GameMain {
 	
 	private static GameState state;
 	private static GameLogic logic;
-	public static UIGame gameUI;
-	public static UIGameOver gameOverUI;
+	private static UIGame gameUI;
+	private static UIGameOver gameOverUI;
 	
 	public static void newGame(int diff) 
 	{
@@ -37,8 +37,42 @@ public class GameMain {
 		logic.stopGame();
 		gameOverUI = new UIGameOver();
 		gameOverUI.startGameOver();
-		SceneManager.mainFrame.getChildren().remove(UIBar.tb);
+		Platform.runLater(() -> SceneManager.mainFrame.getChildren().remove(UIBar.tb));
 		GameSound.stopSoundBG();
 		Platform.runLater(() -> SceneManager.gotoScene(gameOverUI));
 	}
+
+	public static GameState getState() {
+		return state;
+	}
+
+	public static void setState(GameState state) {
+		GameMain.state = state;
+	}
+
+	public static GameLogic getLogic() {
+		return logic;
+	}
+
+	public static void setLogic(GameLogic logic) {
+		GameMain.logic = logic;
+	}
+
+	public static UIGame getGameUI() {
+		return gameUI;
+	}
+
+	public static void setGameUI(UIGame gameUI) {
+		GameMain.gameUI = gameUI;
+	}
+
+	public static UIGameOver getGameOverUI() {
+		return gameOverUI;
+	}
+
+	public static void setGameOverUI(UIGameOver gameOverUI) {
+		GameMain.gameOverUI = gameOverUI;
+	}
+	
+	
 }

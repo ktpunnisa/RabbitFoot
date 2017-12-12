@@ -55,7 +55,7 @@ public class JumpBlock extends Block
 	@Override
 	public void loadImage() 
 	{
-		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.jumpBlock));
+		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getJumpBlock()));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
@@ -65,7 +65,7 @@ public class JumpBlock extends Block
 	{
 		if(animal instanceof Rabbit) 
 		{
-			new Timeline(new KeyFrame(Duration.millis(500 * animal.speed), ae -> GameSound.playSoundJump())).play();
+			new Timeline(new KeyFrame(Duration.millis(500 * animal.getSpeed()), ae -> GameSound.playSoundJump())).play();
 		}
 	}
 }

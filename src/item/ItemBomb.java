@@ -13,11 +13,11 @@ public class ItemBomb extends Item
 
 	@Override
 	public ImagePattern getBlockImage() {
-		return ImageLoader.BombBlock;
+		return ImageLoader.getBombBlock();
 	}
 
 	@Override
 	public Image getItemImage() {
-		return ImageLoader.BombImage;
+		return ImageLoader.getBombImage();
 	}
 }

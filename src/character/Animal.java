@@ -8,18 +8,18 @@ import utility.Pair;
 
 public abstract class Animal {
 	
-	public Pair index;
-	public double speed;  
-	public int direction;
-	public Queue<Pair> runPath;
+	private Pair index;
+	private double speed;  
+	private int direction;
+	protected Queue<Pair> runPath;
 	
-	public Thread animationThread;
-	public Thread runThread;
-	public ImageView body;
-	public boolean isRunning;
-	public boolean inverse;
-	public int angle;
-	public static int angles[]= {-30,30,90,150,210,270};
+	protected Thread animationThread;
+	protected Thread runThread;
+	protected ImageView body;
+	protected boolean isRunning;
+	private boolean inverse;
+	protected int angle;
+	private int angles[]= {-30,30,90,150,210,270};
 	
 	public Animal(Pair index, double speed, int direction,boolean inverse)
 	{
@@ -97,4 +97,21 @@ public abstract class Animal {
 		else if(x == 5) x = -1;
 		this.angle += x*60;
 	}
+
+	public Pair getRunPath() {
+		return runPath.peek();
+	}
+
+	public ImageView getBody() {
+		return body;
+	}
+
+	public void setBody(ImageView body) {
+		this.body = body;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
+	}
+	
 }

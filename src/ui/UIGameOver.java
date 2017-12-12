@@ -43,7 +43,7 @@ public class UIGameOver extends Canvas
 			{
 				if(selector==0)
 				{
-					GameMain.newGame(GameState.diff);
+					GameMain.newGame(GameState.getDiff());
 				}
 				else 
 				{
@@ -74,7 +74,7 @@ public class UIGameOver extends Canvas
 		gameOverAnimation = new Thread(this::animationLoop, "GameOver Animation Thread");
 		isGameOverRunning = true;
 		gameOverAnimation.start();
-		this.finalScore = GameState.score;
+		this.finalScore = GameState.getScore();
 	}
 
 	public void stopGameOver() 

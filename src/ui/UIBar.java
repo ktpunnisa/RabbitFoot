@@ -30,10 +30,10 @@ public class UIBar extends Group
 	public UIBar()
 	{
 		this.font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 35);
-		ImageView itemBorad = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/itemBoard.png")));
-		itemBorad.setTranslateX(5);
-		itemBorad.setTranslateY(0);
-		Platform.runLater(() -> this.getChildren().add(itemBorad));
+		ImageView itemBoard = new ImageView(new Image(ClassLoader.getSystemResourceAsStream("ui/itemBoard.png")));
+		itemBoard.setTranslateX(5);
+		itemBoard.setTranslateY(0);
+		Platform.runLater(() -> this.getChildren().add(itemBoard));
 		itemView = new Rectangle(15,15,80,100);
 		itemView.setFill(Color.TRANSPARENT);
 		Platform.runLater(() -> this.getChildren().add(itemView));

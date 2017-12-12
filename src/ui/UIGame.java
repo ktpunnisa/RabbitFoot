@@ -2,6 +2,7 @@ package ui;
 
 import character.CharacterHolder;
 import item.ItemHolder;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -13,23 +14,23 @@ public class UIGame extends Group
 		
 	public UIGame()
 	{
-		this.getChildren().add(MapHolder.mapGroup);
-		this.getChildren().add(CharacterHolder.aniData.get(0).body);
-		this.getChildren().add(CharacterHolder.aniGroup);
-		CharacterHolder.aniGroup.translateXProperty().bind(MapHolder.mapGroup.translateXProperty());
-		CharacterHolder.aniGroup.translateYProperty().bind(MapHolder.mapGroup.translateYProperty());
+		Platform.runLater(() -> this.getChildren().add(MapHolder.getMapGroup()));
+		Platform.runLater(() -> this.getChildren().add(CharacterHolder.getAniData().get(0).getBody()));
+		Platform.runLater(() -> this.getChildren().add(CharacterHolder.getAniGroup()));
+		CharacterHolder.getAniGroup().translateXProperty().bind(MapHolder.getMapGroup().translateXProperty());
+		CharacterHolder.getAniGroup().translateYProperty().bind(MapHolder.getMapGroup().translateYProperty());
 		UIBar bar = new UIBar();
-		this.getChildren().add(bar);
+		Platform.runLater(() -> this.getChildren().add(bar));
 		this.setOnKeyPressed(new EventHandler<KeyEvent>() 
 		{
 			@Override
 			public void handle(KeyEvent event) 
 			{
 				if(event.getCode().equals(KeyCode.LEFT)) {
-					CharacterHolder.aniData.get(0).turnLeft();
+					CharacterHolder.getAniData().get(0).turnLeft();
 				}
 				else if(event.getCode().equals(KeyCode.RIGHT)) {
-					CharacterHolder.aniData.get(0).turnRight();
+					CharacterHolder.getAniData().get(0).turnRight();
 				}
 				else if(event.getCode().equals(KeyCode.SPACE)) {
 					ItemHolder.useItem();

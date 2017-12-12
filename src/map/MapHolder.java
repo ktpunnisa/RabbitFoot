@@ -21,15 +21,15 @@ public class MapHolder
 {
 	
 	public static final double BLOCK_SIZE = 60.0;
-	public static ObservableList<List<Block>> mapData;
-	public static Group mapGroup;
-	public static Set<Pair> carrot;
-	public static Set<Pair> trap;
-	public static Map<Pair,Item> item;
-	public static Pair potion;
-	public static long potionTime;
-	public static int count = 0;
-	public static int[][] typeBlock = new int[][] {
+	private static ObservableList<List<Block>> mapData;
+	private static Group mapGroup;
+	private static Set<Pair> carrot;
+	private static Set<Pair> trap;
+	private static Map<Pair,Item> item;
+	private static Pair potion;
+	private static long potionTime;
+	private static int count = 0;
+	public static final int[][] typeBlock = new int[][] {
 		{0,0,0,0,0,0,0,1,1,1,1,1,1},
 		{0,3,3,3,3,3,3,0,1,1,1,1,1},
 		{0,3,3,3,3,3,3,3,0,1,1,1,1},
@@ -56,7 +56,7 @@ public class MapHolder
 		mapData = FXCollections.<List<Block>>observableArrayList();
 		mapGroup = new Group();
 		genMap();
-		for(List<Block> row : MapHolder.mapData)
+		for(List<Block> row : MapHolder.getMapData())
 		{
 			for(Block b : row)
 			{
@@ -180,4 +180,69 @@ public class MapHolder
 		mapData.get(index.getY()).get(index.getX()).loadImage();
 	}
 
+	public static ObservableList<List<Block>> getMapData() {
+		return mapData;
+	}
+
+	public static void setMapData(ObservableList<List<Block>> mapData) {
+		MapHolder.mapData = mapData;
+	}
+
+	public static Group getMapGroup() {
+		return mapGroup;
+	}
+
+	public static void setMapGroup(Group mapGroup) {
+		MapHolder.mapGroup = mapGroup;
+	}
+
+	public static Set<Pair> getCarrot() {
+		return carrot;
+	}
+
+	public static void setCarrot(Set<Pair> carrot) {
+		MapHolder.carrot = carrot;
+	}
+
+	public static Set<Pair> getTrap() {
+		return trap;
+	}
+
+	public static void setTrap(Set<Pair> trap) {
+		MapHolder.trap = trap;
+	}
+
+	public static Map<Pair, Item> getItem() {
+		return item;
+	}
+
+	public static void setItem(Map<Pair, Item> item) {
+		MapHolder.item = item;
+	}
+
+	public static Pair getPotion() {
+		return potion;
+	}
+
+	public static void setPotion(Pair potion) {
+		MapHolder.potion = potion;
+	}
+
+	public static long getPotionTime() {
+		return potionTime;
+	}
+
+	public static void setPotionTime(long potionTime) {
+		MapHolder.potionTime = potionTime;
+	}
+
+	public static int getCount() {
+		return count;
+	}
+
+	public static void setCount(int count) {
+		MapHolder.count = count;
+	}
+	
+	
 }

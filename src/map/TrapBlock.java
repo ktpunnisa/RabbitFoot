@@ -23,7 +23,7 @@ public class TrapBlock extends Block
 	@Override
 	public void loadImage() 
 	{
-		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.trapBlock));
+		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getTrapBlock()));
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
 	}
@@ -32,7 +32,7 @@ public class TrapBlock extends Block
 	public void checkEvent(Animal animal) 
 	{
 		if(animal instanceof Rabbit) {
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed), 
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.getSpeed()), 
 					ae -> {
 						GameSound.playSoundDie();
 						GameMain.stopGame();

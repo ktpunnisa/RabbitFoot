@@ -7,7 +7,6 @@ import utility.Pair;
 
 public class ItemSpeed extends Item 
 {
-
 	public ItemSpeed(Pair p) 
 	{
 		super(p);
@@ -16,13 +15,13 @@ public class ItemSpeed extends Item
 	@Override
 	public ImagePattern getBlockImage() 
 	{
-		return ImageLoader.SpeedBlock;
+		return ImageLoader.getSpeedBlock();
 	}
 
 	@Override
 	public Image getItemImage() 
 	{
-		return ImageLoader.SpeedImage;
+		return ImageLoader.getSpeedImage();
 	}
 	
 }

@@ -35,16 +35,16 @@ public class NormalBlock extends Block
 	public void loadImage() 
 	{
 		if(hasCarrot) {
-			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockCarrot));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getNormalBlockCarrot()));
 		}
 		else if(hasPotion){
-			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlockPotion));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getNormalBlockPotion()));
 		}
 		else if(hasItem) {
-			Platform.runLater(() -> this.hexagon.setFill(MapHolder.item.get(index).getBlockImage()));
+			Platform.runLater(() -> this.hexagon.setFill(MapHolder.getItem().get(index).getBlockImage()));
 		}
 		else {
-			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.normalBlock));
+			Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getNormalBlock()));
 		}
 		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
 		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
@@ -56,11 +56,11 @@ public class NormalBlock extends Block
 		if(animal instanceof Rabbit && hasCarrot) 
 		{
 			setHasCarrot(false);
-			MapHolder.carrot.remove(index);
+			MapHolder.getCarrot().remove(index);
 			MapHolder.createCarrot(); 
- 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.speed),
+ 			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500 * animal.getSpeed()),
  					ae -> {
- 						GameState.score++;
+ 						GameState.setScore(GameState.getScore()+1);
  				 		loadImage();
  				 		GameSound.playSoundEat();
  					}));
@@ -73,13 +73,13 @@ public class NormalBlock extends Block
 		{
 			setHasPotion(false);
 			MapHolder.deletePotion(false);
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.getSpeed()),
 					ae -> {
 						loadImage();
 						GameSound.playSoundEat();
-						CharacterHolder.inverse = true;
-						CharacterHolder.timeInverse = GameLogic.seconds;
-						for(Animal x : CharacterHolder.aniData) 
+						GameState.setInverse(true);
+						GameState.setTimeInverse(GameLogic.getSeconds());
+						for(Animal x : CharacterHolder.getAniData()) 
 						{
 							x.setInverse(true);
 							if(x instanceof Rabbit){
@@ -98,10 +98,10 @@ public class NormalBlock extends Block
 		
 		if(animal instanceof Rabbit && hasItem)
 		{
-			if(ItemHolder.itemData!=null) return;
-			Item i = MapHolder.item.get(index);
+			if(ItemHolder.getItemData()!=null) return;
+			Item i = MapHolder.getItem().get(index);
 			ItemHolder.setItemData(i);
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.speed),
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(500*animal.getSpeed()),
 					ae -> {
 						MapHolder.deleteItem(index);
 						GameSound.playSoundEat();
