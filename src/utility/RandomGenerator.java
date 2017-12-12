@@ -2,6 +2,10 @@ package utility;
 
 import java.util.Random;
 
+import character.CharacterHolder;
+import character.Wolf;
+import game.GameState;
+import javafx.application.Platform;
 import map.MapHolder;
 
 public class RandomGenerator {
@@ -23,5 +27,24 @@ public class RandomGenerator {
 
 	public static void setSeed(long seed) {
 		rand = new Random(System.nanoTime());
+	}
+	
+	public static Pair generateIndexRabbit(int direction)
+	{
+		Pair tmp = RandomGenerator.randomIndex();
+		while (MapHolder.getTrap().contains(tmp)
+				|| MapHolder.getMapData().get(tmp.getY()).get(tmp.getX()).nextBlock[direction] == null) {
+			tmp = RandomGenerator.randomIndex();
+		}
+		return tmp;
+	}
+	
+	public static Pair generateIndexWolf()
+	{
+		Pair tmp = RandomGenerator.randomIndex();
+		while (tmp.distance(CharacterHolder.getAniData().get(0).getIndex()) <= 5 || MapHolder.getTrap().contains(tmp)) {
+			tmp = RandomGenerator.randomIndex();
+		}
+		return tmp;
 	}
 }

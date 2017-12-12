@@ -42,6 +42,8 @@ public class Wolf extends Animal {
 
 	@Override
 	public void startRunning() {
+		if(!GameLogic.isGameRunning()) 
+			return;
 		Point2D a = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).position;
 		Platform.runLater(() -> body.setImage(ImageLoader.getWimg().get(0)));
 		Platform.runLater(() -> body.setTranslateX(a.getX() - ImageLoader.WOLF_SIZE / 2));

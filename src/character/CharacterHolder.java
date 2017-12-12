@@ -20,33 +20,15 @@ public class CharacterHolder {
 	public CharacterHolder(int diff) {
 		aniGroup = new Group();
 		aniData = new ArrayList<Animal>();
-		Pair tmp = RandomGenerator.randomIndex();
-		int direct = RandomGenerator.random(0, 5);
-		while (MapHolder.getTrap().contains(tmp)
-				|| MapHolder.getMapData().get(tmp.getY()).get(tmp.getX()).nextBlock[direct] == null) {
-			tmp = RandomGenerator.randomIndex();
-		}
-		Rabbit r = new Rabbit(tmp, RABBIT_SPEED, direct, GameState.isInverse());
+		int direction = RandomGenerator.random(0, 5);
+		Rabbit r = new Rabbit(RandomGenerator.generateIndexRabbit(direction), RABBIT_SPEED, direction, GameState.isInverse());
 		aniData.add(r);
-		for (int i = 0; i < diff; ++i) {
-			tmp = RandomGenerator.randomIndex();
-			while (tmp.distance(aniData.get(0).getIndex()) <= 5 || MapHolder.getTrap().contains(tmp)) {
-				tmp = RandomGenerator.randomIndex();
-			}
-			Wolf w = new Wolf(tmp, WOLF_SPEED, 1, GameState.isInverse());
-			aniData.add(w);
-			Platform.runLater(() -> aniGroup.getChildren().add(w.body));
-		}
+		add(diff);
 	}
 
 	public void add(int n) {
-		Pair tmp = RandomGenerator.randomIndex();
 		for (int i = 0; i < n; ++i) {
-			tmp = RandomGenerator.randomIndex();
-			while (tmp.distance(aniData.get(0).getIndex()) <= 5 || MapHolder.getTrap().contains(tmp)) {
-				tmp = RandomGenerator.randomIndex();
-			}
-			Wolf w = new Wolf(tmp, WOLF_SPEED, 1, GameState.isInverse());
+			Wolf w = new Wolf(RandomGenerator.generateIndexWolf(), WOLF_SPEED, 1, GameState.isInverse());
 			aniData.add(w);
 			w.startRunning();
 			Platform.runLater(() -> aniGroup.getChildren().add(w.body));
