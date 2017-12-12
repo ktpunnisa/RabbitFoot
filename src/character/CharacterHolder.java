@@ -12,9 +12,11 @@ import utility.RandomGenerator;
 
 public class CharacterHolder {
 
+	public static final double RABBIT_SPEED = 1.4;
+	public static final double WOLF_SPEED = 1.1;
 	private static List<Animal> aniData;
 	private static Group aniGroup;
-
+	
 	public CharacterHolder(int diff) {
 		aniGroup = new Group();
 		aniData = new ArrayList<Animal>();
@@ -24,14 +26,14 @@ public class CharacterHolder {
 				|| MapHolder.getMapData().get(tmp.getY()).get(tmp.getX()).nextBlock[direct] == null) {
 			tmp = RandomGenerator.randomIndex();
 		}
-		Rabbit r = new Rabbit(tmp, 1.4, direct, GameState.isInverse());
+		Rabbit r = new Rabbit(tmp, RABBIT_SPEED, direct, GameState.isInverse());
 		aniData.add(r);
 		for (int i = 0; i < diff; ++i) {
 			tmp = RandomGenerator.randomIndex();
 			while (tmp.distance(aniData.get(0).getIndex()) <= 5 || MapHolder.getTrap().contains(tmp)) {
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 1.1, 1, GameState.isInverse());
+			Wolf w = new Wolf(tmp, WOLF_SPEED, 1, GameState.isInverse());
 			aniData.add(w);
 			Platform.runLater(() -> aniGroup.getChildren().add(w.body));
 		}
@@ -44,7 +46,7 @@ public class CharacterHolder {
 			while (tmp.distance(aniData.get(0).getIndex()) <= 5 || MapHolder.getTrap().contains(tmp)) {
 				tmp = RandomGenerator.randomIndex();
 			}
-			Wolf w = new Wolf(tmp, 1.1, 1, GameState.isInverse());
+			Wolf w = new Wolf(tmp, WOLF_SPEED, 1, GameState.isInverse());
 			aniData.add(w);
 			w.startRunning();
 			Platform.runLater(() -> aniGroup.getChildren().add(w.body));
