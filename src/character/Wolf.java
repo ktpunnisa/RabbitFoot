@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import game.GameLogic;
+import game.GameState;
 import image.ImageLoader;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -25,266 +26,220 @@ import utility.MyNode;
 import utility.Pair;
 import utility.RandomGenerator;
 
-public class Wolf extends Animal
-{
-	
+public class Wolf extends Animal {
+
 	public Wolf instance;
 	private boolean isStun;
 	private Pair gotoThis;
-	
-	public Wolf(Pair index, double speed, int direction,boolean inverse) 
-	{
-		super(index, speed, direction,inverse);
+
+	public Wolf(Pair index, double speed, int direction, boolean inverse) {
+		super(index, speed, direction, inverse);
 		this.instance = this;
 		this.isStun = false;
 		gotoThis = RandomGenerator.randomIndex();
-	  	runPath.add(nextBlock());
+		runPath.add(nextBlock());
 	}
 
 	@Override
-	public void startRunning() 
-	{
-	    Point2D a = MapHolder.mapData.get(index.getY()).get(index.getX()).position;
-	    Platform.runLater(() -> body.setImage(ImageLoader.Wimg.get(0)));
-	    Platform.runLater(() -> body.setTranslateX(a.getX()-ImageLoader.WOLF_SIZE/2));
-	    Platform.runLater(() -> body.setTranslateY(a.getY()-ImageLoader.WOLF_SIZE/2));
+	public void startRunning() {
+		if (!GameLogic.isGameRunning())
+			return;
+		Point2D a = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).position;
+		Platform.runLater(() -> body.setImage(ImageLoader.getWimg().get(0)));
+		Platform.runLater(() -> body.setTranslateX(a.getX() - ImageLoader.WOLF_SIZE / 2));
+		Platform.runLater(() -> body.setTranslateY(a.getY() - ImageLoader.WOLF_SIZE / 2));
 		isRunning = true;
-	  	animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
+		animationThread = new Thread(this::animateLoop, "Wolf animating Thread");
 		runThread = new Thread(this::runLoop, "Wolf running Thread");
 		animationThread.start();
 		runThread.start();
 	}
 
 	@Override
-	public void stopRunning() 
-	{
+	public void stopRunning() {
 		isRunning = false;
 	}
 
 	@Override
-	public void animateLoop() {
+	protected void animateLoop() {
 		long lastAnimateTime = System.currentTimeMillis();
-		long animateTime = (long) (100 * speed);
+		long animateTime = (long) (100 * getSpeed());
 		int i = 0;
 		while (isRunning) {
 			long now = System.currentTimeMillis();
-			if (now - lastAnimateTime >= animateTime) 
-			{
+			if (now - lastAnimateTime >= animateTime) {
 				lastAnimateTime += animateTime;
-				int t=i++;
-				if(inverse) {
-					if((CharacterHolder.timeInverse+15) - GameLogic.seconds <=2) 
-					{
-						Platform.runLater(() -> body.setImage(ImageLoader.WimgInv2s.get(t%4)));
+				int t = i++;
+				if (isInverse()) {
+					if ((GameState.getTimeInverse() + 15) - GameLogic.getSeconds() <= 2) {
+						Platform.runLater(() -> body.setImage(ImageLoader.getWimgInv2s().get(t % 4)));
+					} else {
+						Platform.runLater(() -> body.setImage(ImageLoader.getWimgInv().get(t % 4)));
 					}
-					else 
-					{
-						Platform.runLater(() -> body.setImage(ImageLoader.WimgInv.get(t%4)));
-					}
-				}
-				else if(isStun) 
-				{
-					Platform.runLater(() -> body.setImage(ImageLoader.WimgStun.get(t%2)));
-				}
-				else 
-				{
-					Platform.runLater(() -> body.setImage(ImageLoader.Wimg.get(t%4)));
+				} else if (isStun) {
+					Platform.runLater(() -> body.setImage(ImageLoader.getWimgStun().get(t % 2)));
+				} else {
+					Platform.runLater(() -> body.setImage(ImageLoader.getWimg().get(t % 4)));
 				}
 			}
-			try 
-			{
+			try {
 				Thread.sleep(1);
-			} 
-			catch (InterruptedException e) 
-			{
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	@Override
-	public void runLoop() 
-	{
-		while (isRunning) 
-		{
-			if(!runPath.isEmpty()) 
-			{
+	protected void runLoop() {
+		while (isRunning) {
+			if (!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();
-				int i=0;
-				for(i=0;i<6;++i) 
-				{
-					if(MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i]!=null)
-					{
-						if(MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i].equals(MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).index))
-						{
+				int i = 0;
+				for (i = 0; i < 6; ++i) {
+					if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i] != null) {
+						if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i].equals(
+								MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).index)) {
 							break;
 						}
 					}
 				}
-				if(i==6)	
-				{
-					i=this.direction;
+				if (i == 6) {
+					i = getDirection();
 				}
 				setAngle(i);
-				this.direction = i;
+				setDirection(i);
 				timeline.setCycleCount(1);
-				Point2D a = MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).position;
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateXProperty(), a.getX()-ImageLoader.WOLF_SIZE/2, Interpolator.EASE_BOTH)));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.translateYProperty(), a.getY()-ImageLoader.WOLF_SIZE/2, Interpolator.EASE_BOTH)));
-				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * speed), 
-						new KeyValue (body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
-				timeline.setOnFinished(new EventHandler<ActionEvent>() 
-				{
+				Point2D a = MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				timeline.getKeyFrames()
+						.add(new KeyFrame(Duration.millis(500 * getSpeed()), new KeyValue(body.translateXProperty(),
+								a.getX() - ImageLoader.WOLF_SIZE / 2, Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames()
+						.add(new KeyFrame(Duration.millis(500 * getSpeed()), new KeyValue(body.translateYProperty(),
+								a.getY() - ImageLoader.WOLF_SIZE / 2, Interpolator.EASE_BOTH)));
+				timeline.getKeyFrames().add(new KeyFrame(Duration.millis(500 * getSpeed()),
+						new KeyValue(body.rotateProperty(), angle, Interpolator.EASE_BOTH)));
+				timeline.setOnFinished(new EventHandler<ActionEvent>() {
 					@Override
-					public void handle(ActionEvent event) 
-					{
-						if(nextBlock() != null)
+					public void handle(ActionEvent event) {
+						if (nextBlock() != null)
 							runPath.add(nextBlock());
-						if(!runPath.isEmpty())
-							MapHolder.mapData.get(runPath.peek().getY()).get(runPath.peek().getX()).checkEvent(instance);
+						if (!runPath.isEmpty())
+							MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX())
+									.checkEvent(instance);
 					}
 				});
 				Platform.runLater(() -> timeline.play());
-				index = runPath.poll();
+				setIndex(runPath.poll());
 			}
-			try 
-			{
+			try {
 				Thread.sleep(1);
-			} 
-			catch (InterruptedException e) 
-			{
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-	}	
+	}
 
 	@Override
-	public Pair nextBlock() 
-	{
-		Pair r = CharacterHolder.aniData.get(0).getIndex();
+	protected Pair nextBlock() {
+
+		Pair r = CharacterHolder.getAniData().get(0).getIndex();
 		Pair bestBlock = null;
 		Boolean seeTrap = true;
-		if(CharacterHolder.invis) 
-		{
+		if (GameState.isInvis()) {
 			r = gotoThis;
-			while(r.distance(index)==0)
-			{
+			while (r.distance(getIndex()) == 0) {
 				gotoThis = RandomGenerator.randomIndex();
 				r = gotoThis;
 			}
 		}
-		if(isStun) 
-		{
-			return index;
+		if (isStun) {
+			return getIndex();
 		}
-		if(MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof JumpBlock ||
-				MapHolder.mapData.get(r.getY()).get(r.getX()) instanceof TrapBlock) 
-		{
+		if (MapHolder.getMapData().get(r.getY()).get(r.getX()) instanceof JumpBlock
+				|| MapHolder.getMapData().get(r.getY()).get(r.getX()) instanceof TrapBlock) {
 			return bestBlock = lowNextBlock();
 		}
-		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>(); 
+		PriorityQueue<MyNode> q = new PriorityQueue<MyNode>();
 		Set<Pair> mark = new HashSet<Pair>();
-		Map<Pair,MyNode> ans = new HashMap<>();	
-		q.add(new MyNode(index,index.distance(r)));
-		ans.put(index, new MyNode(index,0));
-		while(!q.isEmpty()) 
-		{
+		Map<Pair, MyNode> ans = new HashMap<>();
+		q.add(new MyNode(getIndex(), getIndex().distance(r)));
+		ans.put(getIndex(), new MyNode(getIndex(), 0));
+		while (!q.isEmpty()) {
 			MyNode w = q.poll();
-			if(mark.contains(w.index)) 
-			{
+			if (mark.contains(w.getIndex())) {
 				continue;
 			}
-			mark.add(w.index);
-			if(w.index.equals(r)) 
-			{
+			mark.add(w.getIndex());
+			if (w.getIndex().equals(r)) {
 				break;
 			}
-			for(int i = 0; i < 6; i++) 
-			{
-				Pair nextW = MapHolder.mapData.get(w.index.getY()).get(w.index.getX()).nextBlock[i];
-				if(nextW != null && !mark.contains(nextW)) 
-				{
-					if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock ||
-							(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof TrapBlock && !seeTrap)) 
-					{
+			for (int i = 0; i < 6; i++) {
+				Pair nextW = MapHolder.getMapData().get(w.getIndex().getY()).get(w.getIndex().getX()).nextBlock[i];
+				if (nextW != null && !mark.contains(nextW)) {
+					if (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock
+							|| (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof TrapBlock
+									&& !seeTrap)) {
 						int dis = nextW.distance(r);
-						if(ans.containsKey(nextW) && (ans.get(w.index).dis+1 < ans.get(nextW).dis))
-						{
-							ans.replace(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
-							q.add(new MyNode(nextW,dis));
+						if (ans.containsKey(nextW) && (ans.get(w.getIndex()).getDis() + 1 < ans.get(nextW).getDis())) {
+							ans.replace(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).getDis() + 1));
+							q.add(new MyNode(nextW, dis));
 						}
-						if(!ans.containsKey(nextW))
-						{
-							ans.put(nextW, new MyNode(w.index,ans.get(w.index).dis+1));
-							q.add(new MyNode(nextW,dis));
+						if (!ans.containsKey(nextW)) {
+							ans.put(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).getDis() + 1));
+							q.add(new MyNode(nextW, dis));
 						}
 					}
 				}
 			}
 		}
-		try 
-		{
+		try {
 			Pair tmp = r;
-			while(ans.get(tmp).index!=index) 
-			{
-				tmp = ans.get(tmp).index;
+			while (ans.get(tmp).getIndex() != getIndex()) {
+				tmp = ans.get(tmp).getIndex();
 			}
 			bestBlock = tmp;
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			lowNextBlock();
 		}
-		
-		if(inverse) 
-		{
+
+		if (isInverse()) {
 			Pair tmp = bestBlock;
-			for(int i=0;i<6;i++) 
-			{
-				Pair nextBlock = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-				if(nextBlock == null)
-				{
+			for (int i = 0; i < 6; i++) {
+				Pair nextBlock = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i];
+				if (nextBlock == null) {
 					continue;
 				}
-				if(MapHolder.typeBlock[nextBlock.getY()][nextBlock.getX()] !=3) 
-				{
+				if (MapHolder.typeBlock[nextBlock.getY()][nextBlock.getX()] != 3) {
 					continue;
 				}
-				if(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof NormalBlock ||
-							(MapHolder.mapData.get(nextBlock.getY()).get(nextBlock.getX()) instanceof TrapBlock && !seeTrap)) 
-				{
-					if(nextBlock.distance(bestBlock) > tmp.distance(bestBlock))
-					{
+				if (MapHolder.getMapData().get(nextBlock.getY()).get(nextBlock.getX()) instanceof NormalBlock
+						|| (MapHolder.getMapData().get(nextBlock.getY()).get(nextBlock.getX()) instanceof TrapBlock
+								&& !seeTrap)) {
+					if (nextBlock.distance(bestBlock) > tmp.distance(bestBlock)) {
 						tmp = nextBlock;
-					}
-					else if(nextBlock.distance(bestBlock) == tmp.distance(bestBlock) && nextBlock.distance(r) > tmp.distance(r)) 
-					{
+					} else if (nextBlock.distance(bestBlock) == tmp.distance(bestBlock)
+							&& nextBlock.distance(r) > tmp.distance(r)) {
 						tmp = nextBlock;
 					}
 				}
 			}
 			bestBlock = tmp;
-		}	
+		}
 		return bestBlock;
 	}
-	
-	public Pair lowNextBlock() 
-	{
-		Pair r = CharacterHolder.aniData.get(0).getIndex();
+
+	private Pair lowNextBlock() {
+		Pair r = CharacterHolder.getAniData().get(0).getIndex();
 		Pair bestBlock = null;
 		int min = 100;
-		for(int i = 0; i < 6; i++) 
-		{
-			Pair nextW = MapHolder.mapData.get(index.getY()).get(index.getX()).nextBlock[i];
-			if(nextW != null) {
-				if(MapHolder.mapData.get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) 
-				{
+		for (int i = 0; i < 6; i++) {
+			Pair nextW = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i];
+			if (nextW != null) {
+				if (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
 					int dis = nextW.distance(r);
-					if(dis < min) 
-					{
+					if (dis < min) {
 						bestBlock = nextW;
 						min = dis;
 					}
@@ -294,13 +249,11 @@ public class Wolf extends Animal
 		return bestBlock;
 	}
 
-	public boolean isStun() 
-	{
+	public boolean isStun() {
 		return isStun;
 	}
 
-	public void setStun(boolean isStun) 
-	{
+	public void setStun(boolean isStun) {
 		this.isStun = isStun;
 	}
 }
