@@ -75,20 +75,14 @@ public class MapHolder {
 	}
 
 	public static void createCarrot() {
-		Pair tmp = RandomGenerator.randomIndex();
-		while (carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
-			tmp = RandomGenerator.randomIndex();
-		}
+		Pair tmp = RandomGenerator.generateIndexฺBlock();
 		carrot.add(tmp);
 		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).setHasCarrot(true);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
 
 	public static void createTrap() {
-		Pair tmp = RandomGenerator.randomIndex();
-		while (trap.contains(tmp) || carrot.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
-			tmp = RandomGenerator.randomIndex();
-		}
+		Pair tmp = RandomGenerator.generateIndexฺBlock();
 		trap.add(tmp);
 		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
 		tb.position = mapData.get(tmp.getY()).get(tmp.getX()).position;
@@ -108,10 +102,7 @@ public class MapHolder {
 	}
 
 	public static void createPotion() {
-		Pair tmp = RandomGenerator.randomIndex();
-		while (carrot.contains(tmp) || trap.contains(tmp) || item.containsKey(tmp)) {
-			tmp = RandomGenerator.randomIndex();
-		}
+		Pair tmp = RandomGenerator.generateIndexฺBlock();
 		potion = tmp;
 		((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).setHasPotion(true);
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
@@ -127,10 +118,7 @@ public class MapHolder {
 	}
 
 	public static void createItem(int type) {
-		Pair tmp = RandomGenerator.randomIndex();
-		while (carrot.contains(tmp) || trap.contains(tmp) || tmp.equals(potion) || item.containsKey(tmp)) {
-			tmp = RandomGenerator.randomIndex();
-		}
+		Pair tmp = RandomGenerator.generateIndexฺBlock();
 		if (type == 0)
 			item.put(tmp, new ItemInvis());
 		if (type == 1)
