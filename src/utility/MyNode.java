@@ -2,8 +2,8 @@ package utility;
 
 public class MyNode implements Comparable<MyNode> {
 
-	public Pair index;
-	public int dis;
+	private Pair index;
+	private int dis;
 
 	public MyNode(Pair index, int dis) {
 		this.index = index;

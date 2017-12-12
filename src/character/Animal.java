@@ -36,11 +36,11 @@ public abstract class Animal {
 
 	public abstract void stopRunning();
 
-	public abstract void animateLoop();
+	protected abstract void animateLoop();
 
-	public abstract void runLoop();
+	protected abstract void runLoop();
 
-	public abstract Pair nextBlock() throws NoItemException;
+	protected abstract Pair nextBlock() throws NoItemException;
 
 	public void turnLeft() {
 		this.direction = (this.direction - 1 + 6) % 6;

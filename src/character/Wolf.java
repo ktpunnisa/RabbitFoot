@@ -42,7 +42,7 @@ public class Wolf extends Animal {
 
 	@Override
 	public void startRunning() {
-		if(!GameLogic.isGameRunning()) 
+		if (!GameLogic.isGameRunning())
 			return;
 		Point2D a = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).position;
 		Platform.runLater(() -> body.setImage(ImageLoader.getWimg().get(0)));
@@ -61,7 +61,7 @@ public class Wolf extends Animal {
 	}
 
 	@Override
-	public void animateLoop() {
+	protected void animateLoop() {
 		long lastAnimateTime = System.currentTimeMillis();
 		long animateTime = (long) (100 * getSpeed());
 		int i = 0;
@@ -91,7 +91,7 @@ public class Wolf extends Animal {
 	}
 
 	@Override
-	public void runLoop() {
+	protected void runLoop() {
 		while (isRunning) {
 			if (!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();
@@ -141,7 +141,7 @@ public class Wolf extends Animal {
 	}
 
 	@Override
-	public Pair nextBlock() {
+	protected Pair nextBlock() {
 
 		Pair r = CharacterHolder.getAniData().get(0).getIndex();
 		Pair bestBlock = null;
@@ -181,12 +181,12 @@ public class Wolf extends Animal {
 							|| (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof TrapBlock
 									&& !seeTrap)) {
 						int dis = nextW.distance(r);
-						if (ans.containsKey(nextW) && (ans.get(w.getIndex()).dis + 1 < ans.get(nextW).dis)) {
-							ans.replace(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).dis + 1));
+						if (ans.containsKey(nextW) && (ans.get(w.getIndex()).getDis() + 1 < ans.get(nextW).getDis())) {
+							ans.replace(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).getDis() + 1));
 							q.add(new MyNode(nextW, dis));
 						}
 						if (!ans.containsKey(nextW)) {
-							ans.put(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).dis + 1));
+							ans.put(nextW, new MyNode(w.getIndex(), ans.get(w.getIndex()).getDis() + 1));
 							q.add(new MyNode(nextW, dis));
 						}
 					}
@@ -230,7 +230,7 @@ public class Wolf extends Animal {
 		return bestBlock;
 	}
 
-	public Pair lowNextBlock() {
+	private Pair lowNextBlock() {
 		Pair r = CharacterHolder.getAniData().get(0).getIndex();
 		Pair bestBlock = null;
 		int min = 100;

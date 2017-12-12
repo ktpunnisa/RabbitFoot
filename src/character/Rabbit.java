@@ -54,7 +54,7 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void animateLoop() {
+	protected void animateLoop() {
 		long lastAnimateTime = System.currentTimeMillis();
 		long animateTime = (long) (100 * getSpeed());
 		int i = 0;
@@ -84,7 +84,7 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public void runLoop() {
+	protected void runLoop() {
 		while (isRunning) {
 			if (!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();
@@ -127,15 +127,16 @@ public class Rabbit extends Animal {
 	}
 
 	@Override
-	public Pair nextBlock() {
+	protected Pair nextBlock() {
 		if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()) instanceof JumpBlock) {
-			int jumpDi = ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX())).direction;
+			int jumpDi = ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()))
+					.getDirection();
 			if (Math.abs(getDirection() - jumpDi) == 3) {
 				return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[getDirection()];
 			}
 			setAngle(jumpDi);
 			setDirection(jumpDi);
-			return ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX())).jumpTo;
+			return ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX())).getJumpTo();
 		}
 		return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[getDirection()];
 	}

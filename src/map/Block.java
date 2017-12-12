@@ -7,7 +7,6 @@ import utility.Pair;
 
 public abstract class Block {
 
-	public static final double BLOCK_SIZE = 60.0;
 	public Pair index;
 	public int id;
 	public Point2D position;
@@ -26,19 +25,19 @@ public abstract class Block {
 				nextBlock[i] = null;
 		}
 		if (y % 2 == 0) {
-			this.position = new Point2D(BLOCK_SIZE / 2 + (Math.abs(y - 6) / 2 + x) * BLOCK_SIZE,
-					((y) / 2) * Math.sqrt(3) * BLOCK_SIZE + BLOCK_SIZE / Math.sqrt(3));
-			this.hexagon = draw(BLOCK_SIZE / 2 + (Math.abs(y - 6) / 2 + x) * BLOCK_SIZE,
-					((y) / 2) * Math.sqrt(3) * BLOCK_SIZE);
+			this.position = new Point2D(MapHolder.BLOCK_SIZE / 2 + (Math.abs(y - 6) / 2 + x) * MapHolder.BLOCK_SIZE,
+					((y) / 2) * Math.sqrt(3) * MapHolder.BLOCK_SIZE + MapHolder.BLOCK_SIZE / Math.sqrt(3));
+			this.hexagon = draw(MapHolder.BLOCK_SIZE / 2 + (Math.abs(y - 6) / 2 + x) * MapHolder.BLOCK_SIZE,
+					((y) / 2) * Math.sqrt(3) * MapHolder.BLOCK_SIZE);
 		} else {
-			this.position = new Point2D((Math.abs(y - 6) + 1 + 2 * x) / 2 * BLOCK_SIZE,
-					((y) / 2) * Math.sqrt(3) * BLOCK_SIZE + 5 * BLOCK_SIZE / (2 * Math.sqrt(3)));
-			this.hexagon = draw((Math.abs(y - 6) + 1 + 2 * x) / 2 * BLOCK_SIZE,
-					((y) / 2) * Math.sqrt(3) * BLOCK_SIZE + 3 * BLOCK_SIZE / (2 * Math.sqrt(3)));
+			this.position = new Point2D((Math.abs(y - 6) + 1 + 2 * x) / 2 * MapHolder.BLOCK_SIZE,
+					((y) / 2) * Math.sqrt(3) * MapHolder.BLOCK_SIZE + 5 * MapHolder.BLOCK_SIZE / (2 * Math.sqrt(3)));
+			this.hexagon = draw((Math.abs(y - 6) + 1 + 2 * x) / 2 * MapHolder.BLOCK_SIZE,
+					((y) / 2) * Math.sqrt(3) * MapHolder.BLOCK_SIZE + 3 * MapHolder.BLOCK_SIZE / (2 * Math.sqrt(3)));
 		}
 	}
 
-	public Pair[] getNextBlock(Pair ind) {
+	private Pair[] getNextBlock(Pair ind) {
 		int x = ind.getX();
 		int y = ind.getY();
 		Pair temp[];
@@ -64,11 +63,11 @@ public abstract class Block {
 		Polygon a = new Polygon();
 		a.setStrokeWidth(2);
 		a.getPoints().addAll(x, y);
-		a.getPoints().addAll(x + BLOCK_SIZE / 2, y + BLOCK_SIZE / (2 * Math.sqrt(3)));
-		a.getPoints().addAll(x + BLOCK_SIZE / 2, y + Math.sqrt(3) * BLOCK_SIZE / 2);
-		a.getPoints().addAll(x, y + 2 * BLOCK_SIZE / Math.sqrt(3));
-		a.getPoints().addAll(x - BLOCK_SIZE / 2, y + Math.sqrt(3) * BLOCK_SIZE / 2);
-		a.getPoints().addAll(x - BLOCK_SIZE / 2, y + BLOCK_SIZE / (2 * Math.sqrt(3)));
+		a.getPoints().addAll(x + MapHolder.BLOCK_SIZE / 2, y + MapHolder.BLOCK_SIZE / (2 * Math.sqrt(3)));
+		a.getPoints().addAll(x + MapHolder.BLOCK_SIZE / 2, y + Math.sqrt(3) * MapHolder.BLOCK_SIZE / 2);
+		a.getPoints().addAll(x, y + 2 * MapHolder.BLOCK_SIZE / Math.sqrt(3));
+		a.getPoints().addAll(x - MapHolder.BLOCK_SIZE / 2, y + Math.sqrt(3) * MapHolder.BLOCK_SIZE / 2);
+		a.getPoints().addAll(x - MapHolder.BLOCK_SIZE / 2, y + MapHolder.BLOCK_SIZE / (2 * Math.sqrt(3)));
 		return a;
 	}
 }

@@ -53,7 +53,7 @@ public class MapHolder {
 		}
 	}
 
-	public void genMap() {
+	private void genMap() {
 		for (int i = -6; i <= 6; ++i) {
 			List<Block> tempRow = new ArrayList<>();
 			for (int j = 0; j < 13 - Math.abs(i); ++j) {

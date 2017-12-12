@@ -6,8 +6,6 @@ import java.util.List;
 import game.GameState;
 import javafx.application.Platform;
 import javafx.scene.Group;
-import map.MapHolder;
-import utility.Pair;
 import utility.RandomGenerator;
 
 public class CharacterHolder {
@@ -16,12 +14,13 @@ public class CharacterHolder {
 	public static final double WOLF_SPEED = 1.1;
 	private static List<Animal> aniData;
 	private static Group aniGroup;
-	
+
 	public CharacterHolder(int diff) {
 		aniGroup = new Group();
 		aniData = new ArrayList<Animal>();
 		int direction = RandomGenerator.random(0, 5);
-		Rabbit r = new Rabbit(RandomGenerator.generateIndexRabbit(direction), RABBIT_SPEED, direction, GameState.isInverse());
+		Rabbit r = new Rabbit(RandomGenerator.generateIndexRabbit(direction), RABBIT_SPEED, direction,
+				GameState.isInverse());
 		aniData.add(r);
 		add(diff);
 	}

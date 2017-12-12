@@ -12,8 +12,8 @@ import javafx.util.Duration;
 import utility.Pair;
 
 public class JumpBlock extends Block {
-	public Pair jumpTo;
-	public int direction;
+	private Pair jumpTo;
+	private int direction;
 
 	public JumpBlock(int x, int y, int c) {
 		super(x, y, c);
@@ -52,5 +52,21 @@ public class JumpBlock extends Block {
 			new Timeline(new KeyFrame(Duration.millis(500 * animal.getSpeed()), ae -> GameSound.playSoundJump()))
 					.play();
 		}
+	}
+
+	public Pair getJumpTo() {
+		return jumpTo;
+	}
+
+	public void setJumpTo(Pair jumpTo) {
+		this.jumpTo = jumpTo;
+	}
+
+	public int getDirection() {
+		return direction;
+	}
+
+	public void setDirection(int direction) {
+		this.direction = direction;
 	}
 }
