@@ -10,30 +10,27 @@ import ui.UIGameOver;
 import javafx.util.Duration;
 
 public class GameMain {
-	
+
 	private static GameState state;
 	private static GameLogic logic;
 	private static UIGame gameUI;
 	private static UIGameOver gameOverUI;
-	
-	public static void newGame(int diff) 
-	{
+
+	public static void newGame(int diff) {
 		state = new GameState(diff);
 		gameUI = new UIGame();
 		logic = new GameLogic(state);
 		SceneManager.gotoScene(gameUI);
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300),
-				ae -> {
-					logic.startGame();
-					GameSound.playSoundBG();
-					
-				}));
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(300), ae -> {
+			logic.startGame();
+			GameSound.playSoundBG();
+
+		}));
 		timeline.setCycleCount(1);
 		Platform.runLater(() -> timeline.play());
 	}
-	
-	public static void stopGame() 
-	{
+
+	public static void stopGame() {
 		logic.stopGame();
 		gameOverUI = new UIGameOver();
 		gameOverUI.startGameOver();
@@ -73,6 +70,5 @@ public class GameMain {
 	public static void setGameOverUI(UIGameOver gameOverUI) {
 		GameMain.gameOverUI = gameOverUI;
 	}
-	
-	
+
 }

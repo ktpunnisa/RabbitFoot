@@ -4,25 +4,21 @@ import character.Animal;
 import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
-public class VoidBlock extends Block 
-{
+public class VoidBlock extends Block {
 
-	public VoidBlock(int x, int y, int c) 
-	{
+	public VoidBlock(int x, int y, int c) {
 		super(x, y, c);
 		loadImage();
 	}
 
 	@Override
-	public void loadImage() 
-	{
+	public void loadImage() {
 		Platform.runLater(() -> this.hexagon.setFill(Color.TRANSPARENT));
 	}
 
 	@Override
-	public void checkEvent(Animal animal) 
-	{
-		//Do nothing
+	public void checkEvent(Animal animal) {
+		// Do nothing
 	}
 
 }

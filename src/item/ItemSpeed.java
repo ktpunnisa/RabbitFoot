@@ -5,23 +5,19 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import utility.Pair;
 
-public class ItemSpeed extends Item 
-{
-	public ItemSpeed(Pair p) 
-	{
+public class ItemSpeed extends Item {
+	public ItemSpeed(Pair p) {
 		super(p);
 	}
 
 	@Override
-	public ImagePattern getBlockImage() 
-	{
+	public ImagePattern getBlockImage() {
 		return ImageLoader.getSpeedBlock();
 	}
 
 	@Override
-	public Image getItemImage() 
-	{
+	public Image getItemImage() {
 		return ImageLoader.getSpeedImage();
 	}
-	
+
 }

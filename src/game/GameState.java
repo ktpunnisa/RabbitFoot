@@ -1,14 +1,12 @@
 package game;
 
-
 import character.CharacterHolder;
 import item.ItemHolder;
 import javafx.scene.canvas.Canvas;
 import map.MapHolder;
 
-public class GameState extends Canvas
-{
-	
+public class GameState extends Canvas {
+
 	private CharacterHolder character;
 	private MapHolder map;
 	private static boolean inverse;
@@ -17,9 +15,8 @@ public class GameState extends Canvas
 
 	private static int score;
 	private static int diff;
-	
-	public GameState(int diff)
-	{
+
+	public GameState(int diff) {
 		inverse = false;
 		invis = false;
 		timeInverse = 0;
@@ -85,6 +82,5 @@ public class GameState extends Canvas
 	public static void setDiff(int diff) {
 		GameState.diff = diff;
 	}
-	
-	
+
 }
