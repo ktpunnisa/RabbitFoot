@@ -43,7 +43,7 @@ public class RandomGenerator {
 		return tmp;
 	}
 
-	public static Pair generateIndexฺBlock() {
+	public static Pair generateIndexBlock() {
 		Pair tmp = RandomGenerator.randomIndex();
 		while (MapHolder.getCarrot().contains(tmp) || MapHolder.getTrap().contains(tmp)
 				|| tmp.equals(MapHolder.getPotion()) || MapHolder.getItem().containsKey(tmp)) {
