@@ -73,7 +73,7 @@ public class Pair {
 				break;
 			}
 			for (int i = 0; i < 6; i++) {
-				Pair next = MapHolder.getMapData().get(ind.getY()).get(ind.getX()).nextBlock[i];
+				Pair next = MapHolder.getMapData().get(ind.getY()).get(ind.getX()).getNextBlock()[i];
 				if (next != null && !ans.containsKey(next)) {
 					ans.put(next, ans.get(ind) + 1);
 					q.add(next);

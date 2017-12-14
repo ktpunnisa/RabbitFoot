@@ -29,7 +29,7 @@ public class RandomGenerator {
 	public static Pair generateIndexRabbit(int direction) {
 		Pair tmp = RandomGenerator.randomIndex();
 		while (MapHolder.getTrap().contains(tmp)
-				|| MapHolder.getMapData().get(tmp.getY()).get(tmp.getX()).nextBlock[direction] == null) {
+				|| MapHolder.getMapData().get(tmp.getY()).get(tmp.getX()).getNextBlock()[direction] == null) {
 			tmp = RandomGenerator.randomIndex();
 		}
 		return tmp;

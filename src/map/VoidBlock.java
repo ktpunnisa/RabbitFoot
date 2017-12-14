@@ -13,7 +13,7 @@ public class VoidBlock extends Block {
 
 	@Override
 	public void loadImage() {
-		Platform.runLater(() -> this.hexagon.setFill(Color.TRANSPARENT));
+		Platform.runLater(() -> this.getHexagon().setFill(Color.TRANSPARENT));
 	}
 
 	@Override
