@@ -20,9 +20,9 @@ public class TrapBlock extends Block {
 
 	@Override
 	public void loadImage() {
-		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getTrapBlock()));
-		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
-		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
+		Platform.runLater(() -> this.getHexagon().setFill(ImageLoader.getTrapBlock()));
+		Platform.runLater(() -> this.getHexagon().setStrokeWidth(3));
+		Platform.runLater(() -> this.getHexagon().setStroke(Color.BLACK));
 	}
 
 	@Override
