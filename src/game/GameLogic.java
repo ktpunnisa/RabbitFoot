@@ -84,9 +84,9 @@ public class GameLogic {
 			for (Animal x : CharacterHolder.getAniData()) {
 				x.setInverse(false);
 				if (x instanceof Rabbit) {
-					x.setSpeed(1.4);
+					x.setSpeed(CharacterHolder.RABBIT_SPEED);
 				} else {
-					x.setSpeed(1.1);
+					x.setSpeed(CharacterHolder.WOLF_SPEED);
 				}
 			}
 		}

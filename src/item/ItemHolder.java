@@ -41,14 +41,6 @@ public class ItemHolder {
 		UIBar.changeItemView(itemData);
 	}
 
-	public void add(Item item) {
-		itemData = item;
-	}
-
-	public void remove() {
-		itemData = null;
-	}
-
 	public static void useItem() throws NoItemException {
 		if (itemData == null) {
 			throw new NoItemException();
