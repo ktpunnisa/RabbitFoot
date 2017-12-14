@@ -7,11 +7,11 @@ import utility.Pair;
 
 public abstract class Block {
 
-	public Pair index;
-	public int id;
-	public Point2D position;
-	public Polygon hexagon;
-	public Pair[] nextBlock;
+	private Pair index;
+	private int id;
+	private Point2D position;
+	private Polygon hexagon;
+	private Pair[] nextBlock;
 
 	public Block(int x, int y, int c) {
 		this.id = c;
@@ -70,4 +70,46 @@ public abstract class Block {
 		a.getPoints().addAll(x - MapHolder.BLOCK_SIZE / 2, y + MapHolder.BLOCK_SIZE / (2 * Math.sqrt(3)));
 		return a;
 	}
+
+	public Pair getIndex() {
+		return index;
+	}
+
+	public void setIndex(Pair index) {
+		this.index = index;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Point2D getPosition() {
+		return position;
+	}
+
+	public void setPosition(Point2D position) {
+		this.position = position;
+	}
+
+	public Polygon getHexagon() {
+		return hexagon;
+	}
+
+	public void setHexagon(Polygon hexagon) {
+		this.hexagon = hexagon;
+	}
+
+	public Pair[] getNextBlock() {
+		return nextBlock;
+	}
+
+	public void setNextBlock(Pair[] nextBlock) {
+		this.nextBlock = nextBlock;
+	}
+	
+	
 }

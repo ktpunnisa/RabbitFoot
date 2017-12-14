@@ -17,7 +17,7 @@ import scene.SceneManager;
 public class UIGameOver extends Canvas {
 	private static final int FPS = 60;
 	private static final long LOOP_TIME = 1000000000 / FPS;
-	private int selector = 0;
+	private int selector;
 	private Font SCORE_FONT;
 	private Font TITLE_FONT;
 	private Font GAMEOVER_FONT;
@@ -30,6 +30,7 @@ public class UIGameOver extends Canvas {
 		SCORE_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 150);
 		TITLE_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 30);
 		GAMEOVER_FONT = Font.loadFont(ClassLoader.getSystemResourceAsStream("fonts/8bit.ttf"), 50);
+		this.selector = 0;
 		this.finalScore = 0;
 		this.addKeyEventHandler();
 	}

@@ -35,7 +35,7 @@ public class Rabbit extends Animal {
 
 	@Override
 	public void startRunning() {
-		Point2D t = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).position;
+		Point2D t = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getPosition();
 		Point2D nodeInScene = GameMain.getGameUI().localToScene(t);
 		Platform.runLater(
 				() -> MapHolder.getMapGroup().setTranslateX(SceneManager.SCENE_WIDTH / 2 - nodeInScene.getX()));
@@ -89,7 +89,7 @@ public class Rabbit extends Animal {
 			if (!runPath.isEmpty()) {
 				Timeline timeline = new Timeline();
 				timeline.setCycleCount(1);
-				Point2D t = MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				Point2D t = MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).getPosition();
 				timeline.getKeyFrames()
 						.add(new KeyFrame(Duration.millis(500 * getSpeed()),
 								new KeyValue(MapHolder.getMapGroup().translateXProperty(),
@@ -132,12 +132,12 @@ public class Rabbit extends Animal {
 			int jumpDi = ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()))
 					.getDirection();
 			if (Math.abs(getDirection() - jumpDi) == 3) {
-				return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[getDirection()];
+				return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[getDirection()];
 			}
 			setAngle(jumpDi);
 			setDirection(jumpDi);
 			return ((JumpBlock) MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX())).getJumpTo();
 		}
-		return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[getDirection()];
+		return MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[getDirection()];
 	}
 }

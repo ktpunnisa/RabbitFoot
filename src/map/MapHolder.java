@@ -48,7 +48,7 @@ public class MapHolder {
 		genMap();
 		for (List<Block> row : MapHolder.getMapData()) {
 			for (Block b : row) {
-				mapGroup.getChildren().add(b.hexagon);
+				mapGroup.getChildren().add(b.getHexagon());
 			}
 		}
 	}
@@ -75,34 +75,34 @@ public class MapHolder {
 	}
 
 	public static void createCarrot() {
-		Pair tmp = RandomGenerator.generateIndexฺBlock();
+		Pair tmp = RandomGenerator.generateIndexBlock();
 		carrot.add(tmp);
 		((NormalBlock) mapData.get(tmp.getY()).get(tmp.getX())).setHasCarrot(true);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
 
 	public static void createTrap() {
-		Pair tmp = RandomGenerator.generateIndexฺBlock();
+		Pair tmp = RandomGenerator.generateIndexBlock();
 		trap.add(tmp);
-		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).id);
-		tb.position = mapData.get(tmp.getY()).get(tmp.getX()).position;
-		tb.hexagon = mapData.get(tmp.getY()).get(tmp.getX()).hexagon;
+		TrapBlock tb = new TrapBlock(tmp.getX(), tmp.getY(), mapData.get(tmp.getY()).get(tmp.getX()).getId());
+		tb.setPosition(mapData.get(tmp.getY()).get(tmp.getX()).getPosition());
+		tb.setHexagon(mapData.get(tmp.getY()).get(tmp.getX()).getHexagon());
 		mapData.get(tmp.getY()).set(tmp.getX(), tb);
 		mapData.get(tmp.getY()).get(tmp.getX()).loadImage();
 	}
 
 	public static void deleteTrap(Pair index) {
 		trap.remove(index);
-		NormalBlock nb = new NormalBlock(index.getX(), index.getY(), mapData.get(index.getY()).get(index.getX()).id);
-		nb.position = mapData.get(index.getY()).get(index.getX()).position;
-		nb.hexagon = mapData.get(index.getY()).get(index.getX()).hexagon;
+		NormalBlock nb = new NormalBlock(index.getX(), index.getY(), mapData.get(index.getY()).get(index.getX()).getId());
+		nb.setPosition(mapData.get(index.getY()).get(index.getX()).getPosition());
+		nb.setHexagon(mapData.get(index.getY()).get(index.getX()).getHexagon());
 		mapData.get(index.getY()).set(index.getX(), nb);
 		mapData.get(index.getY()).get(index.getX()).loadImage();
 
 	}
 
 	public static void createPotion() {
-		Pair tmp = RandomGenerator.generateIndexฺBlock();
+		Pair tmp = RandomGenerator.generateIndexBlock();
 		potion = tmp;
 		((NormalBlock) mapData.get(potion.getY()).get(potion.getX())).setHasPotion(true);
 		mapData.get(potion.getY()).get(potion.getX()).loadImage();
@@ -118,7 +118,7 @@ public class MapHolder {
 	}
 
 	public static void createItem(int type) {
-		Pair tmp = RandomGenerator.generateIndexฺBlock();
+		Pair tmp = RandomGenerator.generateIndexBlock();
 		if (type == 0)
 			item.put(tmp, new ItemInvis());
 		if (type == 1)

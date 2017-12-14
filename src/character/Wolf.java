@@ -44,7 +44,7 @@ public class Wolf extends Animal {
 	public void startRunning() {
 		if (!GameLogic.isGameRunning())
 			return;
-		Point2D a = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).position;
+		Point2D a = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getPosition();
 		Platform.runLater(() -> body.setImage(ImageLoader.getWimg().get(0)));
 		Platform.runLater(() -> body.setTranslateX(a.getX() - ImageLoader.WOLF_SIZE / 2));
 		Platform.runLater(() -> body.setTranslateY(a.getY() - ImageLoader.WOLF_SIZE / 2));
@@ -97,9 +97,9 @@ public class Wolf extends Animal {
 				Timeline timeline = new Timeline();
 				int i = 0;
 				for (i = 0; i < 6; ++i) {
-					if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i] != null) {
-						if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i].equals(
-								MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).index)) {
+					if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[i] != null) {
+						if (MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[i].equals(
+								MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).getIndex())) {
 							break;
 						}
 					}
@@ -110,7 +110,7 @@ public class Wolf extends Animal {
 				setAngle(i);
 				setDirection(i);
 				timeline.setCycleCount(1);
-				Point2D a = MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).position;
+				Point2D a = MapHolder.getMapData().get(runPath.peek().getY()).get(runPath.peek().getX()).getPosition();
 				timeline.getKeyFrames()
 						.add(new KeyFrame(Duration.millis(500 * getSpeed()), new KeyValue(body.translateXProperty(),
 								a.getX() - ImageLoader.WOLF_SIZE / 2, Interpolator.EASE_BOTH)));
@@ -175,7 +175,7 @@ public class Wolf extends Animal {
 				break;
 			}
 			for (int i = 0; i < 6; i++) {
-				Pair nextW = MapHolder.getMapData().get(w.getIndex().getY()).get(w.getIndex().getX()).nextBlock[i];
+				Pair nextW = MapHolder.getMapData().get(w.getIndex().getY()).get(w.getIndex().getX()).getNextBlock()[i];
 				if (nextW != null && !mark.contains(nextW)) {
 					if (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock
 							|| (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof TrapBlock
@@ -207,7 +207,7 @@ public class Wolf extends Animal {
 		if (isInverse()) {
 			Pair tmp = bestBlock;
 			for (int i = 0; i < 6; i++) {
-				Pair nextBlock = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i];
+				Pair nextBlock = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[i];
 				if (nextBlock == null) {
 					continue;
 				}
@@ -235,7 +235,7 @@ public class Wolf extends Animal {
 		Pair bestBlock = null;
 		int min = 100;
 		for (int i = 0; i < 6; i++) {
-			Pair nextW = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).nextBlock[i];
+			Pair nextW = MapHolder.getMapData().get(getIndex().getY()).get(getIndex().getX()).getNextBlock()[i];
 			if (nextW != null) {
 				if (MapHolder.getMapData().get(nextW.getY()).get(nextW.getX()) instanceof NormalBlock) {
 					int dis = nextW.distance(r);

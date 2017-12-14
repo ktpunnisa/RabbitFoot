@@ -41,9 +41,9 @@ public class JumpBlock extends Block {
 
 	@Override
 	public void loadImage() {
-		Platform.runLater(() -> this.hexagon.setFill(ImageLoader.getJumpBlock()));
-		Platform.runLater(() -> this.hexagon.setStrokeWidth(3));
-		Platform.runLater(() -> this.hexagon.setStroke(Color.BLACK));
+		Platform.runLater(() -> this.getHexagon().setFill(ImageLoader.getJumpBlock()));
+		Platform.runLater(() -> this.getHexagon().setStrokeWidth(3));
+		Platform.runLater(() -> this.getHexagon().setStroke(Color.BLACK));
 	}
 
 	@Override
